@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador | Global Travel Intercâmbios</title>
+  <meta name="description" content="Simulador guiado para viagem, passagens, intercâmbio e estudos internacionais.">
+  <link rel="icon" type="image/png" href="https://github.com/MatheuslimaVbjj/gbVR5/blob/main/favicon_original_mark_v16.png?raw=true">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="index.html">
+        <img class="brand-logo" src="https://github.com/MatheuslimaVbjj/gbVR5/blob/main/globaltravel_logo_original_white_v16.png?raw=true" alt="Global Travel Intercâmbios">
+        <img class="brand-mark" src="https://github.com/MatheuslimaVbjj/gbVR5/blob/main/favicon_original_mark_v16.png?raw=true" alt="Global Travel">
+      </a>
+      <nav class="nav-links">
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#destinos">Destinos</a>
+        <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
+        <a href="nossos-cursos.html">Nossos cursos</a>
+        <a class="active" href="simulador.html">Simulador</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="https://wa.me/351910346159" target="_blank" rel="noopener">WhatsApp</a>
+        <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+      </div>
+    </div>
+    <div class="mobile-panel">
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#destinos">Destinos</a>
+      <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
+      <a href="nossos-cursos.html">Nossos cursos</a>
+      <a href="simulador.html">Simulador</a>
+      <a href="index.html#contato">Contato</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="eyebrow">Simulador Global Travel</div>
+          <h1>Conte seu objetivo e quanto pretende investir.</h1>
+          <p class="lead">Aqui o foco não é te empurrar uma faixa de preço pronta. É entender seu objetivo, destino, momento e orçamento para a equipe montar uma proposta muito mais alinhada ao seu perfil.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#simulador-personalizado">Começar agora</a>
+            <a class="btn btn-ghost" href="https://wa.me/351910346159?text=Olá,%20quero%20falar%20sobre%20viagem,%20intercâmbio%20ou%20estudos." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          </div>
+        </div>
+        <aside class="card reveal">
+          <h3 class="hero-card-title">Um briefing comercial de verdade.</h3>
+          <p class="copy">Em vez de um simulador que adivinha preço, esta versão organiza o atendimento para a sua agência vender melhor.</p>
+          <div class="badge-row">
+            <div class="badge">Cliente informa o orçamento</div>
+            <div class="badge">Fluxo muda conforme o objetivo</div>
+            <div class="badge">Resumo pronto para WhatsApp</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="simulador-personalizado">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Simulador</div>
+          <h2>Um fluxo mais próximo do que agências usam para captar briefing.</h2>
+          <p>O cliente escolhe o tipo de pedido, informa destino, momento, perfil e orçamento. No fim, a equipe recebe um resumo muito mais útil para iniciar a proposta.</p>
+        </div>
+
+        <div class="sim-shell">
+          <div>
+            <div class="step-grid reveal">
+              <div class="step-card"><strong>1. Objetivo</strong><span>Separar turismo, passagem, intercâmbio e estudos.</span></div>
+              <div class="step-card"><strong>2. Perfil</strong><span>Entender quem viaja e em que contexto.</span></div>
+              <div class="step-card"><strong>3. Destino</strong><span>Definir o foco inicial ou abrir espaço para outro destino.</span></div>
+              <div class="step-card"><strong>4. Orçamento</strong><span>Deixar o cliente dizer quanto pretende investir.</span></div>
+            </div>
+
+            <section class="field-card reveal">
+              <h3 class="sim-title">Qual é o seu objetivo?</h3>
+              <p class="sim-copy">Cada cenário abre perguntas próprias para a conversa ficar mais realista.</p>
+              <div class="choice-grid two" id="intentChoices">
+                <button class="option-card active" type="button" data-group="intent" data-value="viagem"><div class="option-icon">🌍</div><strong>Viagem / pacote</strong><span>Roteiro, hotel e experiência completa.</span></button>
+                <button class="option-card" type="button" data-group="intent" data-value="passagens"><div class="option-icon">✈️</div><strong>Passagens aéreas</strong><span>Foco em rota, bagagem e melhor emissão.</span></button>
+                <button class="option-card" type="button" data-group="intent" data-value="intercambio"><div class="option-icon">📚</div><strong>Intercâmbio</strong><span>Idioma, cidade e estrutura do programa.</span></button>
+                <button class="option-card" type="button" data-group="intent" data-value="estudos"><div class="option-icon">🎓</div><strong>Estudar ou morar fora</strong><span>Cursos longos, graduação, pós ou transição de vida.</span></button>
+              </div>
+            </section>
+
+            <section class="field-card reveal" style="margin-top:18px">
+              <h3 class="sim-title">Dados principais</h3>
+              <p class="sim-copy">Esses dados ajudam a equipe a entender urgência, perfil e janela de proposta.</p>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="travelers">Quem vai ou qual é o perfil?</label>
+                  <select id="travelers"></select>
+                </div>
+                <div class="field">
+                  <label for="when">Quando pretende começar?</label>
+                  <select id="when">
+                    <option value="">Selecione</option>
+                    <option>Nos próximos 30 dias</option>
+                    <option>Nos próximos 3 meses</option>
+                    <option>Nos próximos 6 meses</option>
+                    <option>Ainda estou planejando</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="destination">Destino principal</label>
+                  <select id="destination"></select>
+                </div>
+                <div class="field" id="otherDestinationWrap" style="display:none">
+                  <label for="otherDestination">Qual destino?</label>
+                  <input id="otherDestination" type="text" placeholder="Ex.: Canadá, Espanha, Austrália">
+                </div>
+              </div>
+            </section>
+
+            <section class="field-card reveal" style="margin-top:18px">
+              <h3 class="sim-title">Preferências do pedido</h3>
+              <div id="viagemBlock" class="intent-block show">
+                <div class="choice-grid three" id="tripStyleChoices">
+                  <button class="option-card active" type="button" data-group="tripStyle" data-value="Essencial"><div class="option-icon">🧭</div><strong>Essencial</strong><span>Passagem + hotel + base do roteiro.</span></button>
+                  <button class="option-card" type="button" data-group="tripStyle" data-value="Equilibrada"><div class="option-icon">✨</div><strong>Equilibrada</strong><span>Boa relação entre preço e conforto.</span></button>
+                  <button class="option-card" type="button" data-group="tripStyle" data-value="Mais exclusiva"><div class="option-icon">👑</div><strong>Mais exclusiva</strong><span>Curadoria, conforto e experiência.</span></button>
+                </div>
+              </div>
+              <div id="passagensBlock" class="intent-block">
+                <div class="choice-grid three" id="baggageChoices">
+                  <button class="option-card active" type="button" data-group="baggage" data-value="Só mala de mão"><div class="option-icon">🎒</div><strong>Só mala de mão</strong><span>Busca mais enxuta.</span></button>
+                  <button class="option-card" type="button" data-group="baggage" data-value="1 bagagem"><div class="option-icon">🧳</div><strong>1 bagagem</strong><span>Boa para viagem média.</span></button>
+                  <button class="option-card" type="button" data-group="baggage" data-value="Bagagem completa"><div class="option-icon">🛄</div><strong>Bagagem completa</strong><span>Mais flexibilidade na emissão.</span></button>
+                </div>
+              </div>
+              <div id="intercambioBlock" class="intent-block">
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="courseType">Tipo de programa</label>
+                    <select id="courseType">
+                      <option value="">Selecione</option>
+                      <option>Inglês geral</option>
+                      <option>Intensivo</option>
+                      <option>Preparatório</option>
+                      <option>Outro programa</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="englishLevel">Nível atual</label>
+                    <select id="englishLevel">
+                      <option value="">Selecione</option>
+                      <option>Iniciante</option>
+                      <option>Intermediário</option>
+                      <option>Avançado</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div id="estudosBlock" class="intent-block">
+                <div class="field-grid">
+                  <div class="field">
+                    <label for="studyGoal">Objetivo acadêmico</label>
+                    <select id="studyGoal">
+                      <option value="">Selecione</option>
+                      <option>Curso técnico</option>
+                      <option>Graduação</option>
+                      <option>Pós-graduação / mestrado</option>
+                      <option>Morar fora com plano de estudo</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="studyArea">Área de interesse</label>
+                    <select id="studyArea">
+                      <option value="">Selecione</option>
+                      <option>Negócios / Gestão</option>
+                      <option>Tecnologia</option>
+                      <option>Saúde</option>
+                      <option>Humanas / Criativas</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="field-card reveal" style="margin-top:18px">
+              <h3 class="sim-title">Quanto pretende investir?</h3>
+              <p class="sim-copy">Aqui quem define o budget é o cliente. Isso ajuda mais do que o site adivinhar um valor.</p>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="budgetValue">Valor estimado</label>
+                  <input id="budgetValue" type="text" inputmode="numeric" placeholder="Ex.: 3500">
+                </div>
+                <div class="field">
+                  <label for="budgetCurrency">Moeda</label>
+                  <select id="budgetCurrency">
+                    <option>EUR</option>
+                    <option>BRL</option>
+                    <option>USD</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label>Esse valor é:</label>
+                  <div class="switch-row" id="budgetMode">
+                    <button class="switch-chip active" type="button" data-group="budgetMode" data-value="orçamento total">Orçamento total</button>
+                    <button class="switch-chip" type="button" data-group="budgetMode" data-value="por pessoa">Por pessoa</button>
+                    <button class="switch-chip" type="button" data-group="budgetMode" data-value="por mês">Por mês</button>
+                    <button class="switch-chip" type="button" data-group="budgetMode" data-value="teto máximo">Teto máximo</button>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="field-card reveal" style="margin-top:18px">
+              <h3 class="sim-title">Informações extras</h3>
+              <div class="field-grid">
+                <div class="field">
+                  <label for="name">Seu nome</label>
+                  <input id="name" type="text" placeholder="Como você quer ser chamado?">
+                </div>
+                <div class="field">
+                  <label for="contact">WhatsApp ou e-mail</label>
+                  <input id="contact" type="text" placeholder="Ex.: +55 11... ou e-mail">
+                </div>
+                <div class="field full">
+                  <label for="notes">Observações</label>
+                  <textarea id="notes" placeholder="Conte algo importante: cidade de saída, preferência de acomodação, crianças, urgência, faculdade desejada..."></textarea>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <aside class="summary-box reveal">
+            <div class="summary-top">
+              <div>
+                <h3>Resumo do atendimento</h3>
+                <p class="muted" style="margin:8px 0 0">Conforme o cliente preenche, o WhatsApp já recebe um briefing muito melhor.</p>
+              </div>
+              <div class="progress-badge" id="progressLabel">20% completo</div>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+            <div class="summary-list" id="summaryList"></div>
+
+            <div class="mini-grid">
+              <div class="mini">
+                <h4>Próximo passo indicado</h4>
+                <p id="nextStep">Levar esse briefing para o WhatsApp e validar o melhor formato de atendimento.</p>
+              </div>
+              <div class="mini">
+                <h4>O que a equipe prepara</h4>
+                <p id="teamAction">Uma proposta mais compatível com objetivo, momento e capacidade real de investimento.</p>
+              </div>
+            </div>
+
+            <div class="brief-card">
+              <pre id="briefPreview">Objetivo: Viagem / pacote
+Destino: —
+Quando pretende começar: —
+Perfil: —
+Orçamento informado: —</pre>
+            </div>
+
+            <div class="cta-row">
+              <a class="btn btn-primary" id="whatsButton" href="https://wa.me/351910346159" target="_blank" rel="noopener">Levar para o WhatsApp</a>
+              <a class="btn btn-ghost" id="compareButton" href="https://wa.me/351910346159?text=Olá,%20quero%20comparar%20algumas%20opções." target="_blank" rel="noopener">Quero comparar opções</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <img class="brand-logo" src="https://github.com/MatheuslimaVbjj/gbVR5/blob/main/globaltravel_logo_original_white_v16.png?raw=true" alt="Global Travel Intercâmbios">
+        <p class="copy" style="max-width:520px">Simulador reconstruído como ferramenta de briefing comercial, não como estimador automático de preço.</p>
+        <div class="footer-note">© 2026 Global Travel Intercâmbios · Seu futuro não tem fronteiras.</div>
+      </div>
+      <div>
+        <strong>Contato</strong>
+        <p class="copy"><a href="https://wa.me/351910346159" target="_blank" rel="noopener">WhatsApp: +351 910 346 159</a></p>
+        <p class="copy"><a href="mailto:globaltravelintracambios@gmail.com">globaltravelintracambios@gmail.com</a></p>
+      </div>
+      <div>
+        <strong>Navegação</strong>
+        <p class="copy"><a href="index.html">Home</a></p>
+        <p class="copy"><a href="nossos-cursos.html">Nossos cursos</a></p>
+        <p class="copy"><a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <a class="floating-wa" href="https://wa.me/351910346159?text=Olá,%20quero%20falar%20com%20a%20Global%20Travel." target="_blank" rel="noopener">WhatsApp</a>
+  <script src="assets/site.js"></script>
+  <script src="assets/simulador.js"></script>
+</body>
+</html>

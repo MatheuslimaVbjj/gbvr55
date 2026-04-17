@@ -281,34 +281,42 @@ p{margin:0}
 @media (max-width: 700px){
   html,body{overflow-x:hidden!important}
   .container,.nav-shell{width:min(100% - 20px, 1180px)!important}
-  .brand-logo{width:min(165px, 44vw)!important}
+  .brand-logo{width:min(164px, 43vw)!important}
   .burger{width:44px!important;height:44px!important;border-radius:12px!important}
-  .hero,.hero{padding-top:96px!important;min-height:auto!important}
+  .hero,.hero{padding:94px 0 34px!important;min-height:auto!important}
   .hero-inner,.hero-grid,.intro-grid,.story-grid,.contact-grid,.two-col,.sim-layout,.footer-grid{grid-template-columns:1fr!important}
+  .hero-inner{gap:18px!important;align-items:start!important}
   .hero-copy,.hero-copy p,.lead{max-width:100%!important}
-  .hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  .hero-copy{padding-right:0!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:11ch!important;font-size:clamp(2.15rem,11.2vw,3.28rem)!important;line-height:.96!important;letter-spacing:-.025em!important}
+  .hero-lead,.lead{font-size:1rem!important;line-height:1.66!important;margin:16px 0 22px!important}
+  #hero-kicker,.kicker,.eyebrow{display:inline-flex!important;max-width:300px!important;font-size:10.5px!important;line-height:1.55!important;letter-spacing:1.9px!important;gap:10px!important;flex-wrap:wrap!important}
+  .kicker:before,.eyebrow:before{width:32px!important;flex:0 0 32px!important}
+  .btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
   .hero-actions .btn,.cta-row .btn,.cta-band .btn,.btn{width:100%!important}
   .hero-card,.hero-panel,.glass,.sim-card,.result-box,.choice-card,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.tip-card,.progress-card{padding:20px!important;border-radius:22px!important}
-  .hero-card strong,.hero-panel h3{font-size:clamp(1.9rem,9vw,2.5rem)!important}
-  .hero h1,.hero-copy h1,h1{font-size:clamp(2.45rem,14vw,4.1rem)!important;line-height:.92!important}
-  h2,.section-head h2{font-size:clamp(2rem,10vw,3rem)!important;line-height:.95!important}
-  .mini-grid,.cards4,.cards3,.proof-strip,.testimonials,.faq-list,.choice-wrap,.how-steps,.tips-grid,.sim-grid,.form-grid,.cta-grid,.choice-grid,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid{grid-template-columns:1fr!important}
+  .hero-card{margin-top:6px!important;background:linear-gradient(180deg, rgba(9,18,30,.84), rgba(7,14,24,.94))!important}
+  .hero-card strong,.hero-panel h3{font-size:clamp(1.58rem,7.3vw,2.12rem)!important;line-height:1.02!important}
+  .hero-card p{margin-top:10px!important;font-size:.98rem!important;line-height:1.66!important}
+  .mini-stats,.mini-grid,.cards4,.cards3,.proof-strip,.testimonials,.faq-list,.choice-wrap,.how-steps,.tips-grid,.sim-grid,.form-grid,.cta-grid,.choice-grid,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid{grid-template-columns:1fr!important}
+  .mini-stats{gap:10px!important;margin-top:16px!important}
+  .mini-stats .mini-card{padding:14px!important}
+  h2,.section-head h2{font-size:clamp(1.95rem,9.4vw,2.85rem)!important;line-height:.98!important}
   .tabs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
   .tab{width:100%!important;text-align:center!important;padding:12px 10px!important;font-size:.95rem!important}
   .field label{font-size:1rem!important}
   .field select,.field input{padding:13px 14px!important;min-height:52px!important;font-size:16px!important}
   .result-price{font-size:clamp(2.2rem,12vw,3.2rem)!important}
-  .kicker,.eyebrow{font-size:11px!important;letter-spacing:2px!important;gap:10px!important}
-  .kicker:before,.eyebrow:before{width:34px!important}
   .dest-card{padding:16px!important}
-  .whatsapp-float,.floating-wa{right:12px!important;bottom:12px!important;min-height:50px!important;padding:0 14px!important;font-size:15px!important;border-radius:999px!important}
+  .hero-dots{margin-top:18px!important}
+  .whatsapp-float,.floating-wa{right:12px!important;bottom:calc(env(safe-area-inset-bottom, 0px) + 72px)!important;min-height:50px!important;padding:0 14px!important;font-size:15px!important;border-radius:999px!important}
   .floating-wa small,.whatsapp-float small{display:none!important}
 }
 @media (max-width: 420px){
-  .brand-logo{width:150px!important}
-  .hero h1,.hero-copy h1,h1{font-size:clamp(2.2rem,13vw,3.3rem)!important}
+  .brand-logo{width:146px!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:10ch!important;font-size:clamp(1.95rem,10.8vw,2.75rem)!important}
+  #hero-kicker,.kicker,.eyebrow{max-width:250px!important;font-size:10px!important;letter-spacing:1.5px!important}
   .tabs{grid-template-columns:1fr!important}
-  .kicker,.eyebrow{font-size:10px!important;letter-spacing:1.6px!important}
 }
 
 </style>

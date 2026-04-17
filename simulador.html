@@ -94,6 +94,14 @@ button,input{font:inherit}
 .chip strong{display:block;font-size:1rem}
 .chip span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5;margin-top:5px}
 .chip.active{background:linear-gradient(180deg,rgba(215,174,97,.15),rgba(255,255,255,.035));border-color:var(--line-strong)}
+.budget-shell{display:grid;gap:12px}
+.budget-entry{display:grid;gap:8px}
+.budget-label{font-size:.9rem;color:var(--muted);font-weight:600}
+.budget-input-wrap{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+.budget-prefix{font-size:1.12rem;font-weight:800;color:var(--gold)}
+.budget-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:1.05rem;font-weight:600}
+.budget-input::placeholder{color:rgba(246,247,251,.42)}
+.budget-note{margin:0;color:var(--muted);font-size:.88rem;line-height:1.6}
 .side-stack{display:grid;gap:16px;position:sticky;top:105px}
 .result-box h3{margin:0 0 12px;font-size:1.45rem}
 .meter{display:grid;gap:7px;margin-bottom:20px}
@@ -137,17 +145,47 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
 }
 @media (max-width:700px){
   .container{width:min(1180px,calc(100% - 24px))}
-  .hero-copy h1,.section-head h2{font-size:clamp(2.55rem,13vw,4.2rem)}
-  .brand-logo{width:220px}
+  .hero{padding:54px 0 22px}
+  .hero-grid{gap:18px;align-items:start}
+  .hero-copy h1{max-width:13ch;font-size:clamp(2.05rem,10.7vw,3.15rem);line-height:.98}
+  .section-head h2{font-size:clamp(1.95rem,9vw,2.9rem);line-height:.98}
+  .lead{font-size:.98rem;line-height:1.68}
+  .badge-row{gap:8px;margin-top:14px}
+  .badge{font-size:.84rem;padding:9px 12px}
+  .brand-logo{width:164px!important;max-width:44vw!important}
+  .site-header{background:rgba(4,11,18,.88)!important;backdrop-filter:blur(14px)!important}
+  .nav-shell{min-height:76px;gap:12px}
+  .burger{width:44px;height:44px;border-radius:12px}
+  .mobile-panel{top:76px;left:12px;right:12px;padding:16px;border-radius:20px}
   .option-grid,.chip-grid,.type-tabs,.mini-grid,.tips-grid{grid-template-columns:1fr}
+  .type-tab{padding:16px;border-radius:20px}
+  .type-tab strong{font-size:1rem}
+  .type-tab small{font-size:.9rem;line-height:1.5}
   .cta-row{display:grid}
   .cta-row .btn,.btn{width:100%}
   .hero-side,.step-card,.result-box,.tip-card,.mini-card{padding:20px;border-radius:22px}
+  .hero-side strong{font-size:clamp(1.55rem,7.3vw,2.05rem);line-height:1.03}
+  .hero-side p,.step-head p,.choice-help,.option-desc,.chip span,.result-copy,.mini-card p,.tip-card p{font-size:.96rem;line-height:1.62}
+  .step-head{align-items:flex-start;gap:12px;margin-bottom:16px}
+  .step-head h3{font-size:1.16rem;line-height:1.2}
+  .step-number{width:34px;height:34px;font-size:.95rem}
+  .option-card{min-height:auto;padding:15px 16px;border-radius:20px;gap:10px}
+  .chip{min-height:auto;padding:13px 14px;border-radius:16px}
+  .budget-input-wrap{padding:15px 16px}
+  .side-stack{gap:14px}
+  .result-box h3{font-size:1.28rem}
+  .result-price{font-size:clamp(2rem,11vw,3rem);line-height:.95}
+  .highlight-card{padding:16px;border-radius:20px}
+  .kicker{max-width:230px;font-size:10.5px!important;letter-spacing:1.8px!important;line-height:1.55}
+  .kicker:before{width:32px!important;flex:0 0 32px}
+  .floating-wa{right:12px;bottom:calc(env(safe-area-inset-bottom, 0px) + 72px);min-height:50px;padding:0 14px;font-size:15px}
 }
 @media (max-width:420px){
-  .brand-logo{width:150px!important}
-  .kicker{font-size:10px!important;letter-spacing:1.6px!important}
-  .kicker:before{width:34px!important}
+  .brand-logo{width:148px!important;max-width:42vw!important}
+  .hero-copy h1{max-width:12ch;font-size:clamp(1.88rem,10vw,2.55rem)}
+  .section-head h2{font-size:clamp(1.8rem,8.5vw,2.45rem)}
+  .kicker{max-width:200px;font-size:10px!important;letter-spacing:1.5px!important}
+  .kicker:before{width:28px!important;flex-basis:28px}
 }
 </style>
 </head>
@@ -183,17 +221,17 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
     <div class="container hero-grid">
       <div class="hero-copy reveal">
         <span class="kicker">Simulador</span>
-        <h1>Escolha seu objetivo, monte o perfil e leve um briefing melhor para o atendimento.</h1>
-        <p class="lead">Mantive a identidade do site e troquei a lógica do simulador por uma experiência mais guiada: menos cara de formulário, mais cara de decisão bem conduzida.</p>
+        <h1>Seu próximo plano internacional começa com escolhas simples e um atendimento mais certeiro.</h1>
+        <p class="lead">Escolha o seu objetivo, selecione o destino, informe quanto pretende investir e envie um pedido claro para a nossa equipe preparar as melhores possibilidades para você.</p>
         <div class="badge-row">
-          <span class="badge">Objetivos separados</span>
-          <span class="badge">Opções mais coerentes</span>
-          <span class="badge">WhatsApp com briefing pronto</span>
+          <span class="badge">Mais clareza para decidir</span>
+          <span class="badge">Seu orçamento, seu ritmo</span>
+          <span class="badge">Atendimento mais assertivo</span>
         </div>
       </div>
       <div class="hero-side reveal">
-        <strong>Mais próximo de um atendimento consultivo.</strong>
-        <p>Em vez de misturar viagem, passagem e estudo no mesmo bloco, o simulador agora organiza o raciocínio em etapas. Isso reduz ruído, passa mais confiança e aumenta a chance de o lead chegar pronto para conversar.</p>
+        <strong>Menos dúvida. Mais direção.</strong>
+        <p>Em poucos passos, você organiza o que deseja e envia para a nossa equipe um pedido mais completo, simples e fácil de atender.</p>
       </div>
     </div>
   </section>
@@ -202,8 +240,8 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">Simulação guiada</span>
-        <h2>Uma interface visual, simples e mais alinhada ao que vende.</h2>
-        <p class="copy">A estrutura abaixo segue a lógica de seleção por etapas parecida com a referência que você mandou, mas sem mexer na identidade visual da Global Travel.</p>
+        <h2>Conte o que procura. Nós transformamos em possibilidades.</h2>
+        <p class="copy">Selecione seu perfil, destino, preferências e investimento para receber um atendimento mais certeiro, humano e alinhado ao seu momento.</p>
       </div>
 
       <div class="type-tabs reveal" id="typeTabs"></div>
@@ -214,8 +252,8 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
             <div class="step-head">
               <div class="step-number">1</div>
               <div>
-                <h3>Informação geral</h3>
-                <p>Defina o tipo de projeto, o momento da decisão e a faixa de investimento desejada.</p>
+                <h3>Comece por aqui</h3>
+                <p>Escolha seu perfil, o melhor momento e informe o valor que pretende investir.</p>
               </div>
             </div>
             <div class="choice-group" id="profileGroup"></div>
@@ -228,7 +266,7 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
               <div class="step-number">2</div>
               <div>
                 <h3>Destino</h3>
-                <p>Mostre para a equipe qual é o seu foco principal. Isso ajuda a puxar a conversa certa logo no início.</p>
+                <p>Selecione o destino que mais combina com o seu objetivo para direcionarmos a proposta com mais precisão.</p>
               </div>
             </div>
             <div class="option-grid" id="destinationGrid"></div>
@@ -239,7 +277,7 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
               <div class="step-number">3</div>
               <div>
                 <h3>Preferências do projeto</h3>
-                <p>Campos dinâmicos mudam conforme o objetivo para evitar opções erradas e deixar o briefing mais útil.</p>
+                <p>Personalize os detalhes mais importantes para que a nossa equipe entenda exatamente o que você procura.</p>
               </div>
             </div>
             <div class="choice-group" id="specificGroupA"></div>
@@ -251,15 +289,15 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
           <section class="result-box">
             <div class="meter">
               <div class="meter-head">
-                <span>Qualidade do briefing</span>
+                <span>Seu pedido</span>
                 <strong id="progressLabel">80%</strong>
               </div>
               <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
             </div>
 
             <h3 id="resultTitle">Viagem internacional</h3>
-            <div class="result-price" id="resultPrice">€ 1.400 – € 2.300</div>
-            <p class="result-copy" id="resultCopy">Estimativa inicial pensada para abrir uma conversa comercial mais clara, sem prometer orçamento final no site.</p>
+            <div class="result-price" id="resultPrice">Informe seu investimento</div>
+            <p class="result-copy" id="resultCopy">Preencha suas preferências e informe o valor que pretende investir para receber um atendimento mais alinhado ao que você busca.</p>
 
             <div class="highlight-card">
               <div class="highlight-icon" id="highlightIcon">🇵🇹</div>
@@ -275,11 +313,11 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
             <div class="mini-grid">
               <div class="mini-card">
                 <h4>Próximo passo indicado</h4>
-                <p id="nextStep">Levar esse briefing para o WhatsApp e validar datas, disponibilidade e melhor caminho comercial.</p>
+                <p id="nextStep">Enviar seu pedido para o WhatsApp e avançar com um atendimento mais direcionado.</p>
               </div>
               <div class="mini-card">
                 <h4>O que a equipe prepara</h4>
-                <p id="teamAction">Uma direção inicial com opções mais compatíveis com o seu objetivo.</p>
+                <p id="teamAction">Uma seleção inicial de opções mais compatíveis com o seu objetivo, perfil e investimento informado.</p>
               </div>
             </div>
 
@@ -288,15 +326,15 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
               <a class="btn btn-ghost" id="secondaryCta" href="#" target="_blank" rel="noopener">Quero comparar opções</a>
             </div>
 
-            <p class="small-note" style="margin:18px 0 0">Os valores são apenas estimativas de triagem comercial. O atendimento final depende de datas, câmbio, emissão, instituição, temporada e disponibilidade.</p>
+            <p class="small-note" style="margin:18px 0 0">O valor informado serve como referência do seu planejamento. A proposta final varia conforme datas, disponibilidade, instituição, temporada e fornecedores.</p>
           </section>
 
           <section class="result-box">
-            <h3>Por que isso tende a vender mais</h3>
+            <h3>Como funciona após o envio</h3>
             <div class="action-list">
-              <div class="action-item">Cada objetivo tem perguntas próprias, então o cliente sente que o site entende o caso dele.</div>
-              <div class="action-item">O resultado não tenta fechar orçamento no site; ele prepara a conversa e aumenta a confiança no atendimento.</div>
-              <div class="action-item">O WhatsApp já recebe um briefing organizado, o que reduz perda de tempo e acelera a chance de fechamento.</div>
+              <div class="action-item">Analisamos o seu objetivo e o melhor momento para avançar.</div>
+              <div class="action-item">Selecionamos opções compatíveis com o seu perfil e o investimento informado.</div>
+              <div class="action-item">Entramos em contato com um direcionamento mais claro para facilitar a sua decisão.</div>
             </div>
           </section>
         </aside>
@@ -304,16 +342,16 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
 
       <div class="tips-grid">
         <div class="tip-card reveal">
-          <h3>Viagem e passagem separadas</h3>
-          <p>No modelo anterior, a pessoa podia cair em combinações confusas. Agora quem quer viagem fala de pacote; quem quer passagem fala de emissão.</p>
+          <h3>Escolhas mais claras</h3>
+          <p>Cada etapa foi pensada para tornar o preenchimento simples, rápido e intuitivo.</p>
         </div>
         <div class="tip-card reveal">
-          <h3>Intercâmbio com opções realistas</h3>
-          <p>Saem escolhas incompatíveis como família em intercâmbio de idiomas. Entram perfis e destinos mais coerentes com esse produto.</p>
+          <h3>Atendimento mais alinhado</h3>
+          <p>Com um pedido mais completo, a nossa equipe pode sugerir caminhos com mais precisão.</p>
         </div>
         <div class="tip-card reveal">
-          <h3>Melhor leitura comercial</h3>
-          <p>Em vez de um formulário frio, o simulador orienta o usuário e já sugere o próximo passo ideal para a equipe abordar.</p>
+          <h3>Menos tempo, mais direção</h3>
+          <p>Em poucos cliques, você organiza suas preferências e avança para um atendimento personalizado.</p>
         </div>
       </div>
     </div>
@@ -324,7 +362,7 @@ footer{padding:40px 0 74px;border-top:1px solid var(--line)}
   <div class="container footer-grid">
     <div>
       <img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios">
-      <p class="copy" style="max-width:520px">Simulador reorganizado para gerar mais clareza, mais confiança e um WhatsApp melhor preenchido para a equipe comercial.</p>
+      <p class="copy" style="max-width:520px">Planeje a sua próxima experiência internacional com mais clareza, confiança e atendimento personalizado.</p>
     </div>
     <div>
       <strong>Contato</strong>
@@ -370,8 +408,8 @@ const flows={
       ]
     },
     budget:{
-      title:'Faixa de investimento',
-      help:'Uma faixa ajuda mais do que pedir valor exato logo de início.',
+      title:'Quanto pretende investir?',
+      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
       options:[
         {id:'baixo',title:'Econômica',desc:'Quero prioridade em custo-benefício.'},
         {id:'medio',title:'Intermediária',desc:'Equilíbrio entre preço e conforto.'},
@@ -447,8 +485,8 @@ const flows={
       ]
     },
     budget:{
-      title:'Faixa de investimento',
-      help:'A ideia é alinhar expectativa antes da cotação humana.',
+      title:'Quanto pretende investir?',
+      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
       options:[
         {id:'baixo',title:'Mais econômica',desc:'Buscar menor tarifa possível.'},
         {id:'medio',title:'Intermediária',desc:'Equilíbrio entre custo e conforto.'},
@@ -524,8 +562,8 @@ const flows={
       ]
     },
     budget:{
-      title:'Faixa de investimento',
-      help:'Isso ajuda a orientar escola, duração e tipo de acomodação.',
+      title:'Quanto pretende investir?',
+      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
       options:[
         {id:'baixo',title:'Entrada',desc:'Mais foco em acessibilidade.'},
         {id:'medio',title:'Intermediária',desc:'Boa margem de escolha.'},
@@ -601,8 +639,8 @@ const flows={
       ]
     },
     budget:{
-      title:'Faixa de investimento',
-      help:'Isso ajuda a filtrar instituição e cidade com mais realismo.',
+      title:'Quanto pretende investir?',
+      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
       options:[
         {id:'baixo',title:'Mais acessível',desc:'Quero prioridade em custo e viabilidade.'},
         {id:'medio',title:'Equilibrada',desc:'Quero boas opções sem exagerar.'},
@@ -657,13 +695,20 @@ const flows={
   }
 };
 
+
 let currentType='viagem';
 let state={
-  viagem:{profile:'casal',timeline:'90d',budget:'medio',destination:'lisboa',style:'equilibrada',stay:'comfort'},
-  passagem:{profile:'solo',timeline:'90d',budget:'medio',destination:'portugal',bag:'checked',route:'equilibrio'},
-  ingles:{profile:'adulto',timeline:'90d',budget:'medio',destination:'irlanda',course:'regular',housing:'familia'},
-  estudos:{profile:'mestrado',timeline:'180d',budget:'medio',destination:'portugal',institution:'privada',support:'curso-documentos'}
+  viagem:{profile:'casal',timeline:'90d',budget:'total',budgetValue:'',destination:'lisboa',style:'equilibrada',stay:'comfort'},
+  passagem:{profile:'solo',timeline:'90d',budget:'total',budgetValue:'',destination:'portugal',bag:'checked',route:'equilibrio'},
+  ingles:{profile:'adulto',timeline:'90d',budget:'mensal',budgetValue:'',destination:'irlanda',course:'regular',housing:'familia'},
+  estudos:{profile:'mestrado',timeline:'180d',budget:'mensal',budgetValue:'',destination:'portugal',institution:'privada',support:'curso-documentos'}
 };
+
+const budgetModes=[
+  {id:'total',title:'Valor total',desc:'Referência para o projeto completo.'},
+  {id:'pessoa',title:'Por pessoa',desc:'Ideal para casal, família ou grupo.'},
+  {id:'mensal',title:'Valor mensal',desc:'Útil para estudo e projetos longos.'}
+];
 
 const typeTabs=document.getElementById('typeTabs');
 const profileGroup=document.getElementById('profileGroup');
@@ -688,11 +733,44 @@ const secondaryCta=document.getElementById('secondaryCta');
 const progressFill=document.getElementById('progressFill');
 const progressLabel=document.getElementById('progressLabel');
 
+
+function budgetModeLabel(value){
+  return budgetModes.find(item=>item.id===value)?.title || 'Valor informado';
+}
+
+function formatBudgetValue(value){
+  const numeric = String(value || '').replace(/\D/g,'');
+  return numeric ? Number(numeric).toLocaleString('pt-PT') : '';
+}
+
+function budgetSummaryText(s){
+  if(!s.budgetValue) return 'A definir';
+  return `€ ${formatBudgetValue(s.budgetValue)} (${budgetModeLabel(s.budget).toLowerCase()})`;
+}
+
+
+function budgetModeLabel(value){
+  return budgetModes.find(item=>item.id===value)?.title || 'Valor informado';
+}
+
+function formatBudgetValue(value){
+  const numeric = String(value || '').replace(/\D/g,'');
+  return numeric ? Number(numeric).toLocaleString('pt-PT') : '';
+}
+
+function budgetSummaryText(s){
+  if(!s.budgetValue) return 'A definir';
+  return `€ ${formatBudgetValue(s.budgetValue)} (${budgetModeLabel(s.budget).toLowerCase()})`;
+}
+
 function labelFor(groupKey,value){
   const flow=flows[currentType];
-  const pools=[flow.profile,flow.timeline,flow.budget,...flow.specifics];
+  const pools=[flow.profile,flow.timeline,...flow.specifics];
   if(groupKey==='destination'){
     return flow.destinations.find(item=>item.id===value)?.title || '';
+  }
+  if(groupKey==='budget'){
+    return budgetModeLabel(value);
   }
   const group=pools.find(item=>item.key===groupKey || item===flow[groupKey]);
   return group?.options.find(item=>item.id===value)?.title || '';
@@ -713,7 +791,7 @@ function renderTabs(){
   });
 }
 
-function renderChoiceGroup(target,group,stateKey,columns='three'){
+function renderChoiceGroup(target,group,stateKey){
   const cls=group.options.length===2 ? 'chip-grid two' : 'chip-grid';
   target.innerHTML=`
     <div>
@@ -722,6 +800,33 @@ function renderChoiceGroup(target,group,stateKey,columns='three'){
       <div class="${cls}">
         ${group.options.map(option=>`
           <button class="chip ${state[currentType][stateKey]===option.id?'active':''}" data-state-key="${stateKey}" data-value="${option.id}">
+            <strong>${option.title}</strong>
+            <span>${option.desc}</span>
+          </button>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderBudgetField(target,group){
+  target.innerHTML=`
+    <div class="budget-shell">
+      <div>
+        <h4 class="choice-title">${group.title}</h4>
+        <p class="choice-help">${group.help}</p>
+      </div>
+      <div class="budget-entry">
+        <span class="budget-label">Valor aproximado em euro</span>
+        <label class="budget-input-wrap" for="budgetValueInput">
+          <span class="budget-prefix">€</span>
+          <input class="budget-input" id="budgetValueInput" inputmode="numeric" autocomplete="off" placeholder="Ex.: 2500" value="${formatBudgetValue(state[currentType].budgetValue)}">
+        </label>
+        <p class="budget-note">Compartilhe um valor aproximado. Assim conseguimos alinhar melhor a proposta ao seu momento.</p>
+      </div>
+      <div class="chip-grid">
+        ${budgetModes.map(option=>`
+          <button class="chip ${state[currentType].budget===option.id?'active':''}" data-state-key="budget" data-value="${option.id}">
             <strong>${option.title}</strong>
             <span>${option.desc}</span>
           </button>
@@ -750,7 +855,7 @@ function renderGroups(){
   const flow=flows[currentType];
   renderChoiceGroup(profileGroup,flow.profile,'profile');
   renderChoiceGroup(timelineGroup,flow.timeline,'timeline');
-  renderChoiceGroup(budgetGroup,flow.budget,'budget');
+  renderBudgetField(budgetGroup,flow.budget);
   renderOptionCards(destinationGrid,flow.destinations,'destination');
   renderChoiceGroup(specificGroupA,flow.specifics[0],flow.specifics[0].key);
   renderChoiceGroup(specificGroupB,flow.specifics[1],flow.specifics[1].key);
@@ -763,35 +868,25 @@ function attachStateEvents(){
       renderAll();
     });
   });
-}
-
-function euroRange(min,max){
-  return `€ ${min.toLocaleString('pt-PT')} – € ${max.toLocaleString('pt-PT')}`;
-}
-
-function calcRange(){
-  const flow=flows[currentType];
-  const s=state[currentType];
-  const est=flow.estimate;
-  let min=est.base[s.destination] || 1500;
-  min*=est.profile[s.profile] || 1;
-  min*=est.timeline[s.timeline] || 1;
-  min*=est.budget[s.budget] || 1;
-  flow.specifics.forEach(group=>{
-    min*=est[group.key][s[group.key]] || 1;
-  });
-  const max=min*1.28;
-  return [Math.round(min*0.9),Math.round(max)];
+  const budgetInput=document.getElementById('budgetValueInput');
+  if(budgetInput){
+    budgetInput.addEventListener('input',e=>{
+      const numeric=e.target.value.replace(/\D/g,'').slice(0,7);
+      state[currentType].budgetValue=numeric;
+      e.target.value=formatBudgetValue(numeric);
+      renderResult();
+    });
+  }
 }
 
 function progressValue(){
-  const values=Object.values(state[currentType]);
-  const filled=values.filter(Boolean).length;
-  const total=values.length;
-  return Math.round((filled/total)*100);
+  const s=state[currentType];
+  const keys=Object.keys(s).filter(key=>key!=='budget');
+  const filled=keys.filter(key=>Boolean(s[key])).length;
+  return Math.round((filled/keys.length)*100);
 }
 
-function whatsSummary(range){
+function whatsSummary(){
   const flow=flows[currentType];
   const s=state[currentType];
   const lines=[
@@ -801,25 +896,25 @@ function whatsSummary(range){
     `Destino: ${labelFor('destination',s.destination)}`,
     `Perfil: ${labelFor('profile',s.profile)}`,
     `Prazo: ${labelFor('timeline',s.timeline)}`,
-    `Faixa: ${labelFor('budget',s.budget)}`,
+    `Investimento previsto: ${budgetSummaryText(s)}`,
     `${flow.specifics[0].title}: ${labelFor(flow.specifics[0].key,s[flow.specifics[0].key])}`,
     `${flow.specifics[1].title}: ${labelFor(flow.specifics[1].key,s[flow.specifics[1].key])}`,
-    `Estimativa inicial: ${euroRange(range[0],range[1])}`,
     '',
-    'Quero atendimento com base nesse briefing.'
+    'Quero avançar com um atendimento com base nessas informações.'
   ];
   return encodeURIComponent(lines.join('\n'));
 }
 
-function specificCta(range){
+function specificCta(){
   const flow=flows[currentType];
   const s=state[currentType];
   const dest=labelFor('destination',s.destination);
+  const budgetInfo=s.budgetValue ? ` com investimento previsto de ${budgetSummaryText(s)}` : '';
   const messages={
-    viagem:`Olá, fiz a simulação de viagem no site. Quero montar uma proposta para ${dest} com faixa inicial de ${euroRange(range[0],range[1])}.`,
-    passagem:`Olá, fiz a simulação de passagens no site. Quero cotar emissão para ${dest} com faixa inicial de ${euroRange(range[0],range[1])}.`,
-    ingles:`Olá, fiz a simulação de intercâmbio de inglês no site. Quero avaliar opções para ${dest} com faixa inicial de ${euroRange(range[0],range[1])}.`,
-    estudos:`Olá, fiz a simulação de graduação/mestrado no site. Quero avaliar um projeto em ${dest} com faixa inicial de ${euroRange(range[0],range[1])}.`
+    viagem:`Olá, fiz a simulação de viagem no site. Quero montar uma proposta para ${dest}${budgetInfo}.`,
+    passagem:`Olá, fiz a simulação de passagens no site. Quero cotar uma emissão para ${dest}${budgetInfo}.`,
+    ingles:`Olá, fiz a simulação de intercâmbio de inglês no site. Quero avaliar opções para ${dest}${budgetInfo}.`,
+    estudos:`Olá, fiz a simulação de graduação/mestrado no site. Quero avaliar um projeto em ${dest}${budgetInfo}.`
   };
   return encodeURIComponent(messages[currentType]);
 }
@@ -827,13 +922,16 @@ function specificCta(range){
 function renderResult(){
   const flow=flows[currentType];
   const s=state[currentType];
-  const [min,max]=calcRange();
   const dest=flow.destinations.find(item=>item.id===s.destination);
   const pct=progressValue();
+  const budgetText=s.budgetValue ? `€ ${formatBudgetValue(s.budgetValue)}` : 'Informe o valor que pretende investir';
+  const budgetCopy=s.budgetValue
+    ? `Receba um atendimento mais alinhado ao seu objetivo, momento e investimento informado (${budgetModeLabel(s.budget).toLowerCase()}).`
+    : 'Preencha suas preferências e informe o valor que pretende investir para receber um atendimento mais alinhado ao que procura.';
 
   resultTitle.textContent=flow.label;
-  resultPrice.textContent=euroRange(min,max);
-  resultCopy.textContent=flow.copy;
+  resultPrice.textContent=budgetText;
+  resultCopy.textContent=budgetCopy;
   highlightIcon.textContent=dest.icon;
   highlightTitle.textContent=dest.title;
   highlightText.textContent=dest.desc;
@@ -846,14 +944,15 @@ function renderResult(){
   const tags=[labelFor('destination',s.destination),labelFor('profile',s.profile),labelFor(flow.specifics[0].key,s[flow.specifics[0].key])];
   resultTags.innerHTML=tags.map(tag=>`<span class="result-tag">${tag}</span>`).join('');
 
-  summaryList.innerHTML=flow.summary(s,dest).map(item=>`<div class="summary-item">${item}</div>`).join('');
+  summaryList.innerHTML=[
+    ...flow.summary(s,dest),
+    `Investimento previsto: ${budgetSummaryText(s)}`
+  ].map(item=>`<div class="summary-item">${item}</div>`).join('');
 
-  primaryCta.textContent=currentType==='passagem' ? 'Levar cotação para o WhatsApp' : 'Levar briefing para o WhatsApp';
-  primaryCta.href=`https://wa.me/351910346159?text=${whatsSummary([min,max])}`;
+  primaryCta.textContent=currentType==='passagem' ? 'Levar pedido para o WhatsApp' : 'Levar para o WhatsApp';
+  primaryCta.href=`https://wa.me/351910346159?text=${whatsSummary()}`;
   secondaryCta.href=`https://wa.me/351910346159?text=${encodeURIComponent(flow.compare)}`;
-
-  const directMessage=specificCta([min,max]);
-  primaryCta.dataset.direct=directMessage;
+  primaryCta.dataset.direct=specificCta();
 }
 
 function renderAll(){

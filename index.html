@@ -115,6 +115,7 @@ p{margin:0}
 .hero-copy{max-width:680px}
 .hero-title{margin-top:18px}
 .hero-lead{margin:20px 0 28px;max-width:60ch;color:rgba(247,251,255,.86)}
+.hero-details{display:grid;gap:18px}
 .hero-card{padding:30px;border-radius:30px;align-self:end}
 .hero-card strong{display:block;font-size:2.35rem;font-family:'Cormorant Garamond',Georgia,serif}
 .hero-card p{margin-top:10px;color:var(--muted);line-height:1.7}
@@ -430,6 +431,34 @@ p{margin:0}
   .hero-copy .btn-row .btn{min-height:48px!important;font-size:.97rem!important}
 }
 
+
+@media (max-width: 768px){
+  .hero{padding:112px 0 34px!important;min-height:100svh!important;display:grid!important;align-items:center!important}
+  .hero-inner{width:min(92vw,430px)!important;margin:0 auto!important;grid-template-columns:1fr!important;gap:18px!important;align-items:center!important;justify-items:center!important}
+  .hero-copy{max-width:min(92vw,400px)!important;margin:0 auto!important;padding:0!important;border:0!important;background:none!important;backdrop-filter:none!important;box-shadow:none!important;text-align:center!important}
+  #hero-kicker,.kicker,.eyebrow{display:flex!important;justify-content:center!important;align-items:center!important;max-width:min(88vw,320px)!important;margin:0 auto 10px!important;text-align:center!important;font-size:.63rem!important;line-height:1.55!important;letter-spacing:.16em!important;gap:8px!important;flex-wrap:wrap!important}
+  .kicker:before,.eyebrow:before{width:34px!important;flex:0 0 34px!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:8.8ch!important;margin:0 auto!important;text-align:center!important;font-size:clamp(2.22rem,8.8vw,3rem)!important;line-height:1.02!important;letter-spacing:-.028em!important;text-wrap:balance!important;text-shadow:0 10px 28px rgba(0,0,0,.32)!important}
+  .hero-details{width:100%!important;max-width:min(92vw,370px)!important;margin:18px auto 0!important;padding:18px 18px 16px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(7,14,24,.44),rgba(7,14,24,.68))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)!important;box-shadow:0 18px 44px rgba(0,0,0,.20)!important}
+  .hero-lead,.lead{display:block!important;max-width:28ch!important;margin:0 auto!important;text-align:center!important;font-size:.93rem!important;line-height:1.62!important;color:rgba(247,251,255,.88)!important}
+  .hero-copy .btn-row,.btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;max-width:100%!important;margin:0 auto!important}
+  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{width:100%!important;min-height:48px!important;padding:0 18px!important;font-size:.98rem!important}
+  #hero-secondary-btn{display:flex!important;opacity:.98!important}
+  .hero-dots{margin-top:2px!important;justify-content:center!important}
+  .hero-dots button{width:10px!important;height:10px!important}
+  .floating-wa,.whatsapp-float{right:12px!important;bottom:calc(env(safe-area-inset-bottom, 0px) + 94px)!important;min-height:52px!important;padding:0 15px!important;border-radius:999px!important}
+  .floating-wa small,.whatsapp-float small{display:none!important}
+}
+@media (max-width: 520px){
+  .hero{padding:106px 0 28px!important}
+  .hero-inner{width:min(92vw,394px)!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:8.2ch!important;font-size:clamp(2rem,9.1vw,2.64rem)!important}
+  .hero-details{max-width:min(92vw,346px)!important;padding:16px 16px 14px!important;border-radius:22px!important}
+  .hero-lead,.lead{max-width:26ch!important;font-size:.89rem!important;line-height:1.58!important}
+  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{min-height:46px!important;font-size:.95rem!important}
+  #hero-kicker,.kicker,.eyebrow{font-size:.58rem!important;letter-spacing:.14em!important}
+}
+
 </style>
 </head>
 <body>
@@ -502,16 +531,18 @@ p{margin:0}
       <div class="hero-copy reveal">
         <span class="kicker" id="hero-kicker">Passagens aéreas • Intercâmbio • Imigração • Viagens internacionais</span>
         <h1 class="hero-title" id="hero-title">Seu futuro não tem fronteiras.</h1>
-        <p class="lead hero-lead" id="hero-lead">A Global Travel Intercâmbios vende passagens aéreas com busca das melhores tarifas para o seu destino e também cuida de intercâmbio, viagens internacionais, orientação migratória e planejamento completo para estudar, viajar, morar ou trabalhar fora com mais segurança — inclusive com foco em Portugal e Lisboa para quem quer construir uma trajetória acadêmica internacional.</p>
-        <div class="btn-row">
-          <a class="btn btn-primary" id="hero-primary-btn" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20ou%20viagem%20internacional." target="_blank" rel="noopener">Falar no WhatsApp</a>
-          <a class="btn btn-secondary" id="hero-secondary-btn" href="#servicos">Conhecer serviços</a>
-        </div>
-        <div class="hero-dots" aria-label="Trocar vídeo">
-          <button class="active" aria-label="Vídeo 1"></button>
-          <button aria-label="Vídeo 2"></button>
-          <button aria-label="Vídeo 3"></button>
-          <button aria-label="Vídeo 4"></button>
+        <div class="hero-details" id="hero-details">
+          <p class="lead hero-lead" id="hero-lead">A Global Travel Intercâmbios vende passagens aéreas com busca das melhores tarifas para o seu destino e também cuida de intercâmbio, viagens internacionais, orientação migratória e planejamento completo para estudar, viajar, morar ou trabalhar fora com mais segurança — inclusive com foco em Portugal e Lisboa para quem quer construir uma trajetória acadêmica internacional.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" id="hero-primary-btn" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20ou%20viagem%20internacional." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            <a class="btn btn-secondary" id="hero-secondary-btn" href="#servicos">Conhecer serviços</a>
+          </div>
+          <div class="hero-dots" aria-label="Trocar vídeo">
+            <button class="active" aria-label="Vídeo 1"></button>
+            <button aria-label="Vídeo 2"></button>
+            <button aria-label="Vídeo 3"></button>
+            <button aria-label="Vídeo 4"></button>
+          </div>
         </div>
       </div>
 
@@ -852,7 +883,7 @@ p{margin:0}
       title:'Viaje para viver experiências que ficam para sempre.',
       mobileTitle:'Experiências que ficam para sempre.',
       lead:'Da emissão da passagem ao roteiro internacional, a Global Travel monta viagens de neve, turismo especial e experiências premium com suporte humano.',
-      mobileLead:'Viagens de neve e turismo especial com roteiro, tarifas e suporte humano.',
+      mobileLead:'Viagens de neve e roteiros especiais com tarifa, planejamento e suporte próximo.',
       cardTitle:'Passagens aéreas e viagens internacionais com atendimento mais estratégico.',
       cardCopy:'Para viagens de neve e experiências especiais, a prioridade é combinar tarifa, destino, datas e conforto sem deixar o cliente perdido.',
       cta1:'Quero uma viagem de neve',
@@ -871,7 +902,7 @@ p{margin:0}
       title:'Lisboa pode ser o começo da sua nova fase.',
       mobileTitle:'Lisboa pode ser o começo.',
       lead:'Portugal e Lisboa aparecem como destinos fortes para quem quer estudar, se reposicionar e construir uma trajetória internacional com mais clareza.',
-      mobileLead:'Curso, passagens e planejamento para estudar em Portugal com mais clareza.',
+      mobileLead:'Curso, passagens e planejamento para começar em Portugal com mais segurança.',
       cardTitle:'Lisboa, cursos e suporte para uma jornada internacional mais bem pensada.',
       cardCopy:'Se a ideia é Portugal, o atendimento pode unir curso, passagens aéreas e orientação prática para começar com mais segurança.',
       cta1:'Quero estudar em Lisboa',
@@ -890,7 +921,7 @@ p{margin:0}
       title:'Sua viagem dos sonhos também pode começar aqui.',
       mobileTitle:'Sua viagem dos sonhos começa aqui.',
       lead:'Passagens aéreas, suporte e atendimento personalizado para Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
-      mobileLead:'Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
+      mobileLead:'Disney, Paris e viagens em família com roteiro, tarifa e apoio de ponta a ponta.',
       cardTitle:'Turismo internacional e pacotes pensados para viajar melhor.',
       cardCopy:'Para viagens em família, a Global Travel pode organizar passagem, roteiro, parque, datas e atendimento mais humano do começo ao fim.',
       cta1:'Quero um pacote Disney',
@@ -919,7 +950,7 @@ p{margin:0}
   ];
   let current = 0;
   const videos = slides.map(s => s.querySelector('video'));
-  const isCompactHero = () => window.matchMedia('(max-width: 700px)').matches;
+  const isCompactHero = () => window.matchMedia('(max-width: 768px)').matches;
   function paintHero(index){
     const data = heroData[index];
     if(!data) return;

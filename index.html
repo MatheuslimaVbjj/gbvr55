@@ -393,6 +393,43 @@ p{margin:0}
   }
 }
 
+
+@media (max-width: 768px){
+  .hero{padding:112px 0 28px!important;min-height:auto!important;display:block!important}
+  .hero-inner{width:min(92vw,430px)!important;margin:0 auto!important;grid-template-columns:1fr!important;gap:18px!important;align-items:start!important;justify-items:center!important}
+  .hero-copy{max-width:min(92vw,392px)!important;margin:0 auto!important;padding:22px 20px 18px!important;border-radius:28px!important;text-align:center!important;background:linear-gradient(180deg,rgba(7,14,24,.38),rgba(7,14,24,.64))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)!important;box-shadow:0 18px 44px rgba(0,0,0,.22)!important}
+  #hero-kicker,.kicker,.eyebrow{display:flex!important;justify-content:center!important;align-items:center!important;max-width:100%!important;margin:0 auto 8px!important;text-align:center!important;font-size:.64rem!important;line-height:1.55!important;letter-spacing:.17em!important;gap:8px!important;flex-wrap:wrap!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:9.5ch!important;margin:0 auto!important;text-align:center!important;font-size:clamp(2.25rem,8.6vw,3.05rem)!important;line-height:1.02!important;letter-spacing:-.028em!important;text-wrap:balance!important}
+  .hero-lead,.lead{display:block!important;max-width:28ch!important;margin:14px auto 18px!important;text-align:center!important;font-size:.95rem!important;line-height:1.62!important;color:rgba(247,251,255,.86)!important}
+  .hero-copy .btn-row,.btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;max-width:320px!important;margin:0 auto!important}
+  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{width:100%!important;min-height:50px!important;padding:0 18px!important;font-size:1rem!important}
+  #hero-secondary-btn{display:flex!important;opacity:.96!important}
+  .hero-dots{margin-top:14px!important;justify-content:center!important}
+  .hero-dots button{width:10px!important;height:10px!important}
+  .hero-card{display:none!important}
+
+  #mobile-story-section .story-grid,
+  #mobile-intro-section .intro-grid{grid-template-columns:1fr!important}
+  #mobile-story-section .video-frame{min-height:430px!important;border-radius:28px!important}
+  #mobile-story-section .video-copy{left:18px!important;right:18px!important;bottom:18px!important;text-align:left!important}
+  #mobile-story-section .video-copy span{font-size:.68rem!important;letter-spacing:.22em!important}
+  #mobile-story-section .video-copy strong{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.08!important;max-width:11ch!important;display:block!important}
+
+  #mobile-intro-section .glass{padding:22px!important;text-align:center!important}
+  #mobile-intro-section .glass h2{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.04!important;max-width:10ch!important;margin:0 auto!important;text-wrap:balance!important}
+  #mobile-intro-section .glass .copy{max-width:30ch!important;margin:16px auto 0!important;font-size:.96rem!important;line-height:1.62!important}
+  #mobile-intro-section .pill-row{justify-content:center!important}
+  #mobile-intro-section .two-col{margin-top:18px!important}
+}
+@media (max-width: 520px){
+  .hero-copy{padding:20px 18px 16px!important}
+  .hero-title,.hero h1,.hero-copy h1,h1{max-width:9ch!important;font-size:clamp(2.05rem,8.9vw,2.75rem)!important}
+  .hero-lead,.lead{max-width:26ch!important;font-size:.92rem!important;line-height:1.58!important}
+  #hero-kicker,.kicker,.eyebrow{font-size:.61rem!important;letter-spacing:.15em!important}
+  .hero-copy .btn-row,.btn-row{max-width:300px!important}
+  .hero-copy .btn-row .btn{min-height:48px!important;font-size:.97rem!important}
+}
+
 </style>
 </head>
 <body>
@@ -490,7 +527,7 @@ p{margin:0}
     </div>
   </section>
 
-  <section class="section tight">
+  <section class="section tight" id="mobile-intro-section">
     <div class="container intro-grid">
       <div class="glass reveal">
         <span class="kicker">Posicionamento</span>
@@ -577,7 +614,7 @@ p{margin:0}
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="mobile-story-section">
     <div class="container story-grid">
       <div class="video-frame reveal">
         <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
@@ -813,9 +850,9 @@ p{margin:0}
     },
     {
       title:'Viaje para viver experiências que ficam para sempre.',
-      mobileTitle:'Experiências que ficam.',
+      mobileTitle:'Experiências que ficam para sempre.',
       lead:'Da emissão da passagem ao roteiro internacional, a Global Travel monta viagens de neve, turismo especial e experiências premium com suporte humano.',
-      mobileLead:'Planejamento de viagens de neve e experiências especiais com tarifas, roteiro e suporte humano.',
+      mobileLead:'Viagens de neve e turismo especial com roteiro, tarifas e suporte humano.',
       cardTitle:'Passagens aéreas e viagens internacionais com atendimento mais estratégico.',
       cardCopy:'Para viagens de neve e experiências especiais, a prioridade é combinar tarifa, destino, datas e conforto sem deixar o cliente perdido.',
       cta1:'Quero uma viagem de neve',
@@ -832,9 +869,9 @@ p{margin:0}
     },
     {
       title:'Lisboa pode ser o começo da sua nova fase.',
-      mobileTitle:'Lisboa pode ser seu recomeço.',
+      mobileTitle:'Lisboa pode ser o começo.',
       lead:'Portugal e Lisboa aparecem como destinos fortes para quem quer estudar, se reposicionar e construir uma trajetória internacional com mais clareza.',
-      mobileLead:'Curso, passagens e planejamento para quem quer estudar em Portugal com mais clareza.',
+      mobileLead:'Curso, passagens e planejamento para estudar em Portugal com mais clareza.',
       cardTitle:'Lisboa, cursos e suporte para uma jornada internacional mais bem pensada.',
       cardCopy:'Se a ideia é Portugal, o atendimento pode unir curso, passagens aéreas e orientação prática para começar com mais segurança.',
       cta1:'Quero estudar em Lisboa',
@@ -851,7 +888,7 @@ p{margin:0}
     },
     {
       title:'Sua viagem dos sonhos também pode começar aqui.',
-      mobileTitle:'Sua viagem começa aqui.',
+      mobileTitle:'Sua viagem dos sonhos começa aqui.',
       lead:'Passagens aéreas, suporte e atendimento personalizado para Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
       mobileLead:'Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
       cardTitle:'Turismo internacional e pacotes pensados para viajar melhor.',
@@ -917,6 +954,30 @@ p{margin:0}
     paintHero(index);
   }
   dots.forEach((dot,i) => dot.addEventListener('click', () => activate(i)));
+
+  function applyMobileSectionLayout(){
+    const mobile = window.matchMedia('(max-width: 768px)').matches;
+    const introSection = document.getElementById('mobile-intro-section');
+    const storySection = document.getElementById('mobile-story-section');
+    const ctasSection = document.getElementById('ctas-inteligentes');
+    const destinosSection = document.getElementById('destinos');
+    if(!introSection || !storySection || !ctasSection || !destinosSection) return;
+    if(mobile){
+      if(introSection.previousElementSibling !== storySection){
+        introSection.parentNode.insertBefore(storySection, introSection);
+        destinosSection.parentNode.insertBefore(introSection, destinosSection);
+      }
+    } else {
+      if(ctasSection.previousElementSibling !== introSection){
+        ctasSection.parentNode.insertBefore(introSection, ctasSection);
+      }
+      if(destinosSection.previousElementSibling !== storySection){
+        destinosSection.parentNode.insertBefore(storySection, destinosSection);
+      }
+    }
+  }
+  applyMobileSectionLayout();
+  window.addEventListener('resize', applyMobileSectionLayout);
   let heroResizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(heroResizeTimer);

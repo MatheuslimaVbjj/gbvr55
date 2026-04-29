@@ -1,974 +1,2518 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simulador • Global Travel Intercâmbios</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seu Plano · Global Travel Intercâmbios</title>
+<meta name="description" content="Simulador interativo da Global Travel: descubra em 2 minutos o visto ideal, prazos e custos para morar, estudar ou viajar no exterior. Plano personalizado e gamificado." />
+<meta property="og:title" content="Simulador · Descubra seu caminho para o exterior | Global Travel" />
+<meta property="og:description" content="Em 5 fases, descubra o visto certo, o prazo real e o custo fundamentado para morar, estudar ou viajar no exterior. 2 minutos, 100% grátis." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://globaltravelintercambios.com/simulador.html" />
+<meta property="og:image" content="https://globaltravelintercambios.com/globaltravel_logo_full.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://globaltravelintercambios.com/simulador.html" />
+<link rel="icon" type="image/png" href="favicon_original_mark_v16.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
+/* =============================================================
+   TOKENS
+   ============================================================= */
 :root{
-  --bg:#040d16;
+  --bg:#050d16;
+  --bg-soft:#0a1624;
+  --panel:rgba(11,22,35,.72);
+  --panel-2:rgba(7,14,24,.92);
   --line:rgba(255,255,255,.08);
-  --line-strong:rgba(215,174,97,.3);
-  --text:#f6f7fb;
-  --muted:rgba(246,247,251,.76);
-  --gold:#d7ae61;
-  --gold-soft:rgba(215,174,97,.12);
-  --shadow:0 18px 60px rgba(0,0,0,.30);
-  --ease:cubic-bezier(.22,.65,.2,1);
+  --line-strong:rgba(199,154,74,.28);
+  --text:#F8FBFF;
+  --muted:rgba(240,245,251,.76);
+  --muted-2:rgba(240,245,251,.58);
+  --gold:#C79A4A;
+  --gold-soft:#F2D49B;
+  --blue:#13304E;
+  --success:#4ADE80;
+  --warning:#FBBF24;
+  --danger:#F87171;
+  --common:#94A3B8;
+  --rare:#60A5FA;
+  --epic:#C084FC;
+  --legendary:#F2D49B;
+  --shadow:0 20px 50px rgba(0,0,0,.28);
+  --shadow-gold:0 14px 50px rgba(199,154,74,.25);
+  --radius:24px;
+  --radius-lg:28px;
+  --radius-sm:18px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --bouncy:cubic-bezier(.34,1.56,.64,1);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  overflow-x:hidden;
-  margin:0;
-  color:var(--text);
-  font-family:Inter,sans-serif;
+  margin:0;overflow-x:hidden;min-height:100vh;
+  font-family:'Outfit',system-ui,-apple-system,sans-serif;
+  color:var(--text);background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:0;background:none;color:inherit;font:inherit}
+::selection{background:rgba(199,154,74,.28);color:#fff}
+
+/* =============================================================
+   BACKGROUND
+   ============================================================= */
+.mesh-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
-    radial-gradient(circle at top left,rgba(16,47,82,.45),transparent 30%),
-    linear-gradient(180deg,#04111c 0%,#06101a 100%);
+    radial-gradient(ellipse 60% 50% at 10% 10%, rgba(40,95,150,.22), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 90% 15%, rgba(199,154,74,.18), transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(99,102,241,.12), transparent 60%),
+    linear-gradient(180deg,#040b12 0%,#08121d 50%,#091421 100%);
+  animation:meshDrift 22s ease-in-out infinite alternate;
 }
-a{text-decoration:none;color:inherit}
-button,input{font:inherit}
-.container{width:min(1180px,calc(100% - 40px));margin:0 auto}
-.site-header{position:sticky;top:0;z-index:40;background:rgba(4,11,18,.65);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav-shell{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;max-width:100%}
-.brand-logo{width:250px;display:block}
-.nav-links{display:flex;gap:32px;align-items:center}
-.nav-links a{font-weight:700;color:#f7f7f7d0}
-.nav-links a.active{color:#fff}
-.nav-cta{display:flex;gap:12px;align-items:center}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 22px;border-radius:999px;border:1px solid transparent;font-weight:800;transition:.28s var(--ease);cursor:pointer}
-.btn:hover{transform:translateY(-1px)}
-.btn-primary{background:linear-gradient(135deg,var(--gold),#edc979);color:#10203a;box-shadow:0 12px 28px rgba(215,174,97,.25)}
-.btn-secondary,.btn-ghost{background:rgba(255,255,255,.03);border-color:var(--line);color:#fff}
-.burger{display:none;background:none;border:none;color:#fff;font-size:28px}
-.mobile-panel{display:none}
-.hero{padding:70px 0 30px}
-.kicker{display:inline-flex;align-items:center;gap:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;font-size:12px;font-weight:700}
-.kicker:before{content:'';width:54px;height:1px;background:var(--gold)}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:end}
-.hero-copy h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(3.1rem,7vw,5.8rem);line-height:.9;margin:18px 0}
-.lead,.copy,.small-note{line-height:1.75;color:var(--muted)}
-.glass,.hero-side,.sim-shell,.step-card,.result-box,.tip-card,.mini-card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.025));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);backdrop-filter:blur(10px)}
-.hero-side,.result-box,.tip-card,.mini-card{padding:24px}
-.hero-side strong{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05}
-.hero-side p{margin:14px 0 0;color:var(--muted)}
-.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-.badge{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid var(--line);font-size:.95rem}
-.section{padding:30px 0 88px}
-.section-head{max-width:820px;margin-bottom:26px}
-.section-head h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.4rem,5vw,4rem);line-height:.95;margin:16px 0}
-.type-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
-.type-tab{padding:18px;border-radius:24px;border:1px solid var(--line);background:rgba(255,255,255,.03);text-align:left;color:#fff;cursor:pointer;transition:.28s var(--ease)}
-.type-tab small{display:block;color:var(--muted);margin-top:7px;line-height:1.55}
-.type-tab.active{background:linear-gradient(180deg,rgba(215,174,97,.2),rgba(255,255,255,.035));border-color:var(--line-strong);box-shadow:0 10px 28px rgba(215,174,97,.08)}
-.sim-shell{padding:18px;display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:start}
-.step-stack{display:grid;gap:16px}
-.step-card{padding:22px}
-.step-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:18px}
-.step-number{flex:0 0 auto;width:38px;height:38px;border-radius:999px;background:var(--gold-soft);border:1px solid var(--line-strong);display:grid;place-items:center;font-weight:800;color:#f1d5a1}
-.step-head h3{margin:0 0 5px;font-size:1.28rem}
-.step-head p{margin:0;color:var(--muted);line-height:1.65}
-.option-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.option-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.option-card{position:relative;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.03);padding:16px;cursor:pointer;transition:.24s var(--ease);min-height:112px;display:flex;flex-direction:column;justify-content:space-between}
-.option-card:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.18)}
-.option-card.active{border-color:var(--line-strong);background:linear-gradient(180deg,rgba(215,174,97,.15),rgba(255,255,255,.035));box-shadow:0 10px 24px rgba(215,174,97,.08)}
-.option-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.option-icon{font-size:1.55rem;line-height:1}
-.option-title{font-weight:800}
-.option-desc{margin-top:8px;color:var(--muted);font-size:.94rem;line-height:1.58}
-.option-check{width:18px;height:18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.04);transition:.24s var(--ease)}
-.option-card.active .option-check{background:var(--gold);border-color:var(--gold);box-shadow:0 0 0 4px rgba(215,174,97,.14) inset}
-.choice-group{display:grid;gap:12px}
-.choice-group.hidden{display:none}
-.choice-title{margin:0 0 2px;font-weight:700;font-size:1rem}
-.choice-help{margin:0 0 12px;color:var(--muted);font-size:.94rem;line-height:1.6}
-.chip-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.chip-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.chip{padding:14px 14px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03);text-align:left;color:#fff;cursor:pointer;transition:.24s var(--ease);min-height:74px}
-.chip strong{display:block;font-size:1rem}
-.chip span{display:block;color:var(--muted);font-size:.9rem;line-height:1.5;margin-top:5px}
-.chip.active{background:linear-gradient(180deg,rgba(215,174,97,.15),rgba(255,255,255,.035));border-color:var(--line-strong)}
-.budget-shell{display:grid;gap:12px}
-.budget-entry{display:grid;gap:8px}
-.budget-label{font-size:.9rem;color:var(--muted);font-weight:600}
-.budget-input-wrap{display:flex;align-items:center;gap:12px;padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-.budget-prefix{font-size:1.12rem;font-weight:800;color:var(--gold)}
-.budget-input{width:100%;background:transparent;border:none;outline:none;color:#fff;font-size:1.05rem;font-weight:600}
-.budget-input::placeholder{color:rgba(246,247,251,.42)}
-.budget-note{margin:0;color:var(--muted);font-size:.88rem;line-height:1.6}
-.side-stack{display:grid;gap:16px;position:sticky;top:105px}
-.result-box h3{margin:0 0 12px;font-size:1.45rem}
-.meter{display:grid;gap:7px;margin-bottom:20px}
-.meter-head{display:flex;justify-content:space-between;gap:16px;font-size:.95rem;color:var(--muted)}
-.progress-bar{height:10px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
-.progress-fill{height:100%;width:48%;background:linear-gradient(90deg,var(--gold),#f2d28c);border-radius:999px;transition:.35s ease}
-.result-price{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.6rem,5vw,4rem);line-height:.92;margin:8px 0 10px}
-.result-copy{margin:0 0 16px;color:var(--muted);line-height:1.75}
-.summary-list,.action-list{display:grid;gap:10px;margin:18px 0}
-.summary-item,.action-item{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
-.result-tags{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
-.result-tag{padding:9px 13px;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid var(--line);font-size:.92rem}
-.highlight-card{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
-.highlight-icon{font-size:1.8rem;line-height:1}
-.highlight-card strong{display:block;margin-bottom:6px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
-.mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.mini-card h4{margin:0 0 8px;font-size:1rem}
-.mini-card p{margin:0;color:var(--muted);line-height:1.6;font-size:.95rem}
-.tips-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
-.tip-card h3{margin:0 0 10px;font-size:1.25rem}
-.tip-card p{margin:0;color:var(--muted);line-height:1.7}
-footer{padding:40px 0 74px;border-top:1px solid var(--line)}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
-.floating-wa{position:fixed;right:18px;bottom:18px;z-index:39;background:#25D366;color:#fff;padding:0 18px;min-height:58px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(37,211,102,.32)}
-.reveal{opacity:0;transform:translateY(20px);transition:.7s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
-@media (max-width:1080px){
-  .hero-grid,.sim-shell,.footer-grid{grid-template-columns:1fr}
-  .type-tabs{grid-template-columns:1fr 1fr}
-  .tips-grid{grid-template-columns:1fr 1fr}
-  .side-stack{position:static}
+@keyframes meshDrift{0%{filter:hue-rotate(0deg) saturate(1)}100%{filter:hue-rotate(8deg) saturate(1.1)}}
+
+.particles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.particle{
+  position:absolute;width:3px;height:3px;border-radius:50%;
+  background:var(--gold-soft);opacity:0;
+  animation:particleFloat linear infinite;
+  box-shadow:0 0 6px var(--gold),0 0 12px rgba(199,154,74,.4);
 }
-@media (max-width:860px){
-  .nav-links,.nav-cta .btn{display:none}
-  .burger{display:grid;place-items:center}
-  .mobile-panel{display:grid;position:fixed;left:20px;right:20px;top:86px;padding:20px;border-radius:24px;background:rgba(5,11,18,.96);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);gap:14px;opacity:0;pointer-events:none;transform:translateY(-12px);transition:.28s var(--ease);z-index:998}
-  body.nav-open .mobile-panel{opacity:1;pointer-events:auto;transform:none}
-  .mobile-panel a{padding:8px 4px;color:#fff}
-  .type-tabs,.option-grid,.chip-grid,.mini-grid,.tips-grid{grid-template-columns:1fr 1fr}
+@keyframes particleFloat{
+  0%{opacity:0;transform:translateY(10vh) translateX(0) scale(.5)}
+  10%{opacity:.6}
+  90%{opacity:.6}
+  100%{opacity:0;transform:translateY(-110vh) translateX(var(--drift,20px)) scale(1)}
 }
-@media (max-width:700px){
-  .container{width:min(1180px,calc(100% - 24px))}
-  .hero{padding:54px 0 22px}
-  .hero-grid{gap:18px;align-items:start}
-  .hero-copy h1{max-width:13ch;font-size:clamp(2.05rem,10.7vw,3.15rem);line-height:.98}
-  .section-head h2{font-size:clamp(1.95rem,9vw,2.9rem);line-height:.98}
-  .lead{font-size:.98rem;line-height:1.68}
-  .badge-row{gap:8px;margin-top:14px}
-  .badge{font-size:.84rem;padding:9px 12px}
-  .brand-logo{width:164px!important;max-width:44vw!important}
-  .site-header{background:rgba(4,11,18,.88)!important;backdrop-filter:blur(14px)!important}
-  .nav-shell{min-height:76px;gap:12px}
-  .burger{width:44px;height:44px;border-radius:12px}
-  .mobile-panel{top:76px;left:12px;right:12px;padding:16px;border-radius:20px}
-  .option-grid,.chip-grid,.type-tabs,.mini-grid,.tips-grid{grid-template-columns:1fr}
-  .type-tab{padding:16px;border-radius:20px}
-  .type-tab strong{font-size:1rem}
-  .type-tab small{font-size:.9rem;line-height:1.5}
-  .cta-row{display:grid}
-  .cta-row .btn,.btn{width:100%}
-  .hero-side,.step-card,.result-box,.tip-card,.mini-card{padding:20px;border-radius:22px}
-  .hero-side strong{font-size:clamp(1.55rem,7.3vw,2.05rem);line-height:1.03}
-  .hero-side p,.step-head p,.choice-help,.option-desc,.chip span,.result-copy,.mini-card p,.tip-card p{font-size:.96rem;line-height:1.62}
-  .step-head{align-items:flex-start;gap:12px;margin-bottom:16px}
-  .step-head h3{font-size:1.16rem;line-height:1.2}
-  .step-number{width:34px;height:34px;font-size:.95rem}
-  .option-card{min-height:auto;padding:15px 16px;border-radius:20px;gap:10px}
-  .chip{min-height:auto;padding:13px 14px;border-radius:16px}
-  .budget-input-wrap{padding:15px 16px}
-  .side-stack{gap:14px}
-  .result-box h3{font-size:1.28rem}
-  .result-price{font-size:clamp(2rem,11vw,3rem);line-height:.95}
-  .highlight-card{padding:16px;border-radius:20px}
-  .kicker{max-width:230px;font-size:10.5px!important;letter-spacing:1.8px!important;line-height:1.55}
-  .kicker:before{width:32px!important;flex:0 0 32px}
-  .floating-wa{right:12px;bottom:calc(env(safe-area-inset-bottom, 0px) + 72px);min-height:50px;padding:0 14px;font-size:15px}
+
+.shell{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
+
+/* =============================================================
+   TYPOGRAPHY
+   ============================================================= */
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;line-height:1.03;letter-spacing:-.025em;margin:0;font-weight:600}
+h1{font-size:clamp(2.2rem, 6vw, 4.2rem)}
+h2{font-size:clamp(1.7rem, 4.2vw, 2.8rem)}
+h3{font-size:clamp(1.2rem, 2.4vw, 1.65rem)}
+p{margin:0;line-height:1.6}
+
+/* =============================================================
+   TOPBAR · XP · RANK · QUEST
+   ============================================================= */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px clamp(16px, 4vw, 40px);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);
+  background:rgba(5,13,22,.7);
+  position:sticky;top:0;z-index:20;
 }
-@media (max-width:420px){
-  .brand-logo{width:148px!important;max-width:42vw!important}
-  .hero-copy h1{max-width:12ch;font-size:clamp(1.88rem,10vw,2.55rem)}
-  .section-head h2{font-size:clamp(1.8rem,8.5vw,2.45rem)}
-  .kicker{max-width:200px;font-size:10px!important;letter-spacing:1.5px!important}
-  .kicker:before{width:28px!important;flex-basis:28px}
+.brand{display:flex;align-items:center;flex-shrink:0;transition:transform .3s var(--ease)}
+.brand:hover{transform:translateY(-1px)}
+.brand-logo{height:38px;width:auto;display:block;object-fit:contain;background:transparent;mix-blend-mode:screen;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35))}
+@media(max-width:520px){.brand-logo{height:30px}}
+
+.xp-cluster{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+
+.live-dot{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:999px;
+  background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.22);
+  color:var(--success);font-size:.7rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.12em;
+}
+.live-dot::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 10px var(--success);animation:livePulse 1.8s ease-in-out infinite;
+}
+@keyframes livePulse{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}}
+@media(max-width:900px){.live-dot{display:none}}
+
+.rank-badge{
+  display:flex;align-items:center;gap:10px;
+  padding:5px 10px 5px 5px;border-radius:999px;
+  background:linear-gradient(135deg,rgba(96,165,250,.14),rgba(192,132,252,.1));
+  border:1px solid rgba(96,165,250,.3);
+  font-size:.76rem;font-weight:700;white-space:nowrap;
+  letter-spacing:.05em;transition:all .4s var(--bouncy);
+  position:relative;
+}
+.rank-badge.promoted{animation:rankPromo .9s var(--bouncy);box-shadow:0 0 32px rgba(199,154,74,.6)}
+@keyframes rankPromo{
+  0%{transform:scale(1)}
+  40%{transform:scale(1.3) rotate(-3deg)}
+  70%{transform:scale(.95) rotate(2deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+.rank-icon-wrap{
+  position:relative;width:26px;height:26px;display:grid;place-items:center;
+}
+.rank-icon-wrap::before{
+  content:"";position:absolute;inset:-3px;border-radius:50%;
+  background:conic-gradient(from 0deg, var(--gold), var(--gold-soft), transparent 60%, var(--gold));
+  animation:rankRing 6s linear infinite;
+  mask:radial-gradient(circle,transparent 9px,#000 11px);
+  -webkit-mask:radial-gradient(circle,transparent 9px,#000 11px);
+  opacity:.7;
+}
+@keyframes rankRing{to{transform:rotate(360deg)}}
+.rank-icon{font-size:1rem;position:relative;filter:drop-shadow(0 0 6px rgba(255,255,255,.4))}
+.rank-progress{
+  height:3px;width:48px;background:rgba(255,255,255,.1);
+  border-radius:999px;overflow:hidden;margin-left:2px;
+  position:relative;
+}
+.rank-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  box-shadow:0 0 8px rgba(199,154,74,.5);
+  transition:width .8s var(--ease);
+}
+@media(max-width:640px){.rank-label,.rank-progress{display:none}}
+
+.xp-badge{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:999px;
+  background:linear-gradient(135deg,rgba(199,154,74,.18),rgba(199,154,74,.05));
+  border:1px solid var(--line-strong);
+  font-weight:700;transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.xp-badge.pulse{transform:scale(1.1);box-shadow:0 0 28px rgba(199,154,74,.6)}
+.xp-bolt{color:var(--gold);font-size:1.05em;filter:drop-shadow(0 0 6px rgba(199,154,74,.6))}
+.xp-value{font-family:'Outfit',sans-serif;font-size:.98rem;color:var(--gold-soft);min-width:32px;text-align:center;font-variant-numeric:tabular-nums}
+.xp-label{font-size:.64rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+@media(max-width:460px){.xp-label{display:none}}
+
+.sound-toggle{
+  width:36px;height:36px;border-radius:50%;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--muted);
+  transition:all .2s var(--ease);flex-shrink:0;
+}
+.sound-toggle:hover{border-color:var(--line-strong);color:var(--text)}
+.sound-toggle.muted{opacity:.5}
+
+/* QUEST TRACKER (right-side small widget) */
+.quest-tracker{
+  position:fixed;right:20px;bottom:20px;z-index:18;
+  padding:14px 18px;max-width:280px;
+  background:linear-gradient(135deg,rgba(11,22,35,.95),rgba(7,14,24,.95));
+  border:1px solid var(--line-strong);border-radius:18px;
+  backdrop-filter:blur(14px);box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:12px;
+  transform:translateX(340px);transition:transform .5s var(--bouncy);
+}
+.quest-tracker.show{transform:translateX(0)}
+@media(max-width:640px){.quest-tracker{right:10px;left:10px;max-width:none;bottom:12px}}
+.quest-tracker.show.hide-mobile{transform:translateX(340px)}
+.quest-icon{
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:rgba(199,154,74,.14);border:1px solid var(--line-strong);
+  display:grid;place-items:center;font-size:1.1rem;
+  animation:questPulse 2.2s ease-in-out infinite;
+}
+@keyframes questPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.quest-body{flex:1;min-width:0}
+.quest-label{color:var(--gold);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em;margin-bottom:2px}
+.quest-text{font-size:.86rem;color:var(--text);line-height:1.35;font-weight:500}
+.quest-close{
+  width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.06);
+  color:var(--muted-2);display:grid;place-items:center;font-size:.8rem;flex-shrink:0;
+  transition:background .2s;
+}
+.quest-close:hover{background:rgba(255,255,255,.12);color:var(--text)}
+
+/* STREAK */
+.streak-bar{
+  position:fixed;top:64px;left:50%;transform:translate(-50%,-100%);
+  padding:8px 18px;border-radius:999px;
+  background:linear-gradient(135deg,rgba(251,191,36,.95),rgba(249,115,22,.95));
+  color:#422006;font-weight:800;font-size:.9rem;
+  box-shadow:0 12px 40px rgba(251,191,36,.45);
+  z-index:19;opacity:0;transition:all .4s var(--bouncy);
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+}
+.streak-bar.show{opacity:1;transform:translate(-50%,0)}
+.streak-fire{font-size:1.2em;animation:fireShake .4s ease-in-out infinite alternate}
+@keyframes fireShake{0%{transform:scale(1) rotate(-3deg)}100%{transform:scale(1.1) rotate(3deg)}}
+
+/* =============================================================
+   PHASE DOTS
+   ============================================================= */
+.progress-wrap{
+  padding:12px clamp(16px, 4vw, 40px);
+  border-bottom:1px solid var(--line);
+  background:rgba(5,13,22,.55);
+  backdrop-filter:blur(10px);
+}
+.phase-track{display:flex;align-items:center;gap:6px;max-width:640px;margin:0 auto}
+.phase-dot{
+  flex:1;height:4px;border-radius:999px;
+  background:rgba(255,255,255,.06);position:relative;overflow:hidden;
+  transition:background .3s var(--ease);
+}
+.phase-dot.active{background:rgba(199,154,74,.2)}
+.phase-dot.active::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  box-shadow:0 0 12px rgba(199,154,74,.5);
+  animation:phaseFill 1.5s var(--ease) forwards;
+}
+.phase-dot.done{background:var(--gold)}
+@keyframes phaseFill{from{transform:scaleX(0);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+
+/* =============================================================
+   MAIN
+   ============================================================= */
+main{
+  flex:1;display:flex;align-items:flex-start;justify-content:center;
+  padding:clamp(32px,6vw,72px) clamp(16px,4vw,40px) 80px;
+}
+.screen{width:100%;max-width:780px;display:none;animation:screenIn .55s var(--ease)}
+.screen.active{display:block}
+@keyframes screenIn{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.phase-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+.phase-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;line-height:1;
+  background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-.04em;
+}
+.phase-title{text-transform:uppercase;letter-spacing:.26em;font-size:.78rem;color:var(--muted-2);font-weight:600}
+.phase-of{color:var(--muted-2);font-size:.78rem;letter-spacing:.12em;margin-left:auto;text-transform:uppercase;font-weight:500}
+
+.question{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,3rem);
+  font-weight:600;line-height:1.06;letter-spacing:-.02em;margin-bottom:14px;
+}
+.helper{color:var(--muted);font-size:1.02rem;margin-bottom:36px;line-height:1.6;max-width:600px}
+
+/* =============================================================
+   BUTTONS
+   ============================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:54px;padding:0 28px;border-radius:999px;
+  font-weight:600;font-size:1rem;border:1px solid transparent;cursor:pointer;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), opacity .2s var(--ease);
+  white-space:nowrap;position:relative;overflow:hidden;
+}
+.btn:hover:not(:disabled){transform:translateY(-2px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  color:#13253A;box-shadow:0 14px 28px rgba(199,154,74,.24);
+}
+.btn-primary:hover:not(:disabled){box-shadow:0 18px 40px rgba(199,154,74,.4)}
+.btn-primary::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4),transparent 70%);
+  transform:translateX(-100%);transition:transform .7s var(--ease);
+}
+.btn-primary:hover::after{transform:translateX(100%)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn-ghost:hover{border-color:var(--line-strong);color:var(--text)}
+.btn-whatsapp{background:#25D366;color:#063D1F;font-weight:700}
+.btn-whatsapp:hover{background:#20B958;box-shadow:0 14px 36px rgba(37,211,102,.35)}
+.btn-xl{min-height:62px;padding:0 36px;font-size:1.08rem}
+
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:44px;gap:12px;flex-wrap:wrap}
+
+/* =============================================================
+   OPTION CARDS
+   ============================================================= */
+.options{display:grid;gap:14px}
+.options.cols-2{grid-template-columns:1fr 1fr}
+@media(max-width:640px){.options.cols-2{grid-template-columns:1fr}}
+.opt{
+  display:flex;align-items:center;gap:18px;
+  padding:20px 22px;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);cursor:pointer;
+  transition:all .35s var(--ease);text-align:left;width:100%;
+  backdrop-filter:blur(8px);position:relative;overflow:hidden;
+}
+.opt::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(199,154,74,.1),transparent 55%);
+  opacity:0;transition:opacity .3s var(--ease);
+}
+.opt::after{
+  content:"";position:absolute;top:0;left:-80%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+  transition:left .6s var(--ease);pointer-events:none;
+}
+.opt:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow)}
+.opt:hover::before{opacity:1}
+.opt:hover::after{left:140%}
+.opt.selected{
+  border-color:var(--gold);background:rgba(199,154,74,.1);
+  box-shadow:0 0 0 3px rgba(199,154,74,.1),var(--shadow-gold);
+  animation:selectPulse .55s var(--bouncy);
+}
+@keyframes selectPulse{0%{transform:scale(1)}50%{transform:scale(1.025)}100%{transform:scale(1)}}
+.opt.selected::before{opacity:1}
+.opt.selected .opt-check{opacity:1;transform:scale(1) rotate(0)}
+.opt-icon{
+  font-size:1.85rem;flex-shrink:0;
+  width:54px;height:54px;display:grid;place-items:center;
+  background:rgba(255,255,255,.04);border-radius:14px;
+  border:1px solid var(--line);transition:transform .4s var(--bouncy);
+}
+.opt:hover .opt-icon{transform:rotate(-5deg) scale(1.1)}
+.opt.selected .opt-icon{transform:rotate(0) scale(1.15);background:rgba(199,154,74,.12);border-color:var(--gold)}
+.opt-body{flex:1;min-width:0}
+.opt-title{font-weight:600;font-size:1.08rem;margin-bottom:4px;letter-spacing:-.01em}
+.opt-desc{color:var(--muted-2);font-size:.9rem;line-height:1.5}
+.opt-check{
+  width:26px;height:26px;border-radius:50%;background:var(--gold);color:#13253A;
+  display:grid;place-items:center;flex-shrink:0;font-weight:800;
+  opacity:0;transform:scale(.3) rotate(-20deg);
+  transition:all .4s var(--bouncy);box-shadow:0 0 18px rgba(199,154,74,.6);
+}
+.opt-xp-badge{
+  position:absolute;top:10px;right:10px;
+  font-size:.62rem;color:var(--gold);font-weight:800;
+  padding:3px 7px;border-radius:999px;background:rgba(199,154,74,.1);
+  letter-spacing:.1em;border:1px solid rgba(199,154,74,.2);
+}
+
+/* =============================================================
+   INTRO
+   ============================================================= */
+.intro-hero{text-align:center;padding:clamp(28px,7vw,64px) 0 30px;position:relative}
+
+.hero-orbit{
+  position:relative;width:120px;height:120px;margin:0 auto 26px;
+  display:grid;place-items:center;
+}
+.hero-orbit::before,.hero-orbit::after{
+  content:"";position:absolute;border-radius:50%;border:1px dashed rgba(199,154,74,.3);
+  animation:heroOrbit 24s linear infinite;
+}
+.hero-orbit::before{inset:0}
+.hero-orbit::after{inset:14px;border-color:rgba(199,154,74,.18);animation-duration:16s;animation-direction:reverse}
+@keyframes heroOrbit{to{transform:rotate(360deg)}}
+.hero-orb{
+  width:80px;height:80px;border-radius:50%;position:relative;z-index:2;
+  box-shadow:0 0 50px rgba(199,154,74,.6),0 12px 32px rgba(0,0,0,.4);
+  display:grid;place-items:center;
+  animation:heroBob 4s ease-in-out infinite;
+  overflow:hidden;
+}
+.hero-orb svg{width:100%;height:100%;display:block}
+.hero-orb .globe-grid{animation:globeSpin 14s linear infinite;transform-origin:40px 40px}
+@keyframes globeSpin{
+  0%{transform:translateX(0)}
+  50%{transform:translateX(-4px)}
+  100%{transform:translateX(0)}
+}
+.hero-orb .globe-land{animation:globeLand 14s linear infinite;transform-origin:40px 40px}
+@keyframes globeLand{
+  0%{transform:translateX(6px)}
+  50%{transform:translateX(-6px)}
+  100%{transform:translateX(6px)}
+}
+@keyframes heroBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.hero-dot{
+  position:absolute;width:10px;height:10px;border-radius:50%;
+  background:var(--gold-soft);box-shadow:0 0 12px var(--gold);z-index:3;
+}
+.hero-dot.d1{top:0;left:50%;animation:heroDot1 24s linear infinite}
+.hero-dot.d2{top:14px;right:14px;width:6px;height:6px;animation:heroDot2 16s linear infinite reverse}
+@keyframes heroDot1{
+  0%{transform:translate(-50%,-50%) rotate(0) translateX(60px) rotate(0)}
+  100%{transform:translate(-50%,-50%) rotate(360deg) translateX(60px) rotate(-360deg)}
+}
+@keyframes heroDot2{
+  0%{transform:translate(0,0) rotate(0) translateX(46px) rotate(0)}
+  100%{transform:translate(0,0) rotate(360deg) translateX(46px) rotate(-360deg)}
+}
+
+.intro-kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;
+  background:rgba(199,154,74,.08);border:1px solid var(--line-strong);
+  font-size:.76rem;color:var(--gold-soft);font-weight:600;
+  text-transform:uppercase;letter-spacing:.18em;margin-bottom:26px;
+}
+.intro-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.4rem,7.5vw,5rem);
+  font-weight:600;line-height:1.01;letter-spacing:-.03em;margin-bottom:22px;
+}
+.intro-title .accent{
+  background:linear-gradient(120deg,var(--gold-soft),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-style:italic;font-weight:500;
+}
+.intro-sub{color:var(--muted);font-size:clamp(1rem,1.7vw,1.2rem);max-width:560px;margin:0 auto 36px;line-height:1.55}
+.intro-cta{display:flex;flex-direction:column;align-items:center;gap:18px}
+.intro-meta{display:flex;gap:28px;color:var(--muted-2);font-size:.86rem;flex-wrap:wrap;justify-content:center}
+.intro-meta-item{display:flex;align-items:center;gap:6px}
+.intro-meta-item svg{width:14px;height:14px;color:var(--gold)}
+
+.live-stats{
+  display:flex;gap:14px;max-width:520px;margin:40px auto 0;
+  justify-content:center;flex-wrap:wrap;
+}
+.live-stat{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 18px;border-radius:16px;
+  background:var(--panel);border:1px solid var(--line);
+  backdrop-filter:blur(10px);min-width:150px;
+  transition:transform .3s var(--ease),border-color .3s var(--ease);
+}
+.live-stat:hover{transform:translateY(-3px);border-color:var(--line-strong)}
+.live-stat-num{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.5rem;
+  color:var(--gold-soft);letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+}
+.live-stat-label{color:var(--muted-2);font-size:.78rem;line-height:1.3;text-align:left}
+
+/* =============================================================
+   FORM
+   ============================================================= */
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.field label{font-size:.88rem;font-weight:500;color:var(--muted)}
+.input{
+  appearance:none;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:14px;padding:14px 16px;font-family:inherit;font-size:1rem;color:var(--text);
+  transition:border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+}
+.input:focus{outline:0;border-color:var(--gold);background:rgba(11,22,35,.92);box-shadow:0 0 0 4px rgba(199,154,74,.1)}
+.chk{display:flex;align-items:flex-start;gap:10px;margin:16px 0;cursor:pointer}
+.chk input{margin-top:3px;accent-color:var(--gold)}
+.chk span{font-size:.88rem;color:var(--muted);line-height:1.5}
+.chk a{color:var(--gold);text-decoration:underline}
+
+.gate-wrapper{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius-lg);padding:clamp(24px,4vw,40px);
+  backdrop-filter:blur(12px);box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.gate-wrapper::before{
+  content:"";position:absolute;top:-50%;right:-20%;width:400px;height:400px;
+  background:radial-gradient(circle,rgba(199,154,74,.15),transparent 60%);
+  pointer-events:none;filter:blur(40px);
+}
+.gate-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;border-radius:999px;
+  background:rgba(74,222,128,.08);border:1px solid rgba(74,222,128,.3);
+  color:var(--success);font-size:.78rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.14em;
+  margin-bottom:16px;position:relative;z-index:1;
+}
+.gate-badge::before{
+  content:"";width:6px;height:6px;border-radius:50%;background:var(--success);
+  box-shadow:0 0 10px var(--success);animation:livePulse 1.5s infinite;
+}
+
+/* =============================================================
+   LOADING
+   ============================================================= */
+.loading-core{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:clamp(48px,10vw,120px) 20px;text-align:center;min-height:60vh;
+}
+.loading-orb{width:120px;height:120px;margin-bottom:36px;position:relative}
+.loading-orb::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,var(--gold),var(--gold-soft),var(--gold));
+  animation:orbSpin 2s linear infinite;
+  mask:radial-gradient(circle,transparent 42px,#000 44px);
+  -webkit-mask:radial-gradient(circle,transparent 42px,#000 44px);
+}
+.loading-orb::after{
+  content:"";position:absolute;inset:20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(199,154,74,.3),transparent 65%);
+  animation:orbPulse 2.5s ease-in-out infinite;
+}
+@keyframes orbSpin{to{transform:rotate(360deg)}}
+@keyframes orbPulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.05)}}
+.loading-title{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.6vw,2.3rem);
+  font-weight:600;margin-bottom:10px;letter-spacing:-.02em;
+}
+.loading-messages{height:28px;position:relative;width:100%;max-width:440px;color:var(--muted);font-size:1rem}
+.loading-msg{position:absolute;inset:0;text-align:center;opacity:0;transform:translateY(10px);transition:all .5s var(--ease)}
+.loading-msg.show{opacity:1;transform:translateY(0)}
+.loading-hint{margin-top:36px;padding:14px 20px;border-radius:16px;background:var(--panel);border:1px solid var(--line);color:var(--muted-2);font-size:.88rem}
+.loading-meter{
+  width:100%;max-width:320px;height:4px;margin-top:24px;
+  background:rgba(255,255,255,.05);border-radius:999px;overflow:hidden;
+}
+.loading-meter-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  box-shadow:0 0 14px rgba(199,154,74,.6);
+  width:0%;transition:width .6s var(--ease);
+}
+
+/* =============================================================
+   RESULT · SCORE COMPASS
+   ============================================================= */
+.score-hero{
+  text-align:center;margin-bottom:40px;padding:28px 24px 20px;position:relative;
+  background:radial-gradient(ellipse at center,rgba(199,154,74,.18),transparent 70%);
+  border-radius:var(--radius-lg);
+}
+.compass{
+  position:relative;width:240px;height:240px;margin:0 auto 14px;
+}
+.compass svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+.compass-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.compass-center .score-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,8vw,4.6rem);font-weight:600;line-height:1;
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  letter-spacing:-.04em;font-variant-numeric:tabular-nums;
+  animation:scorePop 1.2s var(--bouncy) both;
+  text-shadow:0 0 60px rgba(199,154,74,.2);
+}
+.compass-center .score-label{color:var(--muted-2);font-size:.72rem;text-transform:uppercase;letter-spacing:.2em;font-weight:600;margin-top:2px}
+@keyframes scorePop{
+  0%{opacity:0;transform:scale(.3) rotate(-8deg)}
+  55%{opacity:1;transform:scale(1.15) rotate(2deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+.compass-track{
+  fill:none;stroke:rgba(255,255,255,.06);stroke-width:10;
+}
+.compass-fill{
+  fill:none;stroke:url(#gradGold);stroke-width:10;stroke-linecap:round;
+  stroke-dasharray:628;stroke-dashoffset:628;
+  transition:stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1);
+  filter:drop-shadow(0 0 8px rgba(199,154,74,.5));
+}
+.compass-ticks{stroke:rgba(255,255,255,.12);stroke-width:1}
+.compass-star{
+  position:absolute;color:var(--gold);
+  filter:drop-shadow(0 0 8px rgba(199,154,74,.6));
+  animation:compassStar 6s linear infinite;
+}
+@keyframes compassStar{
+  0%{transform:rotate(0deg) translateX(105px) rotate(0deg)}
+  100%{transform:rotate(360deg) translateX(105px) rotate(-360deg)}
+}
+.result-lead{color:var(--muted);font-size:1.02rem;max-width:560px;margin:10px auto 0;line-height:1.65}
+.result-lead strong{color:var(--text);font-weight:600}
+
+/* =============================================================
+   PATH CARDS
+   ============================================================= */
+.path-card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius-lg);padding:28px;margin-bottom:16px;
+  transition:all .3s var(--ease);position:relative;overflow:hidden;
+  opacity:0;transform:translateY(24px) scale(.97);
+  animation:cardIn .7s var(--bouncy) forwards;
+}
+@keyframes cardIn{to{opacity:1;transform:translateY(0) scale(1)}}
+.path-card.primary{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,rgba(199,154,74,.14),var(--panel) 55%);
+  box-shadow:var(--shadow-gold);
+}
+.path-card.primary::before{
+  content:"";position:absolute;top:-50%;right:-20%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(199,154,74,.2),transparent 60%);
+  filter:blur(36px);pointer-events:none;
+}
+.path-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap;position:relative}
+.path-title-wrap{flex:1;min-width:240px}
+.path-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:600;margin-bottom:6px}
+.path-subtitle{color:var(--muted-2);font-size:.84rem;text-transform:uppercase;letter-spacing:.14em;font-weight:600}
+.rarity{
+  padding:4px 12px;border-radius:999px;font-size:.7rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:.16em;display:inline-block;
+}
+.rarity-common{background:rgba(148,163,184,.14);color:var(--common);border:1px solid rgba(148,163,184,.3)}
+.rarity-rare{background:rgba(96,165,250,.14);color:var(--rare);border:1px solid rgba(96,165,250,.3)}
+.rarity-epic{background:rgba(192,132,252,.14);color:var(--epic);border:1px solid rgba(192,132,252,.3)}
+.rarity-legendary{
+  background:linear-gradient(135deg,rgba(199,154,74,.2),rgba(242,212,155,.25));
+  color:var(--legendary);border:1px solid var(--gold);
+  box-shadow:0 0 20px rgba(199,154,74,.35);
+  animation:legendaryPulse 2.4s ease-in-out infinite;
+}
+@keyframes legendaryPulse{0%,100%{box-shadow:0 0 18px rgba(199,154,74,.3)}50%{box-shadow:0 0 28px rgba(199,154,74,.55)}}
+.match-badge{
+  padding:8px 14px;border-radius:999px;font-weight:700;font-size:.86rem;white-space:nowrap;
+  background:rgba(199,154,74,.12);border:1px solid var(--line-strong);color:var(--gold-soft);
+}
+.path-card.primary .match-badge{background:var(--gold);color:#13253A;border-color:var(--gold);box-shadow:0 0 18px rgba(199,154,74,.4)}
+.path-description{color:var(--muted);font-size:.96rem;line-height:1.6;margin-bottom:18px;position:relative}
+.path-stats{
+  display:grid;gap:12px;grid-template-columns:repeat(3,1fr);
+  padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px;position:relative;
+}
+@media(max-width:520px){.path-stats{grid-template-columns:1fr 1fr;gap:10px}}
+.stat{display:flex;flex-direction:column;gap:3px}
+.stat-label{color:var(--muted-2);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;font-weight:600}
+.stat-value{font-weight:600;font-size:.98rem;letter-spacing:-.01em}
+.path-why{
+  padding:14px 16px;border-radius:14px;position:relative;
+  background:rgba(74,222,128,.05);border:1px solid rgba(74,222,128,.16);
+  font-size:.92rem;color:var(--muted);line-height:1.6;
+}
+.path-why strong{color:var(--success);font-weight:700}
+
+.steps-block{
+  margin-top:28px;padding:26px;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);position:relative;overflow:hidden;
+  opacity:0;animation:cardIn .7s var(--bouncy) .6s forwards;
+}
+.steps-block h3{margin-bottom:18px;font-size:1.3rem}
+.step-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.step-item:last-child{border-bottom:0;padding-bottom:0}
+.step-num{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(199,154,74,.12);border:1px solid var(--line-strong);
+  display:grid;place-items:center;flex-shrink:0;
+  color:var(--gold);font-weight:700;font-size:.92rem;
+  font-family:'Cormorant Garamond',serif;
+}
+.step-text{color:var(--muted);font-size:.96rem;line-height:1.55}
+.step-text strong{color:var(--text);font-weight:600}
+
+.final-cta{
+  margin-top:28px;padding:32px;
+  background:linear-gradient(135deg,rgba(37,211,102,.12),rgba(37,211,102,.02));
+  border:1px solid rgba(37,211,102,.22);
+  border-radius:var(--radius-lg);text-align:center;position:relative;overflow:hidden;
+  opacity:0;animation:cardIn .7s var(--bouncy) .8s forwards;
+}
+.final-cta::before{
+  content:"";position:absolute;top:-30%;right:-10%;width:300px;height:300px;
+  background:radial-gradient(circle,rgba(37,211,102,.12),transparent 60%);filter:blur(30px);
+}
+.final-cta h3{margin-bottom:10px;font-size:1.55rem}
+.final-cta p{color:var(--muted);margin-bottom:22px;max-width:440px;margin-left:auto;margin-right:auto}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+
+.disclaimer{
+  margin-top:24px;padding:16px;border-radius:14px;
+  background:rgba(255,255,255,.02);border:1px solid var(--line);
+  color:var(--muted-2);font-size:.78rem;line-height:1.55;
+}
+
+.question-scale{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.scale-btn{
+  padding:18px 10px;border-radius:16px;
+  background:var(--panel);border:1px solid var(--line);
+  text-align:center;transition:all .25s var(--ease);
+  cursor:pointer;color:var(--text);position:relative;
+}
+.scale-btn::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(135deg,rgba(199,154,74,.12),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.scale-btn:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+.scale-btn.selected{background:rgba(199,154,74,.12);border-color:var(--gold);color:var(--gold-soft);animation:selectPulse .55s var(--bouncy)}
+.scale-btn.selected::after{opacity:1}
+.scale-btn div{font-weight:700;font-size:1.02rem;position:relative}
+
+/* =============================================================
+   ACHIEVEMENT TOAST · XP FLOATER · BURST · STAMP · LEVEL UP
+   ============================================================= */
+.achievement{
+  position:fixed;top:86px;right:-420px;z-index:50;max-width:360px;padding:16px 20px;
+  background:linear-gradient(135deg,rgba(11,22,35,.96),rgba(7,14,24,.96));
+  border:1px solid var(--gold);border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5), 0 0 40px rgba(199,154,74,.3);
+  backdrop-filter:blur(20px);transition:right .55s var(--bouncy);
+  display:flex;align-items:center;gap:14px;
+}
+.achievement.show{right:20px}
+@media(max-width:520px){.achievement{right:-100%;left:10px;max-width:calc(100vw - 20px)}.achievement.show{right:auto;left:10px}}
+.achievement-icon{
+  font-size:1.8rem;flex-shrink:0;
+  width:48px;height:48px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+  border-radius:12px;color:#13253A;
+  animation:achievementBounce .6s var(--bouncy);
+  box-shadow:0 0 20px rgba(199,154,74,.5);
+}
+@keyframes achievementBounce{0%{transform:scale(0) rotate(-20deg)}70%{transform:scale(1.15) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
+.achievement-label{color:var(--gold);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em;margin-bottom:2px}
+.achievement-title{font-weight:600;font-size:1rem;color:var(--text)}
+
+.xp-float{
+  position:fixed;pointer-events:none;z-index:40;
+  color:var(--gold-soft);font-weight:800;font-size:1.3rem;
+  animation:xpFloat 1.3s ease-out forwards;
+  text-shadow:0 2px 12px rgba(199,154,74,.8);
+}
+@keyframes xpFloat{
+  0%{opacity:0;transform:translateY(0) scale(.6)}
+  20%{opacity:1;transform:translateY(-15px) scale(1.15)}
+  100%{opacity:0;transform:translateY(-80px) scale(1)}
+}
+
+.xp-burst{
+  position:fixed;pointer-events:none;z-index:39;
+}
+.xp-spark{
+  position:absolute;width:6px;height:6px;border-radius:50%;
+  background:var(--gold-soft);
+  box-shadow:0 0 8px var(--gold),0 0 14px rgba(199,154,74,.6);
+  animation:sparkBurst .8s ease-out forwards;
+}
+@keyframes sparkBurst{
+  0%{opacity:1;transform:translate(0,0) scale(1)}
+  100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}
+}
+
+/* PASSPORT STAMP */
+.stamp-overlay{
+  position:fixed;inset:0;z-index:45;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,rgba(5,13,22,.7),transparent 60%);
+  opacity:0;transition:opacity .3s var(--ease);
+}
+.stamp-overlay.active{opacity:1}
+.stamp{
+  padding:40px 60px;border:6px solid currentColor;border-radius:20px;
+  font-family:'Cormorant Garamond',serif;text-align:center;
+  transform:scale(0) rotate(-30deg);
+  animation:stampHit .8s var(--bouncy) forwards;
+  color:#F2D49B;
+  box-shadow:0 0 60px rgba(199,154,74,.5),inset 0 0 40px rgba(199,154,74,.2);
+  position:relative;
+}
+.stamp::before,.stamp::after{
+  content:"";position:absolute;width:100%;height:4px;background:currentColor;left:0;opacity:.3;
+}
+.stamp::before{top:-16px}
+.stamp::after{bottom:-16px}
+@keyframes stampHit{
+  0%{transform:scale(3) rotate(-45deg);opacity:0}
+  50%{transform:scale(1.15) rotate(-8deg);opacity:1}
+  80%{transform:scale(.9) rotate(-4deg)}
+  100%{transform:scale(1) rotate(-4deg);opacity:1}
+}
+.stamp-flag{font-size:3.5rem;line-height:1;margin-bottom:8px;display:flex;justify-content:center}
+.stamp-flag .fi{width:80px;height:80px;font-size:0}
+
+/* Refined flag icons (replaces emoji flags) */
+.fi{display:inline-block;width:1.15em;height:1.15em;border-radius:50%;vertical-align:-.22em;border:1px solid rgba(255,255,255,.18);box-shadow:0 1px 4px rgba(0,0,0,.45);position:relative;overflow:hidden;background:#0a1624}
+.fi::before{content:"";position:absolute;inset:0;border-radius:50%;background-size:cover;background-position:center}
+.fi::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 58%);pointer-events:none}
+.flag-pt::before{background:linear-gradient(90deg,#046A38 0 40%,#DA291C 40%)}
+.flag-ie::before{background:linear-gradient(90deg,#169B62 0 33.34%,#fff 33.34% 66.67%,#FF883E 66.67%)}
+.flag-us::before{background:repeating-linear-gradient(180deg,#B22234 0 7.7%,#fff 7.7% 15.4%);background-color:#B22234}
+.flag-us::after{background:linear-gradient(180deg,#3C3B6E 0 53.85%,transparent 53.85%) left top/42% 53.85% no-repeat,radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 58%)}
+.flag-fr::before{background:linear-gradient(90deg,#0055A4 0 33.34%,#fff 33.34% 66.67%,#EF4135 66.67%)}
+.flag-es::before{background:linear-gradient(180deg,#AA151B 0 25%,#F1BF00 25% 75%,#AA151B 75%)}
+.flag-gb::before{background:#012169;background-image:linear-gradient(135deg,transparent 47%,#fff 47% 53%,transparent 53%),linear-gradient(45deg,transparent 47%,#fff 47% 53%,transparent 53%),linear-gradient(0deg,transparent 47%,#C8102E 47% 53%,transparent 53%),linear-gradient(90deg,transparent 47%,#C8102E 47% 53%,transparent 53%)}
+.flag-ca::before{background:linear-gradient(90deg,#D52B1E 0 25%,#fff 25% 75%,#D52B1E 75%)}
+.flag-globe-mini{background:radial-gradient(circle at 30% 30%, rgba(242,212,155,.18), #1a2638 70%)}
+.flag-globe-mini::before{background-image:radial-gradient(circle at center, transparent 30%, rgba(242,212,155,.55) 30% 32%, transparent 32%),linear-gradient(90deg,transparent 49%,rgba(242,212,155,.55) 49% 51%, transparent 51%);background-size:cover}
+.opt-icon .fi{width:34px;height:34px;font-size:0}
+.opt-icon{padding:0}
+.stamp-label{font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:.78rem;letter-spacing:.32em;margin-bottom:6px;opacity:.8;font-weight:700}
+.stamp-name{font-size:2.4rem;font-weight:600;letter-spacing:-.02em;line-height:1}
+.stamp-sub{font-size:.9rem;color:rgba(242,212,155,.7);margin-top:8px;letter-spacing:.1em;text-transform:uppercase;font-family:'Outfit',sans-serif;font-weight:600}
+
+/* LEVEL UP */
+.level-up{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:55;
+  padding:36px 48px;border-radius:28px;
+  background:linear-gradient(135deg,rgba(11,22,35,.98),rgba(7,14,24,.98));
+  border:2px solid var(--gold);
+  box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 80px rgba(199,154,74,.5);
+  backdrop-filter:blur(20px);text-align:center;
+  transition:transform .7s var(--bouncy),opacity .4s;
+  opacity:0;pointer-events:none;
+}
+.level-up.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+.level-up-title{
+  font-size:.76rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold);font-weight:700;margin-bottom:10px;
+}
+.level-up-rank{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.2rem);
+  font-weight:600;letter-spacing:-.02em;
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:10px;
+}
+.level-up-rank-icon{font-size:1.2em;filter:drop-shadow(0 0 20px rgba(199,154,74,.8))}
+.level-up-desc{color:var(--muted);font-size:.98rem;max-width:340px;margin:0 auto}
+
+/* MILESTONE CELEBRATE */
+.milestone{
+  position:fixed;top:86px;left:50%;transform:translate(-50%,-120%);z-index:51;
+  padding:10px 18px;border-radius:999px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-soft));
+  color:#13253A;font-weight:800;font-size:.88rem;
+  box-shadow:0 16px 50px rgba(199,154,74,.6);
+  transition:transform .5s var(--bouncy);
+  display:flex;align-items:center;gap:8px;white-space:nowrap;
+}
+.milestone.show{transform:translate(-50%,0)}
+
+/* CONFETTI */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}
+.confetti-piece{
+  position:absolute;width:10px;height:16px;top:-30px;border-radius:2px;
+  animation:confettiFall linear forwards;will-change:transform,opacity;
+}
+@keyframes confettiFall{
+  0%{transform:translate3d(0,0,0) rotate(0deg);opacity:1}
+  100%{transform:translate3d(var(--x,0),115vh,0) rotate(var(--r,720deg));opacity:0}
+}
+
+.hint{
+  display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;
+  background:rgba(199,154,74,.05);border:1px solid rgba(199,154,74,.14);
+  margin-top:14px;color:var(--muted);font-size:.86rem;line-height:1.5;
+}
+.hint svg{flex-shrink:0;color:var(--gold);width:16px;height:16px;margin-top:2px}
+
+/* =============================================================
+   POLISH LAYER v2
+   ============================================================= */
+
+/* 3D tilt container */
+.opt{transform-style:preserve-3d;transition:transform .25s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease)}
+.opt:hover{transform:translateY(-3px) perspective(800px) rotateX(var(--ty,0deg)) rotateY(var(--tx,0deg))}
+.opt .opt-icon,.opt .opt-body,.opt .opt-check{transform:translateZ(8px)}
+
+/* Primary CTA breathing when idle */
+.btn-primary.btn-xl{animation:ctaBreath 3.2s ease-in-out infinite}
+.btn-primary.btn-xl:hover{animation:none}
+@keyframes ctaBreath{
+  0%,100%{box-shadow:0 14px 28px rgba(199,154,74,.24)}
+  50%{box-shadow:0 18px 40px rgba(199,154,74,.45),0 0 0 6px rgba(199,154,74,.08)}
+}
+
+/* Legendary shimmer */
+.rarity-legendary{position:relative;overflow:hidden}
+.rarity-legendary::before{
+  content:"";position:absolute;top:0;left:-120%;width:80%;height:100%;
+  background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.6) 50%,transparent 80%);
+  animation:legendaryShimmer 3s ease-in-out infinite;
+}
+@keyframes legendaryShimmer{
+  0%,60%{left:-120%}
+  100%{left:160%}
+}
+.path-card.primary{position:relative}
+.path-card.primary::after{
+  content:"";position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.06) 50%,transparent 70%);
+  pointer-events:none;
+  animation:cardShimmer 5s ease-in-out 2s infinite;
+}
+@keyframes cardShimmer{
+  0%,80%{left:-100%}
+  100%{left:200%}
+}
+
+/* Staggered intro entrance */
+.intro-hero > *{opacity:0;transform:translateY(18px);animation:introFadeUp .9s var(--bouncy) forwards}
+.intro-hero > .hero-orbit{animation-delay:.05s}
+.intro-hero > .intro-kicker{animation-delay:.25s}
+.intro-hero > .intro-title{animation-delay:.4s}
+.intro-hero > .intro-sub{animation-delay:.55s}
+.intro-hero > .intro-cta{animation-delay:.7s}
+.intro-hero > .live-stats{animation-delay:.85s}
+@keyframes introFadeUp{to{opacity:1;transform:translateY(0)}}
+
+/* Stat hover glow in result */
+.path-stats .stat{padding:6px 10px;border-radius:10px;transition:background .3s var(--ease)}
+.path-stats .stat:hover{background:rgba(199,154,74,.06)}
+
+/* Input focus gold underline */
+.input{position:relative}
+.field{position:relative}
+.field::after{
+  content:"";position:absolute;left:16px;right:16px;bottom:0;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-soft));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease);
+  border-radius:999px;pointer-events:none;opacity:0;
+}
+.field:focus-within::after{transform:scaleX(1);opacity:1}
+
+/* Phase number flowing gradient */
+@keyframes phaseNumFlow{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+.phase-num{
+  background:linear-gradient(120deg,var(--gold) 0%,var(--gold-soft) 50%,var(--gold) 100%);
+  background-size:200% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:phaseNumFlow 4s linear infinite;
+}
+
+/* Multi-layer depth on elevated panels */
+.path-card.primary{
+  box-shadow:
+    0 1px 0 rgba(199,154,74,.4) inset,
+    0 20px 40px rgba(199,154,74,.12),
+    0 8px 20px rgba(0,0,0,.3);
+}
+.gate-wrapper{
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.04) inset,
+    0 24px 50px rgba(0,0,0,.3),
+    0 8px 24px rgba(0,0,0,.2);
+}
+
+/* Rank progress pulse on increase */
+.rank-progress-fill{position:relative;overflow:hidden}
+.rank-progress-fill::after{
+  content:"";position:absolute;top:0;left:-40%;width:40%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);
+  animation:progressSheen 3s ease-in-out infinite;
+}
+@keyframes progressSheen{
+  0%,60%{left:-40%}
+  100%{left:110%}
+}
+
+/* Compass labels */
+.compass-labels{
+  position:absolute;inset:0;pointer-events:none;
+  font-family:'Cormorant Garamond',serif;font-size:.78rem;color:var(--muted-2);
+  letter-spacing:.2em;font-weight:600;text-transform:uppercase;
+}
+.compass-labels span{position:absolute;left:50%;top:50%;transform-origin:center}
+.compass-labels .n{transform:translate(-50%,-125px)}
+.compass-labels .s{transform:translate(-50%,110px)}
+.compass-labels .l{transform:translate(112px,-50%)}
+.compass-labels .o{transform:translate(-132px,-50%)}
+
+/* Smooth screen transition with blur */
+.screen{filter:blur(0)}
+.screen.leaving{animation:screenOut .35s ease forwards}
+@keyframes screenOut{
+  to{opacity:0;transform:translateY(-12px) scale(.99);filter:blur(4px)}
+}
+
+/* Subtle touch feedback */
+@media (hover:none){
+  .opt:active{transform:scale(.98)}
+  .btn:active{transform:scale(.97)}
+}
+
+/* Quest tracker mobile tweak: smaller and more discrete */
+@media(max-width:640px){
+  .quest-tracker{padding:10px 14px}
+  .quest-text{font-size:.78rem}
+  .quest-label{display:none}
+  .quest-icon{width:30px;height:30px;font-size:1rem}
+}
+
+/* Legendary rank icon aura — stronger */
+.rank-badge.promoted .rank-icon-wrap::before{animation-duration:2s;opacity:1}
+
+/* Mesh reactive — slight warm shift when rank is high */
+body[data-rank="3"] .mesh-bg,body[data-rank="4"] .mesh-bg{filter:hue-rotate(-5deg) saturate(1.25) brightness(1.05)}
+
+/* Options glow pulse on first visit to screen */
+.screen.active .options .opt{animation:optEnter .6s var(--bouncy) backwards}
+.screen.active .options .opt:nth-child(1){animation-delay:.05s}
+.screen.active .options .opt:nth-child(2){animation-delay:.12s}
+.screen.active .options .opt:nth-child(3){animation-delay:.19s}
+.screen.active .options .opt:nth-child(4){animation-delay:.26s}
+.screen.active .options .opt:nth-child(5){animation-delay:.33s}
+.screen.active .options .opt:nth-child(6){animation-delay:.4s}
+@keyframes optEnter{
+  from{opacity:0;transform:translateX(-12px)}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* Extra gloss on xp badge */
+.xp-badge::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.15),transparent 50%);
+}
+.xp-badge{position:relative;overflow:hidden}
+
+/* Check-mark bloom */
+.opt-check{box-shadow:0 0 0 0 rgba(199,154,74,.5)}
+.opt.selected .opt-check{animation:checkBloom .8s ease-out}
+@keyframes checkBloom{
+  0%{box-shadow:0 0 0 0 rgba(199,154,74,.7)}
+  100%{box-shadow:0 0 0 18px rgba(199,154,74,0)}
+}
+
+/* Smooth scroll for compass center */
+.compass-center{user-select:none}
+
+/* =============================================================
+   SVG ICON SIZING (for intents, ranks, achievements, quests)
+   ============================================================= */
+.opt-icon{color:var(--gold-soft)}
+.opt-icon svg{width:28px;height:28px;display:block;stroke-width:1.7}
+.opt.selected .opt-icon{color:var(--gold)}
+.rank-icon{display:grid;place-items:center}
+.rank-icon svg{width:16px;height:16px;display:block;stroke:var(--gold-soft)}
+.achievement-icon svg{width:24px;height:24px;display:block}
+.level-up-rank-icon{display:inline-grid;place-items:center;width:1.2em;height:1.2em}
+.level-up-rank-icon svg{width:100%;height:100%;display:block;stroke:currentColor}
+.quest-icon{color:var(--gold)}
+.quest-icon svg{width:20px;height:20px;display:block}
+
+/* =============================================================
+   PDF COVER (hidden on screen, visible on print)
+   ============================================================= */
+.pdf-doc{display:none}
+
+/* =============================================================
+   PRINT STYLES — PDF DELIVERABLE LAYOUT (clean, reliable A4)
+   ============================================================= */
+@media print{
+  @page{size:A4;margin:0}
+  @page :first{margin:0}
+  *{animation:none !important;transition:none !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;mix-blend-mode:normal !important}
+  html,body{background:#ffffff !important;color:#0f1b2d !important;font-family:'Outfit',sans-serif !important;min-height:auto;margin:0 !important;padding:0 !important}
+  .mesh-bg,.particles,.topbar,.progress-wrap,.nav-row,.final-cta,.disclaimer,.achievement,.streak-bar,.stamp-overlay,.level-up,.milestone,.quest-tracker,.xp-float,.xp-burst,.confetti-wrap,.sound-toggle{display:none !important}
+  .shell{display:none !important}
+  main{display:none !important}
+
+  .pdf-doc{display:block !important;color:#0f1b2d}
+
+  /* COVER — full A4 page, no cropping */
+  .pdf-cover{
+    page-break-after:always;box-sizing:border-box;
+    width:210mm;height:297mm;
+    padding:20mm 18mm;
+    background:#050d16;
+    color:#F8FBFF;
+    display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+  }
+  .pdf-cover-accent{
+    position:absolute;top:-40mm;right:-40mm;width:120mm;height:120mm;border-radius:50%;
+    background:radial-gradient(circle,rgba(199,154,74,.4),transparent 70%);
+    pointer-events:none;
+  }
+  .pdf-brand{display:flex;align-items:center;gap:4mm;font-family:'Cormorant Garamond',serif;margin-bottom:auto;position:relative;z-index:2}
+  .pdf-brand-logo{height:16mm;width:auto;filter:none}
+  .pdf-cover-body{position:relative;z-index:2;margin-top:auto;margin-bottom:10mm}
+  .pdf-eyebrow{text-transform:uppercase;letter-spacing:.3em;font-size:9pt;color:#C79A4A;font-weight:700;margin-bottom:6mm}
+  .pdf-cover-title{font-family:'Cormorant Garamond',serif;font-size:42pt;font-weight:600;line-height:1;letter-spacing:-.02em;margin:0 0 6mm;color:#F8FBFF}
+  .pdf-cover-title em{font-style:italic;color:#F2D49B;font-weight:500}
+  .pdf-for{font-size:13pt;color:rgba(248,251,255,.82);margin:0;max-width:150mm}
+  .pdf-for b{color:#F8FBFF;font-weight:600}
+  .pdf-snapshot{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin-top:10mm;position:relative;z-index:2}
+  .pdf-snap{background:rgba(255,255,255,.06);border:.5pt solid rgba(199,154,74,.4);padding:7mm 6mm;border-radius:4mm}
+  .pdf-snap-label{font-size:7pt;text-transform:uppercase;letter-spacing:.2em;color:#C79A4A;font-weight:700;margin-bottom:2mm}
+  .pdf-snap-value{font-family:'Cormorant Garamond',serif;font-size:16pt;font-weight:600;color:#F8FBFF;line-height:1.1}
+  .pdf-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-top:8mm;padding-top:4mm;border-top:.5pt solid rgba(199,154,74,.3);position:relative;z-index:2;font-size:8pt;color:rgba(248,251,255,.6)}
+  .pdf-meta b{color:#C79A4A;font-weight:600}
+
+  /* PAGES 2+ — standard A4 with content padding */
+  .pdf-body{box-sizing:border-box;padding:18mm 18mm 12mm;background:#ffffff;width:210mm}
+
+  .pdf-section{page-break-inside:avoid;margin-bottom:10mm}
+  .pdf-section-head{display:flex;align-items:baseline;gap:5mm;margin-bottom:4mm;padding-bottom:2.5mm;border-bottom:1.5pt solid #C79A4A}
+  .pdf-section-num{font-family:'Cormorant Garamond',serif;font-size:24pt;font-weight:600;color:#C79A4A;line-height:1}
+  .pdf-section-title{font-family:'Cormorant Garamond',serif;font-size:18pt;font-weight:600;color:#0f1b2d;letter-spacing:-.01em;flex:1;margin:0}
+
+  .pdf-summary{font-size:10.5pt;color:#374151;line-height:1.65;margin:0}
+  .pdf-summary b{color:#0f1b2d;font-weight:600}
+
+  .pdf-path{page-break-inside:avoid;border:.8pt solid #E5E9EF;border-radius:3mm;padding:6mm;margin-bottom:4mm;background:#ffffff}
+  .pdf-path.primary{border-color:#C79A4A;background:#FEFAF2;border-width:1.2pt}
+  .pdf-path-head{display:flex;justify-content:space-between;align-items:flex-start;gap:4mm;margin-bottom:3mm}
+  .pdf-path-title{font-family:'Cormorant Garamond',serif;font-size:14pt;font-weight:600;color:#0f1b2d;margin:1mm 0 0;line-height:1.2}
+  .pdf-path-sub{font-size:7.5pt;text-transform:uppercase;letter-spacing:.18em;color:#6B7280;font-weight:700;margin:0}
+  .pdf-path-tags{display:flex;flex-direction:column;gap:1.5mm;align-items:flex-end}
+  .pdf-path-match{padding:1mm 3mm;border-radius:999px;background:#C79A4A;color:#13253A;font-weight:700;font-size:8.5pt;white-space:nowrap}
+  .pdf-path-rarity{padding:.7mm 2.5mm;border-radius:999px;font-size:6.5pt;text-transform:uppercase;letter-spacing:.12em;font-weight:800;display:inline-block}
+  .pdf-path-rarity.common{background:#F3F4F6;color:#6B7280}
+  .pdf-path-rarity.rare{background:#DBEAFE;color:#2563EB}
+  .pdf-path-rarity.epic{background:#EDE9FE;color:#7C3AED}
+  .pdf-path-rarity.legendary{background:#FEF3C7;color:#92400E;border:.5pt solid #C79A4A}
+  .pdf-path-desc{font-size:9.5pt;color:#374151;line-height:1.55;margin:2mm 0 3mm}
+  .pdf-path-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm;padding:3mm 0;border-top:.5pt solid #E5E9EF;border-bottom:.5pt solid #E5E9EF;margin-bottom:3mm}
+  .pdf-stat-label{font-size:6.5pt;text-transform:uppercase;letter-spacing:.14em;color:#9CA3AF;font-weight:700;margin-bottom:.8mm}
+  .pdf-stat-value{font-size:9.5pt;font-weight:600;color:#0f1b2d}
+  .pdf-path-why{padding:2.5mm 3mm;background:#F0FDF4;border-left:2pt solid #10B981;font-size:8.5pt;color:#065F46;line-height:1.55;border-radius:0 2mm 2mm 0}
+  .pdf-path-why b{color:#047857;font-weight:700}
+
+  .pdf-steps{background:#F9FAFB;border:.5pt solid #E5E9EF;border-radius:3mm;padding:6mm;page-break-inside:avoid}
+  .pdf-steps h3{font-family:'Cormorant Garamond',serif;font-size:13pt;font-weight:600;color:#0f1b2d;margin:0 0 3mm}
+  .pdf-step-item{display:flex;gap:3mm;padding:2.5mm 0;border-bottom:.5pt solid #E5E9EF;font-size:9.5pt;color:#374151;line-height:1.55}
+  .pdf-step-item:last-child{border-bottom:0;padding-bottom:0}
+  .pdf-step-n{width:6mm;height:6mm;min-width:6mm;border-radius:50%;background:#FEF3C7;border:.8pt solid #C79A4A;display:grid;place-items:center;color:#8A6A2E;font-weight:700;font-size:8.5pt;flex-shrink:0;font-family:'Cormorant Garamond',serif}
+  .pdf-step-item b{color:#0f1b2d;font-weight:600}
+
+  .pdf-contact{
+    margin-top:6mm;padding:7mm;
+    background:#0f1b2d;color:#F8FBFF;
+    border-radius:3mm;text-align:center;page-break-inside:avoid;
+  }
+  .pdf-contact h3{font-family:'Cormorant Garamond',serif;font-size:15pt;font-weight:600;margin:0 0 2mm;color:#F8FBFF}
+  .pdf-contact p{font-size:9.5pt;color:rgba(248,251,255,.82);margin:0 auto 4mm;max-width:130mm;line-height:1.5}
+  .pdf-contact-tag{display:inline-block;padding:2mm 6mm;background:#25D366;color:#063D1F;border-radius:999px;font-weight:700;font-size:9.5pt}
+  .pdf-contact-url{font-size:8.5pt;color:#C79A4A;margin-top:3mm}
+
+  .pdf-disc{font-size:7.5pt;color:#6B7280;margin-top:5mm;line-height:1.55;padding:3mm;background:#F9FAFB;border-radius:2mm;border-left:2pt solid #FBBF24}
+  .pdf-disc b{color:#78350F;font-weight:700}
+  .pdf-footer{margin-top:5mm;padding-top:2mm;border-top:.5pt solid #E5E9EF;font-size:7pt;color:#9CA3AF;display:flex;justify-content:space-between}
+  .pdf-footer b{color:#C79A4A;font-weight:600}
 }
 </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="container nav-shell">
-    <a class="brand" href="index.html"><img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios"></a>
-    <nav class="nav-links">
-      <a href="index.html#servicos">Serviços</a>
-      <a href="index.html#destinos">Destinos</a>
-      <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
-      <a href="nossos-cursos.html">Nossos cursos</a>
-      <a class="active" href="simulador.html">Simulador</a>
-      <a href="index.html#contato">Contato</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="btn btn-primary" href="https://wa.me/351910346159?text=Olá,%20quero%20falar%20com%20a%20Global%20Travel." target="_blank" rel="noopener">WhatsApp</a>
-      <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
-    </div>
+<div class="mesh-bg"></div>
+<div class="particles" id="particles"></div>
+
+<div class="achievement" id="achievement">
+  <div class="achievement-icon" id="ach-icon"></div>
+  <div>
+    <div class="achievement-label">Conquista desbloqueada</div>
+    <div class="achievement-title" id="ach-title">—</div>
   </div>
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="index.html#servicos">Serviços</a>
-    <a href="index.html#destinos">Destinos</a>
-    <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
-    <a href="nossos-cursos.html">Nossos cursos</a>
-    <a href="simulador.html">Simulador</a>
-    <a href="index.html#contato">Contato</a>
+</div>
+
+<div class="streak-bar" id="streak-bar">
+  <span class="streak-fire"><svg viewBox="0 0 24 24" fill="#F2D49B" style="width:1em;height:1em;vertical-align:-.18em"><path d="M12 2c0 5-3 6-3 10a3 3 0 0 0 6 0c0-2-1-3-1-5 3 1 5 4 5 8a7 7 0 0 1-14 0c0-5 4-7 7-13z"/></svg></span>
+  <span id="streak-text">Streak x2!</span>
+</div>
+
+<div class="milestone" id="milestone">
+  <span>⭐</span>
+  <span id="milestone-text">Milestone 100 XP!</span>
+</div>
+
+<div class="stamp-overlay" id="stamp-overlay">
+  <div class="stamp" id="stamp">
+    <div class="stamp-flag" id="stamp-flag"><span class="fi flag-pt"></span></div>
+    <div class="stamp-label">Destino confirmado</div>
+    <div class="stamp-name" id="stamp-name">Portugal</div>
+    <div class="stamp-sub" id="stamp-sub">APROVADO · FASE 02</div>
   </div>
-</header>
+</div>
 
-<main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy reveal">
-        <span class="kicker">Simulador</span>
-        <h1>Seu próximo plano internacional começa com escolhas simples e um atendimento mais certeiro.</h1>
-        <p class="lead">Escolha o seu objetivo, selecione o destino, informe quanto pretende investir e envie um pedido claro para a nossa equipe preparar as melhores possibilidades para você.</p>
-        <div class="badge-row">
-          <span class="badge">Mais clareza para decidir</span>
-          <span class="badge">Seu orçamento, seu ritmo</span>
-          <span class="badge">Atendimento mais assertivo</span>
-        </div>
-      </div>
-      <div class="hero-side reveal">
-        <strong>Menos dúvida. Mais direção.</strong>
-        <p>Em poucos passos, você organiza o que deseja e envia para a nossa equipe um pedido mais completo, simples e fácil de atender.</p>
-      </div>
-    </div>
-  </section>
+<div class="level-up" id="level-up">
+  <div class="level-up-title">Você subiu de nível</div>
+  <div class="level-up-rank">
+    <span class="level-up-rank-icon" id="level-up-icon"></span>
+    <span id="level-up-name">Explorador</span>
+  </div>
+  <div class="level-up-desc" id="level-up-desc">Continue respondendo — novos desbloqueios vêm aí.</div>
+</div>
 
-  <section class="section" id="painel">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="kicker">Simulação guiada</span>
-        <h2>Conte o que procura. Nós transformamos em possibilidades.</h2>
-        <p class="copy">Selecione seu perfil, destino, preferências e investimento para receber um atendimento mais certeiro, humano e alinhado ao seu momento.</p>
-      </div>
+<div class="quest-tracker" id="quest-tracker">
+  <div class="quest-icon" id="quest-icon"></div>
+  <div class="quest-body">
+    <div class="quest-label">Missão atual</div>
+    <div class="quest-text" id="quest-text">Escolha seu objetivo</div>
+  </div>
+  <button class="quest-close" onclick="hideQuest()" aria-label="Fechar">×</button>
+</div>
 
-      <div class="type-tabs reveal" id="typeTabs"></div>
-
-      <div class="sim-shell reveal">
-        <div class="step-stack">
-          <section class="step-card">
-            <div class="step-head">
-              <div class="step-number">1</div>
-              <div>
-                <h3>Comece por aqui</h3>
-                <p>Escolha seu perfil, o melhor momento e informe o valor que pretende investir.</p>
-              </div>
-            </div>
-            <div class="choice-group" id="profileGroup"></div>
-            <div class="choice-group" id="timelineGroup"></div>
-            <div class="choice-group" id="budgetGroup"></div>
-          </section>
-
-          <section class="step-card">
-            <div class="step-head">
-              <div class="step-number">2</div>
-              <div>
-                <h3>Destino</h3>
-                <p>Selecione o destino que mais combina com o seu objetivo para direcionarmos a proposta com mais precisão.</p>
-              </div>
-            </div>
-            <div class="option-grid" id="destinationGrid"></div>
-          </section>
-
-          <section class="step-card">
-            <div class="step-head">
-              <div class="step-number">3</div>
-              <div>
-                <h3>Preferências do projeto</h3>
-                <p>Personalize os detalhes mais importantes para que a nossa equipe entenda exatamente o que você procura.</p>
-              </div>
-            </div>
-            <div class="choice-group" id="specificGroupA"></div>
-            <div class="choice-group" id="specificGroupB"></div>
-          </section>
-        </div>
-
-        <aside class="side-stack">
-          <section class="result-box">
-            <div class="meter">
-              <div class="meter-head">
-                <span>Seu pedido</span>
-                <strong id="progressLabel">80%</strong>
-              </div>
-              <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-            </div>
-
-            <h3 id="resultTitle">Viagem internacional</h3>
-            <div class="result-price" id="resultPrice">Informe seu investimento</div>
-            <p class="result-copy" id="resultCopy">Preencha suas preferências e informe o valor que pretende investir para receber um atendimento mais alinhado ao que você busca.</p>
-
-            <div class="highlight-card">
-              <div class="highlight-icon" id="highlightIcon">🇵🇹</div>
-              <div>
-                <strong id="highlightTitle">Lisboa / Portugal</strong>
-                <div class="small-note" id="highlightText">Boa porta de entrada para quem quer viagem, estudo ou planejamento internacional com idioma próximo.</div>
-              </div>
-            </div>
-
-            <div class="result-tags" id="resultTags"></div>
-            <div class="summary-list" id="summaryList"></div>
-
-            <div class="mini-grid">
-              <div class="mini-card">
-                <h4>Próximo passo indicado</h4>
-                <p id="nextStep">Enviar seu pedido para o WhatsApp e avançar com um atendimento mais direcionado.</p>
-              </div>
-              <div class="mini-card">
-                <h4>O que a equipe prepara</h4>
-                <p id="teamAction">Uma seleção inicial de opções mais compatíveis com o seu objetivo, perfil e investimento informado.</p>
-              </div>
-            </div>
-
-            <div class="cta-row">
-              <a class="btn btn-primary" id="primaryCta" href="#" target="_blank" rel="noopener">Levar para o WhatsApp</a>
-              <a class="btn btn-ghost" id="secondaryCta" href="#" target="_blank" rel="noopener">Quero comparar opções</a>
-            </div>
-
-            <p class="small-note" style="margin:18px 0 0">O valor informado serve como referência do seu planejamento. A proposta final varia conforme datas, disponibilidade, instituição, temporada e fornecedores.</p>
-          </section>
-
-          <section class="result-box">
-            <h3>Como funciona após o envio</h3>
-            <div class="action-list">
-              <div class="action-item">Analisamos o seu objetivo e o melhor momento para avançar.</div>
-              <div class="action-item">Selecionamos opções compatíveis com o seu perfil e o investimento informado.</div>
-              <div class="action-item">Entramos em contato com um direcionamento mais claro para facilitar a sua decisão.</div>
-            </div>
-          </section>
-        </aside>
-      </div>
-
-      <div class="tips-grid">
-        <div class="tip-card reveal">
-          <h3>Escolhas mais claras</h3>
-          <p>Cada etapa foi pensada para tornar o preenchimento simples, rápido e intuitivo.</p>
-        </div>
-        <div class="tip-card reveal">
-          <h3>Atendimento mais alinhado</h3>
-          <p>Com um pedido mais completo, a nossa equipe pode sugerir caminhos com mais precisão.</p>
-        </div>
-        <div class="tip-card reveal">
-          <h3>Menos tempo, mais direção</h3>
-          <p>Em poucos cliques, você organiza suas preferências e avança para um atendimento personalizado.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="container footer-grid">
-    <div>
+<div class="shell">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Global Travel — voltar ao site">
       <img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios">
-      <p class="copy" style="max-width:520px">Planeje a sua próxima experiência internacional com mais clareza, confiança e atendimento personalizado.</p>
+    </a>
+    <div class="xp-cluster">
+      <div class="live-dot"><span id="live-count">312</span>&nbsp;online</div>
+      <div class="rank-badge" id="rank-badge">
+        <div class="rank-icon-wrap"><span class="rank-icon" id="rank-icon"></span></div>
+        <span class="rank-label" id="rank-label">Novato</span>
+        <div class="rank-progress"><div class="rank-progress-fill" id="rank-progress-fill"></div></div>
+      </div>
+      <div class="xp-badge" id="xp-badge">
+        <span class="xp-bolt"><svg viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;vertical-align:-.18em"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></span>
+        <span class="xp-value" id="xp-value">0</span>
+        <span class="xp-label">XP</span>
+      </div>
+      <button class="sound-toggle" id="sound-toggle" aria-label="Som" title="Ativar/desativar som">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+      </button>
     </div>
-    <div>
-      <strong>Contato</strong>
-      <p class="copy">WhatsApp: +351 910 346 159</p>
-      <p class="copy">globaltravelintracambios@gmail.com</p>
-    </div>
-    <div>
-      <strong>Navegação</strong>
-      <p><a href="index.html">Home</a></p>
-      <p><a href="nossos-cursos.html">Nossos cursos</a></p>
-      <p><a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a></p>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="phase-track" id="phase-track">
+      <div class="phase-dot" data-phase="1"></div>
+      <div class="phase-dot" data-phase="2"></div>
+      <div class="phase-dot" data-phase="3"></div>
+      <div class="phase-dot" data-phase="4"></div>
+      <div class="phase-dot" data-phase="5"></div>
     </div>
   </div>
-</footer>
 
-<a class="floating-wa" href="https://wa.me/351910346159?text=Olá,%20quero%20falar%20com%20a%20Global%20Travel." target="_blank" rel="noopener">WhatsApp</a>
+  <main>
+
+    <section class="screen active" data-screen="intro">
+      <div class="intro-hero">
+        <div class="hero-orbit">
+          <div class="hero-dot d1"></div>
+          <div class="hero-dot d2"></div>
+          <div class="hero-orb">
+            <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <radialGradient id="globeGrad" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#FFF5E1" stop-opacity="1"/>
+                  <stop offset="35%" stop-color="#F2D49B"/>
+                  <stop offset="75%" stop-color="#C79A4A"/>
+                  <stop offset="100%" stop-color="#7A5A24"/>
+                </radialGradient>
+                <clipPath id="globeClip"><circle cx="40" cy="40" r="32"/></clipPath>
+              </defs>
+              <circle cx="40" cy="40" r="32" fill="url(#globeGrad)"/>
+              <g clip-path="url(#globeClip)" stroke="rgba(19,37,58,.35)" stroke-width=".8" fill="none" class="globe-grid">
+                <ellipse cx="40" cy="40" rx="32" ry="6"/>
+                <ellipse cx="40" cy="40" rx="32" ry="14"/>
+                <ellipse cx="40" cy="40" rx="32" ry="22"/>
+                <ellipse cx="40" cy="40" rx="32" ry="30"/>
+                <line x1="8" y1="40" x2="72" y2="40"/>
+                <path d="M40 8 Q20 40 40 72 Q60 40 40 8Z"/>
+                <path d="M40 8 Q55 40 40 72 Q25 40 40 8Z"/>
+              </g>
+              <g clip-path="url(#globeClip)" fill="rgba(19,37,58,.55)" class="globe-land">
+                <path d="M18 34 Q22 28 30 30 L35 28 L38 34 L32 40 L24 38 Z"/>
+                <path d="M46 22 L54 28 L52 36 L44 34 Z"/>
+                <path d="M42 44 Q50 48 56 46 L54 54 L44 56 L40 50 Z"/>
+                <path d="M22 50 L28 52 L26 58 L20 56 Z"/>
+              </g>
+              <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+              <circle cx="30" cy="28" r="5" fill="rgba(255,255,255,.28)"/>
+            </svg>
+          </div>
+        </div>
+        <div class="intro-kicker">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L15 9H22L16 13L18 20L12 16L6 20L8 13L2 9H9L12 2Z"/></svg>
+          Plano personalizado em 2 minutos
+        </div>
+        <h1 class="intro-title">Qual é o seu <span class="accent">próximo passaporte</span>?</h1>
+        <p class="intro-sub">Em 5 fases, descubra o visto certo, o prazo real e o custo fundamentado pra morar, estudar ou viajar no exterior. Quanto mais você responde, mais o plano se revela.</p>
+        <div class="intro-cta">
+          <button class="btn btn-primary btn-xl" onclick="nav('intent')" style="min-width:260px">
+            Começar jornada
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="intro-meta">
+            <div class="intro-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Sem cadastro pra começar</div>
+            <div class="intro-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>~2 minutos</div>
+            <div class="intro-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l3 7h7l-6 4 2 7-6-4-6 4 2-7-6-4h7z"/></svg>100% grátis</div>
+          </div>
+        </div>
+        <div class="live-stats">
+          <div class="live-stat">
+            <span class="live-stat-num" id="stat-week">0</span>
+            <span class="live-stat-label">simulações<br>esta semana</span>
+          </div>
+          <div class="live-stat">
+            <span class="live-stat-num" id="stat-matched">0<span style="font-size:.7em">%</span></span>
+            <span class="live-stat-label">encontram<br>caminho viável</span>
+          </div>
+          <div class="live-stat">
+            <span class="live-stat-num">4</span>
+            <span class="live-stat-label">países<br>no MVP</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="intent">
+      <div class="phase-head">
+        <span class="phase-num">01</span>
+        <span class="phase-title">Objetivo</span>
+        <span class="phase-of">Fase 01 de 05</span>
+      </div>
+      <h2 class="question">O que te move pro exterior?</h2>
+      <p class="helper">Escolha o objetivo principal. Não precisa ser definitivo — você pode refinar depois.</p>
+      <div class="options" id="intent-options"></div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="nav('intro')">← Voltar</button>
+        <button class="btn btn-primary" id="intent-next" disabled onclick="goCountry()">Continuar →</button>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="country">
+      <div class="phase-head">
+        <span class="phase-num">02</span>
+        <span class="phase-title">Destino</span>
+        <span class="phase-of">Fase 02 de 05</span>
+      </div>
+      <h2 class="question">Para onde você está olhando?</h2>
+      <p class="helper">Cobrimos 4 países em profundidade. Outros destinos, atendemos via rede de parceiros.</p>
+      <div class="options cols-2" id="country-options"></div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" onclick="nav('intent')">← Voltar</button>
+        <button class="btn btn-primary" id="country-next" disabled onclick="goQuestions()">Continuar →</button>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="questions">
+      <div class="phase-head">
+        <span class="phase-num">03</span>
+        <span class="phase-title">Perfil</span>
+        <span class="phase-of" id="q-of">Fase 03 de 05</span>
+      </div>
+      <div id="question-container"></div>
+      <div class="nav-row">
+        <button class="btn btn-ghost" id="q-back">← Voltar</button>
+        <button class="btn btn-primary" id="q-next" disabled>Continuar →</button>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="gate">
+      <div class="phase-head">
+        <span class="phase-num">04</span>
+        <span class="phase-title">Acesso</span>
+        <span class="phase-of">Fase 04 de 05</span>
+      </div>
+      <div class="gate-wrapper">
+        <div class="gate-badge"><span>Plano pronto · aguardando acesso</span></div>
+        <h2 class="question" style="font-size:clamp(1.55rem,3.6vw,2.3rem)">Falta só um passo pra desbloquear.</h2>
+        <p class="helper">Liberamos o plano personalizado e reservamos espaço na consultoria gratuita.</p>
+        <div class="field">
+          <label for="lead-nome">Primeiro nome</label>
+          <input class="input" type="text" id="lead-nome" placeholder="Como podemos te chamar?">
+        </div>
+        <div class="field">
+          <label for="lead-email">E-mail</label>
+          <input class="input" type="email" id="lead-email" placeholder="seu@email.com">
+        </div>
+        <div class="field">
+          <label for="lead-wpp">WhatsApp (com DDD)</label>
+          <input class="input" type="tel" id="lead-wpp" placeholder="(11) 99999-9999">
+        </div>
+        <label class="chk">
+          <input type="checkbox" id="lead-lgpd">
+          <span>Concordo com o tratamento dos meus dados conforme a <a href="privacidade.html" target="_blank">Política de Privacidade</a>.</span>
+        </label>
+        <div class="nav-row">
+          <button class="btn btn-ghost" id="gate-back">← Voltar</button>
+          <button class="btn btn-primary btn-xl" id="gate-next" disabled onclick="submitLead()">Desbloquear meu plano <svg viewBox="0 0 24 24" fill="currentColor" style="width:.95em;height:.95em;vertical-align:-.15em;margin-left:4px"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="loading">
+      <div class="loading-core">
+        <div class="loading-orb"></div>
+        <h2 class="loading-title">Revelando seu plano</h2>
+        <div class="loading-messages" id="loading-messages"></div>
+        <div class="loading-meter"><div class="loading-meter-fill" id="loading-meter-fill"></div></div>
+        <div class="loading-hint"><svg viewBox="0 0 24 24" fill="#F2D49B" style="width:.95em;height:.95em;vertical-align:-.15em;margin-right:4px"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg> Você está a poucos segundos do seu plano personalizado</div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="result">
+      <div class="phase-head">
+        <span class="phase-num" style="color:var(--success);-webkit-text-fill-color:var(--success);background:none">05</span>
+        <span class="phase-title" style="color:var(--success)">Plano revelado</span>
+        <span class="phase-of">Fase 05 de 05 · Completo</span>
+      </div>
+      <div class="score-hero">
+        <div class="compass">
+          <svg viewBox="0 0 240 240">
+            <defs>
+              <linearGradient id="gradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#F2D49B"/>
+                <stop offset="100%" stop-color="#C79A4A"/>
+              </linearGradient>
+            </defs>
+            <circle class="compass-track" cx="120" cy="120" r="100"/>
+            <circle class="compass-fill" id="compass-fill" cx="120" cy="120" r="100"/>
+            <g class="compass-ticks">
+              <line x1="120" y1="8"   x2="120" y2="22"/>
+              <line x1="120" y1="218" x2="120" y2="232"/>
+              <line x1="8"   y1="120" x2="22"  y2="120"/>
+              <line x1="218" y1="120" x2="232" y2="120"/>
+              <line x1="40"  y1="40"  x2="50"  y2="50"/>
+              <line x1="190" y1="190" x2="200" y2="200"/>
+              <line x1="40"  y1="200" x2="50"  y2="190"/>
+              <line x1="190" y1="50"  x2="200" y2="40"/>
+            </g>
+          </svg>
+          <div class="compass-center">
+            <div class="score-num" id="score-num">0%</div>
+            <div class="score-label">compatibilidade</div>
+          </div>
+          <div class="compass-labels"><span class="n">N</span><span class="s">S</span><span class="l">L</span><span class="o">O</span></div>
+          <span class="compass-star">✦</span>
+        </div>
+        <p class="result-lead" id="result-lead"></p>
+      </div>
+      <div id="paths-container"></div>
+      <div class="steps-block" id="steps-block"></div>
+      <div class="final-cta">
+        <h3>Pronto pra conversar com um especialista?</h3>
+        <p>Agende a consultoria gratuita e valide seu plano com quem acompanha esses processos na prática.</p>
+        <div class="cta-row">
+          <a class="btn btn-whatsapp btn-xl" id="wpp-cta" href="#" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A7.8 7.8 0 0012 4a7.9 7.9 0 00-6.7 12l-1 3.7 3.8-1a7.9 7.9 0 003.8 1h.1a7.9 7.9 0 007.9-7.9 7.9 7.9 0 00-2.3-5.5zm-5.6 12.1a6.6 6.6 0 01-3.4-.9l-.2-.1-2.5.7.7-2.5-.2-.2a6.6 6.6 0 1111.2-4.6 6.6 6.6 0 01-5.6 7.6z"/></svg>
+            Falar no WhatsApp
+          </a>
+          <button class="btn btn-ghost" onclick="downloadPDF()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v12M6 9l6 6 6-6M4 21h16"/></svg>
+            Baixar meu plano em PDF
+          </button>
+        </div>
+      </div>
+      <div class="disclaimer">
+        <strong><svg viewBox="0 0 24 24" fill="none" stroke="#F2D49B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-.18em;margin-right:4px"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5"/><circle cx="12" cy="18" r=".5" fill="#F2D49B"/></svg> Importante:</strong> este plano é orientativo baseado nas suas respostas. Cada caso é único — a consultoria com especialista valida a rota real, revisa documentação e identifica ajustes. Valores e prazos são referência para 2026 e podem variar.
+      </div>
+      <div class="nav-row" style="margin-top:24px">
+        <button class="btn btn-ghost" onclick="restart()">↻ Refazer simulação</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- =========================================================
+     PDF DOCUMENT (hidden on screen, shown on print)
+     ========================================================= -->
+<div class="pdf-doc" id="pdf-doc">
+  <section class="pdf-cover">
+    <div class="pdf-cover-accent"></div>
+    <div class="pdf-brand">
+      <img class="pdf-brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios">
+    </div>
+    <div class="pdf-cover-body">
+      <div class="pdf-eyebrow">Plano personalizado</div>
+      <h1 class="pdf-cover-title">Seu caminho<br><em>para o exterior</em></h1>
+      <p class="pdf-for">Preparado para <b id="pdf-nome">—</b> · com base no seu perfil, objetivos e prazos.</p>
+    </div>
+    <div class="pdf-snapshot">
+      <div class="pdf-snap">
+        <div class="pdf-snap-label">Objetivo</div>
+        <div class="pdf-snap-value" id="pdf-snap-objetivo">—</div>
+      </div>
+      <div class="pdf-snap">
+        <div class="pdf-snap-label">Destino</div>
+        <div class="pdf-snap-value" id="pdf-snap-destino">—</div>
+      </div>
+      <div class="pdf-snap">
+        <div class="pdf-snap-label">Match</div>
+        <div class="pdf-snap-value" id="pdf-snap-match">—</div>
+      </div>
+    </div>
+    <div class="pdf-meta">
+      <span>Documento gerado em <b id="pdf-date">—</b></span>
+      <span>globaltravelintercambios.com</span>
+    </div>
+  </section>
+
+  <div class="pdf-body">
+    <section class="pdf-section">
+      <div class="pdf-section-head">
+        <span class="pdf-section-num">01</span>
+        <h2 class="pdf-section-title">Resumo do seu caminho</h2>
+      </div>
+      <p id="pdf-summary" class="pdf-summary"></p>
+    </section>
+
+    <section class="pdf-section">
+      <div class="pdf-section-head">
+        <span class="pdf-section-num">02</span>
+        <h2 class="pdf-section-title">Caminhos recomendados</h2>
+      </div>
+      <div id="pdf-paths"></div>
+    </section>
+
+    <section class="pdf-section">
+      <div class="pdf-section-head">
+        <span class="pdf-section-num">03</span>
+        <h2 class="pdf-section-title">Próximos passos</h2>
+      </div>
+      <div class="pdf-steps" id="pdf-steps"></div>
+    </section>
+
+    <section class="pdf-contact">
+      <h3>Agende sua consultoria gratuita</h3>
+      <p>Nosso especialista valida seu plano, revisa documentação e monta o checklist completo para a sua mudança.</p>
+      <div class="pdf-contact-tag">Fale com um especialista no WhatsApp</div>
+      <div class="pdf-contact-url">globaltravelintercambios.com</div>
+    </section>
+
+    <div class="pdf-disc">
+      <b>Importante:</b> este plano é orientativo, baseado nas respostas fornecidas no simulador. Cada caso é único — a consultoria com especialista valida a rota real, revisa documentação e identifica ajustes. Valores e prazos são referência para 2026 e podem variar.
+    </div>
+    <div class="pdf-footer">
+      <span>Global <b>Travel</b> Intercâmbios · Plano personalizado</span>
+      <span id="pdf-footer-date">—</span>
+    </div>
+  </div>
+</div>
 
 <script>
-const burger=document.getElementById('burger');
-burger?.addEventListener('click',()=>document.body.classList.toggle('nav-open'));
-
-const flows={
-  viagem:{
-    label:'Viagem internacional',
-    tabCopy:'Pacotes, hospedagem e roteiro.',
-    profile:{
-      title:'Quem vai nessa viagem?',
-      help:'Escolha o perfil principal do grupo para orientar melhor a proposta.',
-      options:[
-        {id:'solo',icon:'🧍',title:'1 pessoa',desc:'Viagem individual com mais flexibilidade.'},
-        {id:'casal',icon:'💑',title:'Casal',desc:'Boa leitura para romântico, férias e roteiro a dois.'},
-        {id:'familia',icon:'👨‍👩‍👧',title:'Família',desc:'Mais útil para Disney, neve e férias escolares.'},
-        {id:'grupo',icon:'🧑‍🤝‍🧑',title:'Grupo',desc:'Ideal para amigos e viagens compartilhadas.'}
-      ]
-    },
-    timeline:{
-      title:'Quando pretende viajar?',
-      help:'Isso ajuda a equipe a perceber urgência e janela de oportunidade.',
-      options:[
-        {id:'30d',title:'Próximos 30 dias',desc:'Preciso resolver logo.'},
-        {id:'90d',title:'Até 3 meses',desc:'Já quero andar com isso.'},
-        {id:'180d',title:'Até 6 meses',desc:'Tenho tempo para planejar.'}
-      ]
-    },
-    budget:{
-      title:'Quanto pretende investir?',
-      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
-      options:[
-        {id:'baixo',title:'Econômica',desc:'Quero prioridade em custo-benefício.'},
-        {id:'medio',title:'Intermediária',desc:'Equilíbrio entre preço e conforto.'},
-        {id:'alto',title:'Confortável',desc:'Quero uma experiência mais completa.'}
-      ]
-    },
-    destinations:[
-      {id:'lisboa',icon:'🇵🇹',title:'Lisboa / Portugal',desc:'Europa com adaptação simples e apelo cultural.'},
-      {id:'paris',icon:'🗼',title:'Paris',desc:'Viagem clássica, romântica e com forte valor percebido.'},
-      {id:'disney',icon:'🏰',title:'Disney / Orlando',desc:'Perfeito para férias em família e experiência planejada.'},
-      {id:'neve',icon:'❄️',title:'Destino de neve',desc:'Procura alta para inverno e viagens especiais.'}
-    ],
-    specifics:[
-      {
-        key:'style',
-        title:'Estilo de viagem',
-        help:'Ajuda a equipe a montar o tom certo da proposta.',
-        options:[
-          {id:'roteiro-base',title:'Essencial',desc:'Passagem + hotel + base do roteiro.'},
-          {id:'equilibrada',title:'Equilibrada',desc:'Boa relação entre preço e conforto.'},
-          {id:'premium',title:'Mais exclusiva',desc:'Mais comodidade e curadoria.'}
-        ]
-      },
-      {
-        key:'stay',
-        title:'Hospedagem desejada',
-        help:'A hospedagem costuma puxar bastante a percepção de preço.',
-        options:[
-          {id:'smart',title:'Econômica',desc:'Prática e funcional.'},
-          {id:'comfort',title:'Confortável',desc:'Mais segurança e boa localização.'},
-          {id:'premium',title:'Premium',desc:'Mais conforto e experiência.'}
-        ]
-      }
-    ],
-    estimate:{
-      base:{lisboa:1200,paris:1600,disney:2200,neve:1900},
-      profile:{solo:1,casal:1.7,familia:2.45,grupo:2.1},
-      timeline:{'30d':1.12,'90d':1.02,'180d':.96},
-      budget:{baixo:1,medio:1.22,alto:1.48},
-      style:{'roteiro-base':1,equilibrada:1.12,premium:1.35},
-      stay:{smart:1,comfort:1.14,premium:1.32}
-    },
-    summary:(state,dest)=>[
-      `Perfil principal: ${labelFor('profile',state.profile)}`,
-      `Prazo da decisão: ${labelFor('timeline',state.timeline)}`,
-      `Estilo desejado: ${labelFor('style',state.style)}`
-    ],
-    nextStep:'Validar datas, número de passageiros, hotel e estrutura do pacote.',
-    teamAction:'A equipe pode comparar rotas, hospedagem e formato da viagem.',
-    copy:'Faixa inicial para viagem com pacote e estrutura de roteiro. Serve para abrir a conversa certa, não para fechar preço no site.',
-    compare:'Olá, quero comparar opções de viagem internacional com a Global Travel.'
-  },
-  passagem:{
-    label:'Passagens aéreas',
-    tabCopy:'Emissão, rota e bagagem.',
-    profile:{
-      title:'Quem embarca?',
-      help:'Aqui o foco é entender a dinâmica da emissão e da tarifa.',
-      options:[
-        {id:'solo',icon:'🧍',title:'1 pessoa',desc:'Compra objetiva e mais simples.'},
-        {id:'casal',icon:'💑',title:'Casal',desc:'Boa para lazer e viagem conjunta.'},
-        {id:'familia',icon:'👨‍👩‍👧',title:'Família',desc:'Mais sensível a bagagem e conexões.'},
-        {id:'grupo',icon:'🧑‍🤝‍🧑',title:'Grupo',desc:'Ideal para viagens compartilhadas.'}
-      ]
-    },
-    timeline:{
-      title:'Quando pretende emitir?',
-      help:'Antecedência faz diferença real em tarifa.',
-      options:[
-        {id:'30d',title:'Urgente',desc:'Preciso emitir logo.'},
-        {id:'90d',title:'Planejando',desc:'Consigo acompanhar boas janelas.'},
-        {id:'180d',title:'Antecedência alta',desc:'Quero comprar com calma.'}
-      ]
-    },
-    budget:{
-      title:'Quanto pretende investir?',
-      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
-      options:[
-        {id:'baixo',title:'Mais econômica',desc:'Buscar menor tarifa possível.'},
-        {id:'medio',title:'Intermediária',desc:'Equilíbrio entre custo e conforto.'},
-        {id:'alto',title:'Mais confortável',desc:'Melhor rota e menos desgaste.'}
-      ]
-    },
-    destinations:[
-      {id:'portugal',icon:'🇵🇹',title:'Portugal',desc:'Procura constante para estudo, turismo e mudança.'},
-      {id:'irlanda',icon:'🇮🇪',title:'Irlanda',desc:'Muito buscada para intercâmbio e viagens longas.'},
-      {id:'eua',icon:'🇺🇸',title:'Estados Unidos',desc:'Destino com grande variação de tarifa e rota.'},
-      {id:'outro',icon:'🌍',title:'Outro destino',desc:'Quando o foco é só a melhor emissão possível.'}
-    ],
-    specifics:[
-      {
-        key:'bag',
-        title:'Bagagem',
-        help:'Bagagem muda bastante o comparativo entre tarifas.',
-        options:[
-          {id:'hand',title:'Mala de mão',desc:'Tarifa mais enxuta.'},
-          {id:'checked',title:'1 bagagem',desc:'Boa para viagem média.'},
-          {id:'full',title:'Bagagem completa',desc:'Mais conforto e flexibilidade.'}
-        ]
-      },
-      {
-        key:'route',
-        title:'Prioridade da emissão',
-        help:'Isso orienta o tipo de busca que a equipe deve fazer.',
-        options:[
-          {id:'preco',title:'Menor preço',desc:'Aceito mais ajustes para pagar menos.'},
-          {id:'equilibrio',title:'Equilíbrio',desc:'Quero custo-benefício.'},
-          {id:'comodidade',title:'Mais conforto',desc:'Menos escalas e melhor experiência.'}
-        ]
-      }
-    ],
-    estimate:{
-      base:{portugal:420,irlanda:460,eua:760,outro:540},
-      profile:{solo:1,casal:1.75,familia:2.55,grupo:2.2},
-      timeline:{'30d':1.2,'90d':1.03,'180d':.94},
-      budget:{baixo:1,medio:1.15,alto:1.3},
-      bag:{hand:1,checked:1.13,full:1.26},
-      route:{preco:1,equilibrio:1.08,comodidade:1.18}
-    },
-    summary:(state)=>[
-      `Passageiros: ${labelFor('profile',state.profile)}`,
-      `Bagagem: ${labelFor('bag',state.bag)}`,
-      `Prioridade: ${labelFor('route',state.route)}`
-    ],
-    nextStep:'Enviar datas aproximadas, cidade de saída e flexibilidade da viagem.',
-    teamAction:'A equipe compara rotas, conexões e melhores tarifas disponíveis.',
-    copy:'Estimativa inicial para emissão aérea. O valor final varia muito conforme datas, cidade de saída, antecedência e regra tarifária.',
-    compare:'Olá, quero comparar opções de passagens aéreas com a Global Travel.'
-  },
-  ingles:{
-    label:'Intercâmbio de inglês',
-    tabCopy:'Curso, cidade e acomodação.',
-    profile:{
-      title:'Perfil do estudante',
-      help:'Aqui entram perfis compatíveis com intercâmbio de idiomas, sem opções confusas.',
-      options:[
-        {id:'adulto',icon:'🎓',title:'Adulto',desc:'Busca desenvolvimento pessoal ou profissional.'},
-        {id:'universitario',icon:'📚',title:'Universitário',desc:'Quer fortalecer currículo e experiência internacional.'},
-        {id:'teen',icon:'🧒',title:'Teen',desc:'Programa com apoio e estrutura mais guiada.'},
-        {id:'executivo',icon:'💼',title:'Executivo',desc:'Precisa de formato mais objetivo e eficiente.'}
-      ]
-    },
-    timeline:{
-      title:'Quando pretende começar?',
-      help:'Ajuda a avaliar urgência de matrícula e acomodação.',
-      options:[
-        {id:'30d',title:'Muito em breve',desc:'Quero sair logo.'},
-        {id:'90d',title:'Nos próximos meses',desc:'Já quero planejar.'},
-        {id:'180d',title:'Mais para frente',desc:'Ainda estou estruturando.'}
-      ]
-    },
-    budget:{
-      title:'Quanto pretende investir?',
-      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
-      options:[
-        {id:'baixo',title:'Entrada',desc:'Mais foco em acessibilidade.'},
-        {id:'medio',title:'Intermediária',desc:'Boa margem de escolha.'},
-        {id:'alto',title:'Mais completa',desc:'Mais conforto e opções melhores.'}
-      ]
-    },
-    destinations:[
-      {id:'irlanda',icon:'🇮🇪',title:'Irlanda',desc:'Destino forte e clássico para inglês.'},
-      {id:'portugal',icon:'🇵🇹',title:'Portugal',desc:'Mais familiar para brasileiros, com adaptação simples e boa procura.'},
-      {id:'canada',icon:'🍁',title:'Canadá',desc:'Boa imagem de qualidade e experiência internacional.'}
-    ],
-    specifics:[
-      {
-        key:'course',
-        title:'Formato do curso',
-        help:'O formato interfere diretamente na faixa de investimento.',
-        options:[
-          {id:'regular',title:'Regular',desc:'Carga equilibrada e boa base.'},
-          {id:'intensivo',title:'Intensivo',desc:'Ritmo mais acelerado.'},
-          {id:'preparacao',title:'Preparação',desc:'Foco em objetivo acadêmico ou prova.'}
-        ]
-      },
-      {
-        key:'housing',
-        title:'Acomodação desejada',
-        help:'Acomodação é uma das maiores alavancas de preço nesse produto.',
-        options:[
-          {id:'familia',title:'Casa de família',desc:'Boa para imersão e rotina assistida.'},
-          {id:'residencia',title:'Residência estudantil',desc:'Mais independência e convivência.'},
-          {id:'privado',title:'Quarto privado',desc:'Mais conforto e privacidade.'}
-        ]
-      }
-    ],
-    estimate:{
-      base:{irlanda:2900,portugal:2600,canada:3600,australia:4700},
-      profile:{adulto:1,universitario:1.05,teen:1.14,executivo:1.22},
-      timeline:{'30d':1.08,'90d':1.02,'180d':.97},
-      budget:{baixo:1,medio:1.18,alto:1.38},
-      course:{regular:1,intensivo:1.14,preparacao:1.22},
-      housing:{familia:1,residencia:1.1,privado:1.24}
-    },
-    summary:(state)=>[
-      `Perfil do aluno: ${labelFor('profile',state.profile)}`,
-      `Formato do curso: ${labelFor('course',state.course)}`,
-      `Acomodação: ${labelFor('housing',state.housing)}`
-    ],
-    nextStep:'Validar cidade, escola, duração e melhor formato de acomodação.',
-    teamAction:'A equipe monta uma direção com escola, cidade e estrutura mais compatíveis.',
-    copy:'Faixa inicial para intercâmbio de inglês considerando destino, curso e acomodação. A proposta final depende de escola, carga horária e época.',
-    compare:'Olá, quero comparar opções de intercâmbio de inglês com a Global Travel.'
-  },
-  estudos:{
-    label:'Graduação / mestrado',
-    tabCopy:'Curso, instituição e plano acadêmico.',
-    profile:{
-      title:'Objetivo acadêmico',
-      help:'Aqui a conversa muda de viagem para projeto de vida, então o perfil precisa refletir isso.',
-      options:[
-        {id:'graduacao',icon:'🎓',title:'Graduação',desc:'Primeira formação internacional.'},
-        {id:'pos',icon:'📘',title:'Pós-graduação',desc:'Especialização com foco profissional.'},
-        {id:'mestrado',icon:'🏛️',title:'Mestrado',desc:'Projeto acadêmico mais robusto.'},
-        {id:'transicao',icon:'🚀',title:'Mudança de área',desc:'Quero recomeçar com estratégia.'}
-      ]
-    },
-    timeline:{
-      title:'Janela de início',
-      help:'Quanto antes a equipe souber disso, melhor para documentos e candidatura.',
-      options:[
-        {id:'30d',title:'Urgente',desc:'Quero começar o quanto antes.'},
-        {id:'90d',title:'Próxima intake',desc:'Estou mirando a próxima entrada.'},
-        {id:'180d',title:'Planejamento longo',desc:'Ainda estruturando o projeto.'}
-      ]
-    },
-    budget:{
-      title:'Quanto pretende investir?',
-      help:'Informe um valor aproximado para a equipe preparar opções mais alinhadas ao seu objetivo.',
-      options:[
-        {id:'baixo',title:'Mais acessível',desc:'Quero prioridade em custo e viabilidade.'},
-        {id:'medio',title:'Equilibrada',desc:'Quero boas opções sem exagerar.'},
-        {id:'alto',title:'Mais competitiva',desc:'Busco estrutura mais forte e premium.'}
-      ]
-    },
-    destinations:[
-      {id:'portugal',icon:'🇵🇹',title:'Portugal',desc:'Caminho natural para brasileiros e forte apelo acadêmico.'},
-      {id:'irlanda',icon:'🇮🇪',title:'Irlanda',desc:'Combina estudo e experiência internacional.'},
-      {id:'eua',icon:'🇺🇸',title:'Estados Unidos',desc:'Ticket maior e alta percepção de valor.'},
-      {id:'espanha',icon:'🇪🇸',title:'Espanha',desc:'Boa alternativa europeia para formação.'}
-    ],
-    specifics:[
-      {
-        key:'institution',
-        title:'Perfil da instituição',
-        help:'A percepção de valor muda muito conforme o nível da instituição.',
-        options:[
-          {id:'acessivel',title:'Mais acessível',desc:'Prioridade em entrada e custo.'},
-          {id:'privada',title:'Privada',desc:'Combina suporte e estrutura.'},
-          {id:'premium',title:'Mais competitiva',desc:'Busca instituição de maior peso.'}
-        ]
-      },
-      {
-        key:'support',
-        title:'Nível de apoio desejado',
-        help:'Define se a conversa deve começar por admissão, documentos ou projeto completo.',
-        options:[
-          {id:'curso',title:'Só curso',desc:'Quero entender a parte acadêmica.'},
-          {id:'curso-documentos',title:'Curso + documentos',desc:'Preciso de apoio mais completo.'},
-          {id:'projeto-total',title:'Projeto completo',desc:'Quero visão de ponta a ponta.'}
-        ]
-      }
-    ],
-    estimate:{
-      base:{portugal:4100,irlanda:5200,eua:8900,espanha:4700},
-      profile:{graduacao:1,pos:1.08,mestrado:1.2,transicao:1.1},
-      timeline:{'30d':1.06,'90d':1.01,'180d':.98},
-      budget:{baixo:1,medio:1.2,alto:1.45},
-      institution:{acessivel:1,privada:1.18,premium:1.42},
-      support:{curso:1,'curso-documentos':1.1,'projeto-total':1.2}
-    },
-    summary:(state)=>[
-      `Objetivo: ${labelFor('profile',state.profile)}`,
-      `Instituição: ${labelFor('institution',state.institution)}`,
-      `Apoio desejado: ${labelFor('support',state.support)}`
-    ],
-    nextStep:'Definir curso, intake, instituição e escopo do suporte desejado.',
-    teamAction:'A equipe pode alinhar curso, candidatura, documentos e visão de investimento.',
-    copy:'Faixa inicial para graduação e estudos avançados. É uma triagem comercial útil para separar interesse superficial de projeto realmente maduro.',
-    compare:'Olá, quero comparar opções de graduação ou mestrado com a Global Travel.'
-  }
+// =============================================================
+// ICONS (custom SVGs — outlined, 1.8px stroke, currentColor)
+// =============================================================
+const ICONS = {
+  // Intents
+  turismo:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z"/></svg>',
+  intercambio: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5L2 10Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+  estudar:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-5h4v5M12 10h.01"/></svg>',
+  trabalhar:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><path d="M2 13h20"/></svg>',
+  cidadania:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><circle cx="12" cy="10" r="3"/><path d="M8 17h8M8 19.5h5"/></svg>',
+  // Ranks
+  novato:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+  explorador:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  aventureiro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2zM9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+  nomade:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.8L21 10l-4.8 4 1.4 6.8L12 17.3 6.4 20.8 7.8 14 3 10l6.5-1.2L12 3z"/></svg>',
+  cidadao:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19l-1-12 6 4 4-8 4 8 6-4-1 12M3 20h18"/></svg>',
+  // Achievements
+  objetivo:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>',
+  jornada:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>',
+  perfil:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>',
+  acesso:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1.5" fill="currentColor"/></svg>',
+  plano:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 5.8L21 9l-5 4.2L17.2 20 12 16.8 6.8 20 8 13.2 3 9l6.5-1.2L12 2z" fill="currentColor" fill-opacity=".18"/></svg>',
+  trophy:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21 1.18.54 2.03 2.03 2.03 3.79M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>',
+  // UI
+  arrow:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
 };
 
-
-let currentType='viagem';
-let state={
-  viagem:{profile:'casal',timeline:'90d',budget:'total',budgetValue:'',destination:'lisboa',style:'equilibrada',stay:'comfort'},
-  passagem:{profile:'solo',timeline:'90d',budget:'total',budgetValue:'',destination:'portugal',bag:'checked',route:'equilibrio'},
-  ingles:{profile:'adulto',timeline:'90d',budget:'mensal',budgetValue:'',destination:'irlanda',course:'regular',housing:'familia'},
-  estudos:{profile:'mestrado',timeline:'180d',budget:'mensal',budgetValue:'',destination:'portugal',institution:'privada',support:'curso-documentos'}
-};
-
-const budgetModes=[
-  {id:'total',title:'Valor total',desc:'Referência para o projeto completo.'},
-  {id:'pessoa',title:'Por pessoa',desc:'Ideal para casal, família ou grupo.'},
-  {id:'mensal',title:'Valor mensal',desc:'Útil para estudo e projetos longos.'}
+// =============================================================
+// DATA
+// =============================================================
+const INTENTS = [
+  {id:'turismo',     icon:ICONS.turismo,     title:'Turismo / Viagem',           desc:'Férias ou só passagem — estadias curtas (até 90 dias)', xp:20},
+  {id:'intercambio', icon:ICONS.intercambio, title:'Intercâmbio (estudo curto)', desc:'Estudar 3-12 meses e voltar ao Brasil depois',          xp:20},
+  {id:'estudar',     icon:ICONS.estudar,     title:'Estudar e morar',            desc:'Graduação/pós + intenção de permanecer',                 xp:20},
+  {id:'trabalhar',   icon:ICONS.trabalhar,   title:'Trabalhar e morar',          desc:'Mudança definitiva via trabalho, renda ou empresa',     xp:25},
+  {id:'cidadania',   icon:ICONS.cidadania,   title:'Cidadania por descendência', desc:'Reconhecer cidadania europeia já existente',            xp:20}
+];
+const COUNTRIES = [
+  {id:'pt',     flag:'<span class="fi flag-pt"></span>', name:'Portugal',      hook:'Caminho mais flexível da UE',                   xp:30},
+  {id:'ie',     flag:'<span class="fi flag-ie"></span>', name:'Irlanda',       hook:'Estude inglês trabalhando (20h/sem)',           xp:30},
+  {id:'es',     flag:'<span class="fi flag-es"></span>', name:'Espanha',       hook:'★ Cidadania europeia em apenas 2 anos',        xp:35},
+  {id:'us',     flag:'<span class="fi flag-us"></span>', name:'EUA',           hook:'Turismo, F-1/J-1 e E-2 (tratado BR-EUA)',       xp:30},
+  {id:'other',  flag:'<span class="fi flag-globe-mini"></span>', name:'Outro país',     hook:'Atendemos via rede de parceiros',               xp:15},
+  {id:'unsure', flag:'❓', name:'Ainda não sei',  hook:'Deixa com a gente descobrir com você',          xp:15}
+];
+const RANKS = [
+  {min:0,   name:'Novato',         icon:ICONS.novato,      desc:'Começando a jornada. Cada resposta desbloqueia mais.'},
+  {min:100, name:'Explorador',     icon:ICONS.explorador,  desc:'Você já mapeou objetivo e destino. Bora aprofundar.'},
+  {min:250, name:'Aventureiro',    icon:ICONS.aventureiro, desc:'Perfil definido. Você está perto do plano completo.'},
+  {min:500, name:'Nômade Global',  icon:ICONS.nomade,      desc:'Acesso liberado. Seu plano personalizado chegou.'},
+  {min:800, name:'Cidadão Global', icon:ICONS.cidadao,     desc:'Jornada completa. Chegou a hora de agir.'}
+];
+const QUESTS = [
+  {at:'intent',     text:'Escolha seu objetivo',          icon:ICONS.objetivo},
+  {at:'country',    text:'Selecione o país de destino',   icon:ICONS.explorador},
+  {at:'questions',  text:'Responda sobre seu perfil',     icon:ICONS.perfil},
+  {at:'gate',       text:'Acesse seu plano personalizado',icon:ICONS.acesso},
+  {at:'result',     text:'Fale com especialista',         icon:ICONS.trophy}
 ];
 
-const typeTabs=document.getElementById('typeTabs');
-const profileGroup=document.getElementById('profileGroup');
-const timelineGroup=document.getElementById('timelineGroup');
-const budgetGroup=document.getElementById('budgetGroup');
-const destinationGrid=document.getElementById('destinationGrid');
-const specificGroupA=document.getElementById('specificGroupA');
-const specificGroupB=document.getElementById('specificGroupB');
+const QUESTIONS = {
+  trabalhar:[
+    {id:'profissao', type:'options', title:'Em qual área você atua?', helper:'Isso define quais vistos fazem mais sentido pra você.', options:[
+      {value:'tech',     label:'Tecnologia / TI'},
+      {value:'saude',    label:'Saúde / Medicina'},
+      {value:'eng',      label:'Engenharia'},
+      {value:'financas', label:'Finanças / Jurídico'},
+      {value:'criativo', label:'Criativo / Comunicação'},
+      {value:'outro',    label:'Outra área'}
+    ]},
+    {id:'remoto', type:'options', title:'Você pode trabalhar remoto pra uma empresa fora do país de destino?', helper:'Ex: CLT remoto no Brasil, PJ com clientes no exterior.', options:[
+      {value:'sim',     label:'Sim, já trabalho remoto'},
+      {value:'poderia', label:'Poderia negociar isso'},
+      {value:'nao',     label:'Não — preciso de emprego local'}
+    ]},
+    {id:'renda', type:'scale', title:'Qual a sua renda mensal bruta hoje?', helper:'Converta pra real se receber em outra moeda. Ninguém checa — seja honesto.', options:[
+      {value:'1', label:'Até R$ 5k'},
+      {value:'2', label:'R$ 5k-10k'},
+      {value:'3', label:'R$ 10k-20k'},
+      {value:'4', label:'R$ 20k-40k'},
+      {value:'5', label:'R$ 40k+'}
+    ]},
+    {id:'patrimonio', type:'options', title:'Tem renda passiva ou patrimônio que gere ≥ R$ 5 mil/mês?', helper:'Aluguéis, dividendos, aposentadoria, aplicações. Abre um visto diferente (D7).', options:[
+      {value:'sim',     label:'Sim, comprovadamente'},
+      {value:'parcial', label:'Parcialmente (não cobre tudo)'},
+      {value:'nao',     label:'Não, dependo do meu trabalho'}
+    ]},
+    {id:'descendencia', type:'options', title:'Tem descendência europeia (avós/bisavós)?', helper:'Se tem ascendente nascido em Portugal, Itália, Espanha ou Irlanda, pode haver atalho pra cidadania.', options:[
+      {value:'pt',      label:'Portuguesa'},
+      {value:'it',      label:'Italiana'},
+      {value:'es',      label:'Espanhola'},
+      {value:'ie',      label:'Irlandesa'},
+      {value:'nenhuma', label:'Nenhuma / Não sei'}
+    ]},
+    {id:'prazo', type:'options', title:'Em quanto tempo você quer estar lá?', helper:'Isso afeta quais vistos são viáveis (alguns têm fila).', options:[
+      {value:'6m',    label:'Até 6 meses'},
+      {value:'1a',    label:'Até 1 ano'},
+      {value:'2a',    label:'1-2 anos'},
+      {value:'indef', label:'Sem pressa'}
+    ]}
+  ],
+  turismo:[{id:'_placeholder', type:'placeholder'}],
+  intercambio:[{id:'_placeholder', type:'placeholder'}],
+  estudar:[{id:'_placeholder', type:'placeholder'}],
+  cidadania:[{id:'_placeholder', type:'placeholder'}]
+};
 
-const resultTitle=document.getElementById('resultTitle');
-const resultPrice=document.getElementById('resultPrice');
-const resultCopy=document.getElementById('resultCopy');
-const highlightIcon=document.getElementById('highlightIcon');
-const highlightTitle=document.getElementById('highlightTitle');
-const highlightText=document.getElementById('highlightText');
-const resultTags=document.getElementById('resultTags');
-const summaryList=document.getElementById('summaryList');
-const nextStep=document.getElementById('nextStep');
-const teamAction=document.getElementById('teamAction');
-const primaryCta=document.getElementById('primaryCta');
-const secondaryCta=document.getElementById('secondaryCta');
-const progressFill=document.getElementById('progressFill');
-const progressLabel=document.getElementById('progressLabel');
+const VISAS = {
+  'pt-d8': {country:'pt', code:'D8', title:'D8 — Nómada Digital', subtitle:'Trabalhador Remoto', rarity:'rare',
+    description:'Visto pra quem trabalha remoto pra empresas fora de Portugal. O mais acessível pra classe média brasileira com boa renda em reais.',
+    prazo:'3–5 meses', custo:'R$ 45k-80k', dificuldade:2,
+    trabalho:'✓ Só empregador externo', cidadania:'5 anos',
+    why:(a)=>`Sua renda remota equivale a mais de €3.480/mês (mínimo D8). É o caminho mais direto pro seu perfil.`},
+  'pt-d7': {country:'pt', code:'D7', title:'D7 — Rendimento Próprio', subtitle:'Renda Passiva / Aposentadoria', rarity:'rare',
+    description:'Visto pra quem tem renda passiva (aluguéis, dividendos, aposentadoria). Permite trabalhar livremente em Portugal depois de chegar.',
+    prazo:'3–4 meses', custo:'R$ 40k-70k', dificuldade:2,
+    trabalho:'✓ Pode trabalhar em PT', cidadania:'5 anos',
+    why:(a)=>`Sua renda passiva cobre o mínimo (≥€870/mês). Mais flexível que o D8.`},
+  'pt-d3': {country:'pt', code:'D3', title:'D3 — Altamente Qualificada', subtitle:'Contrato de trabalho em PT', rarity:'common',
+    description:'Pra quem vai com contrato de trabalho assinado em Portugal em cargo de alta qualificação. Salário mín. ~€2.200/mês.',
+    prazo:'3–5 meses', custo:'R$ 30k-50k', dificuldade:3,
+    trabalho:'✓ No empregador', cidadania:'5 anos',
+    why:(a)=>`Sua área está na lista de qualificação alta. O gargalo é conseguir o contrato antes.`},
+  'pt-cidadania': {country:'pt', code:'NAT', title:'Nacionalidade Portuguesa', subtitle:'Por descendência direta', rarity:'legendary',
+    description:'Se você tem pai, mãe, avô ou avó português — tem direito direto, sem precisar morar em PT primeiro.',
+    prazo:'12–24 meses', custo:'R$ 2k-8k', dificuldade:2,
+    trabalho:'✓ Cidadão europeu', cidadania:'Imediata',
+    why:(a)=>`Você marcou descendência portuguesa — esse é o <strong>caminho mais forte possível</strong>: cidadania europeia direto, sem depender de visto.`}
+};
 
+const LOADING_MESSAGES = [
+  'Cruzando 147 vistos possíveis…',
+  'Analisando seu perfil profissional…',
+  'Filtrando por prazos realistas…',
+  'Calculando faixas de custo fundamentadas…',
+  '✨ Encontrei os melhores caminhos pra você!'
+];
 
-function budgetModeLabel(value){
-  return budgetModes.find(item=>item.id===value)?.title || 'Valor informado';
-}
+// =============================================================
+// STATE
+// =============================================================
+const state = {
+  intent:null, country:null,
+  answers:{}, qIndex:0,
+  lead:{}, xp:0, rank:0,
+  achievements:new Set(),
+  milestonesShown:new Set(),
+  lastAnswerTime:0, streak:0,
+  soundOn:true
+};
 
-function formatBudgetValue(value){
-  const numeric = String(value || '').replace(/\D/g,'');
-  return numeric ? Number(numeric).toLocaleString('pt-PT') : '';
-}
-
-function budgetSummaryText(s){
-  if(!s.budgetValue) return 'A definir';
-  return `€ ${formatBudgetValue(s.budgetValue)} (${budgetModeLabel(s.budget).toLowerCase()})`;
-}
-
-
-function budgetModeLabel(value){
-  return budgetModes.find(item=>item.id===value)?.title || 'Valor informado';
-}
-
-function formatBudgetValue(value){
-  const numeric = String(value || '').replace(/\D/g,'');
-  return numeric ? Number(numeric).toLocaleString('pt-PT') : '';
-}
-
-function budgetSummaryText(s){
-  if(!s.budgetValue) return 'A definir';
-  return `€ ${formatBudgetValue(s.budgetValue)} (${budgetModeLabel(s.budget).toLowerCase()})`;
-}
-
-function labelFor(groupKey,value){
-  const flow=flows[currentType];
-  const pools=[flow.profile,flow.timeline,...flow.specifics];
-  if(groupKey==='destination'){
-    return flow.destinations.find(item=>item.id===value)?.title || '';
+// =============================================================
+// SOUND
+// =============================================================
+let audioCtx = null;
+function getAudio(){
+  if(!audioCtx){
+    try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e){ audioCtx = null; }
   }
-  if(groupKey==='budget'){
-    return budgetModeLabel(value);
-  }
-  const group=pools.find(item=>item.key===groupKey || item===flow[groupKey]);
-  return group?.options.find(item=>item.id===value)?.title || '';
+  return audioCtx;
+}
+function beep(freq=440, duration=0.1, type='sine', volume=0.04){
+  if(!state.soundOn) return;
+  const ctx = getAudio();
+  if(!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.value = volume;
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + duration);
+}
+// Musical palette (A minor pentatonic, warm, non-annoying)
+function chord(freqs, duration=0.18, type='triangle', volume=0.035){
+  freqs.forEach(f=>beep(f,duration,type,volume));
+}
+const SFX = {
+  // C E G (major-third stacked) — a tiny 3-note chord
+  select: ()=>{ chord([523.25, 659.25], 0.08, 'triangle', 0.028); setTimeout(()=>beep(783.99,0.1,'triangle',0.022),60); },
+  xp:     ()=>{ beep(1318.5, 0.06, 'sine', 0.022); },
+  unlock: ()=>{ chord([523.25, 659.25, 783.99], 0.14, 'triangle', 0.03); setTimeout(()=>beep(1046.5,0.2,'triangle',0.035),140); },
+  level:  ()=>{ beep(523.25,0.1,'triangle',0.045); setTimeout(()=>beep(659.25,0.1,'triangle',0.045),90); setTimeout(()=>beep(783.99,0.1,'triangle',0.045),180); setTimeout(()=>chord([1046.5, 1318.5],0.28,'triangle',0.05),270); },
+  stamp:  ()=>{ beep(98, 0.22, 'square', 0.09); setTimeout(()=>beep(147,0.1,'square',0.05),40); },
+  milestone:()=>{ chord([880, 1108.7], 0.1, 'sine', 0.035); setTimeout(()=>beep(1318.5,0.16,'sine',0.035),100); }
+};
+function toggleSound(){
+  state.soundOn = !state.soundOn;
+  const tog = document.getElementById('sound-toggle');
+  tog.classList.toggle('muted', !state.soundOn);
+  tog.innerHTML = state.soundOn ? `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>` : `
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>`;
 }
 
-function renderTabs(){
-  typeTabs.innerHTML=Object.entries(flows).map(([key,flow])=>`
-    <button class="type-tab ${key===currentType?'active':''}" data-type="${key}">
-      <strong>${flow.label}</strong>
-      <small>${flow.tabCopy}</small>
-    </button>
-  `).join('');
-  typeTabs.querySelectorAll('.type-tab').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      currentType=btn.dataset.type;
-      renderAll();
-    });
+// =============================================================
+// XP · RANK · MILESTONE
+// =============================================================
+function animateNumber(el, target, duration=800){
+  const start = parseInt(el.textContent,10) || 0;
+  const delta = target - start;
+  const t0 = performance.now();
+  function tick(now){
+    const p = Math.min(1, (now - t0)/duration);
+    const eased = 1 - Math.pow(1-p, 3);
+    el.textContent = Math.round(start + delta*eased);
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function getRank(xp){
+  let r = 0;
+  for(let i=0;i<RANKS.length;i++){ if(xp >= RANKS[i].min) r = i; }
+  return r;
+}
+function updateRankAndProgress(){
+  const newRank = getRank(state.xp);
+  const label = document.getElementById('rank-label');
+  const icon  = document.getElementById('rank-icon');
+  const fill  = document.getElementById('rank-progress-fill');
+
+  const curMin = RANKS[newRank].min;
+  const nextMin = (RANKS[newRank+1] && RANKS[newRank+1].min) || (curMin + 300);
+  const pct = Math.min(100, Math.max(0, ((state.xp - curMin) / (nextMin - curMin)) * 100));
+  fill.style.width = pct + '%';
+
+  if(newRank > state.rank){
+    state.rank = newRank;
+    const rk = RANKS[newRank];
+    label.textContent = rk.name;
+    icon.innerHTML    = rk.icon;
+    document.getElementById('rank-badge').classList.add('promoted');
+    setTimeout(()=>document.getElementById('rank-badge').classList.remove('promoted'),1000);
+    showLevelUp(rk);
+  } else {
+    const rk = RANKS[newRank];
+    label.textContent = rk.name;
+    icon.innerHTML    = rk.icon;
+  }
+}
+function showLevelUp(rk){
+  SFX.level();
+  const el = document.getElementById('level-up');
+  document.getElementById('level-up-icon').innerHTML = rk.icon;
+  document.getElementById('level-up-name').textContent = rk.name;
+  document.getElementById('level-up-desc').textContent = rk.desc;
+  el.classList.add('show');
+  fireConfettiBurst(40);
+  setTimeout(()=>el.classList.remove('show'), 2400);
+}
+function showMilestone(xp){
+  if(state.milestonesShown.has(xp)) return;
+  state.milestonesShown.add(xp);
+  SFX.milestone();
+  const el = document.getElementById('milestone');
+  document.getElementById('milestone-text').textContent = `+${xp} XP · Continue assim!`;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2200);
+}
+function checkMilestones(prev, next){
+  const ms = [100, 200, 300, 400, 600, 750];
+  for(const m of ms){
+    if(prev < m && next >= m && !state.milestonesShown.has(m)){
+      showMilestone(m);
+    }
+  }
+}
+function addXP(amount, clickEvent){
+  const prev = state.xp;
+  state.xp += amount;
+  const el = document.getElementById('xp-value');
+  const badge = document.getElementById('xp-badge');
+  animateNumber(el, state.xp, 600);
+  badge.classList.remove('pulse');
+  void badge.offsetWidth;
+  badge.classList.add('pulse');
+  setTimeout(()=>badge.classList.remove('pulse'), 800);
+  SFX.xp();
+  if(clickEvent){
+    const float = document.createElement('div');
+    float.className = 'xp-float';
+    float.textContent = '+' + amount + ' XP';
+    float.style.left = clickEvent.clientX + 'px';
+    float.style.top  = clickEvent.clientY + 'px';
+    document.body.appendChild(float);
+    setTimeout(()=>float.remove(), 1400);
+    spawnBurst(clickEvent.clientX, clickEvent.clientY);
+  }
+  updateRankAndProgress();
+  updateTabTitle();
+  checkMilestones(prev, state.xp);
+}
+function spawnBurst(x, y){
+  const wrap = document.createElement('div');
+  wrap.className = 'xp-burst';
+  wrap.style.left = x + 'px';
+  wrap.style.top = y + 'px';
+  document.body.appendChild(wrap);
+  const n = 12;
+  for(let i=0;i<n;i++){
+    const s = document.createElement('div');
+    s.className = 'xp-spark';
+    const angle = (Math.PI*2) * (i/n);
+    const dist = 50 + Math.random()*30;
+    s.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+    s.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+    wrap.appendChild(s);
+  }
+  setTimeout(()=>wrap.remove(), 900);
+}
+function updateTabTitle(){
+  const rk = RANKS[state.rank];
+  document.title = `⚡ ${state.xp} XP · ${rk.name} · Global Travel`;
+}
+function showAchievement(title, icon){
+  if(state.achievements.has(title)) return;
+  state.achievements.add(title);
+  SFX.unlock();
+  document.getElementById('ach-title').textContent = title;
+  document.getElementById('ach-icon').innerHTML    = icon || ICONS.trophy;
+  const el = document.getElementById('achievement');
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 3400);
+}
+
+// STREAK
+function registerAnswer(){
+  const now = Date.now();
+  const delta = now - state.lastAnswerTime;
+  if(state.lastAnswerTime && delta < 6000){
+    state.streak++;
+    if(state.streak >= 2){
+      showStreak(state.streak);
+      addXP(state.streak * 5);
+    }
+  } else { state.streak = 1; }
+  state.lastAnswerTime = now;
+}
+function showStreak(n){
+  const el = document.getElementById('streak-bar');
+  document.getElementById('streak-text').textContent = `Streak x${n}! +${n*5} XP`;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 1800);
+}
+
+// QUEST
+function setQuest(key){
+  const q = QUESTS.find(x=>x.at===key);
+  if(!q) return;
+  document.getElementById('quest-text').textContent = q.text;
+  document.getElementById('quest-icon').innerHTML  = q.icon;
+  document.getElementById('quest-tracker').classList.add('show');
+}
+function hideQuest(){ document.getElementById('quest-tracker').classList.remove('show'); }
+
+// PHASE DOTS
+function setPhase(n){
+  document.querySelectorAll('.phase-dot').forEach((d,i)=>{
+    d.classList.remove('active','done');
+    if(i < n-1) d.classList.add('done');
+    else if(i === n-1) d.classList.add('active');
   });
 }
 
-function renderChoiceGroup(target,group,stateKey){
-  const cls=group.options.length===2 ? 'chip-grid two' : 'chip-grid';
-  target.innerHTML=`
-    <div>
-      <h4 class="choice-title">${group.title}</h4>
-      <p class="choice-help">${group.help}</p>
-      <div class="${cls}">
-        ${group.options.map(option=>`
-          <button class="chip ${state[currentType][stateKey]===option.id?'active':''}" data-state-key="${stateKey}" data-value="${option.id}">
-            <strong>${option.title}</strong>
-            <span>${option.desc}</span>
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
+// =============================================================
+// NAV
+// =============================================================
+function nav(screen){
+  const el = document.querySelector('.screen.active');
+  if(el) el.classList.remove('active');
+  const target = document.querySelector(`[data-screen="${screen}"]`);
+  target.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  const phases = {intro:0, intent:1, country:2, questions:3, gate:4, loading:5, result:5};
+  setPhase(phases[screen] || 0);
+  if(screen === 'intent')    setQuest('intent');
+  if(screen === 'country')   setQuest('country');
+  if(screen === 'questions') { setQuest('questions'); renderQuestion(); }
+  if(screen === 'gate')      setQuest('gate');
+  if(screen === 'loading')   { hideQuest(); runLoadingSequence(); }
+  if(screen === 'result')    { setQuest('result'); renderResult(); }
+  if(screen === 'intro')     hideQuest();
 }
+function goCountry(){ nav('country'); }
+function goQuestions(){ state.qIndex = 0; nav('questions'); }
 
-function renderBudgetField(target,group){
-  target.innerHTML=`
-    <div class="budget-shell">
-      <div>
-        <h4 class="choice-title">${group.title}</h4>
-        <p class="choice-help">${group.help}</p>
+// INTENTS
+function renderIntents(){
+  const c = document.getElementById('intent-options');
+  c.innerHTML = INTENTS.map(i=>`
+    <button class="opt" data-id="${i.id}" onclick="selectIntent('${i.id}',event)">
+      <span class="opt-xp-badge">+${i.xp} XP</span>
+      <div class="opt-icon">${i.icon}</div>
+      <div class="opt-body">
+        <div class="opt-title">${i.title}</div>
+        <div class="opt-desc">${i.desc}</div>
       </div>
-      <div class="budget-entry">
-        <span class="budget-label">Valor aproximado em euro</span>
-        <label class="budget-input-wrap" for="budgetValueInput">
-          <span class="budget-prefix">€</span>
-          <input class="budget-input" id="budgetValueInput" inputmode="numeric" autocomplete="off" placeholder="Ex.: 2500" value="${formatBudgetValue(state[currentType].budgetValue)}">
-        </label>
-        <p class="budget-note">Compartilhe um valor aproximado. Assim conseguimos alinhar melhor a proposta ao seu momento.</p>
-      </div>
-      <div class="chip-grid">
-        ${budgetModes.map(option=>`
-          <button class="chip ${state[currentType].budget===option.id?'active':''}" data-state-key="budget" data-value="${option.id}">
-            <strong>${option.title}</strong>
-            <span>${option.desc}</span>
-          </button>
-        `).join('')}
-      </div>
-    </div>
-  `;
-}
-
-function renderOptionCards(target,items,stateKey){
-  target.innerHTML=items.map(item=>`
-    <button class="option-card ${state[currentType][stateKey]===item.id?'active':''}" data-state-key="${stateKey}" data-value="${item.id}">
-      <div class="option-top">
-        <span class="option-icon">${item.icon}</span>
-        <span class="option-check"></span>
-      </div>
-      <div>
-        <div class="option-title">${item.title}</div>
-        <div class="option-desc">${item.desc}</div>
-      </div>
+      <div class="opt-check">✓</div>
     </button>
   `).join('');
 }
-
-function renderGroups(){
-  const flow=flows[currentType];
-  renderChoiceGroup(profileGroup,flow.profile,'profile');
-  renderChoiceGroup(timelineGroup,flow.timeline,'timeline');
-  renderBudgetField(budgetGroup,flow.budget);
-  renderOptionCards(destinationGrid,flow.destinations,'destination');
-  renderChoiceGroup(specificGroupA,flow.specifics[0],flow.specifics[0].key);
-  renderChoiceGroup(specificGroupB,flow.specifics[1],flow.specifics[1].key);
-}
-
-function attachStateEvents(){
-  document.querySelectorAll('[data-state-key]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      state[currentType][btn.dataset.stateKey]=btn.dataset.value;
-      renderAll();
-    });
-  });
-  const budgetInput=document.getElementById('budgetValueInput');
-  if(budgetInput){
-    budgetInput.addEventListener('input',e=>{
-      const numeric=e.target.value.replace(/\D/g,'').slice(0,7);
-      state[currentType].budgetValue=numeric;
-      e.target.value=formatBudgetValue(numeric);
-      renderResult();
-    });
+function selectIntent(id, ev){
+  const prev = state.intent;
+  state.intent = id;
+  document.querySelectorAll('#intent-options .opt').forEach(o=>o.classList.toggle('selected', o.dataset.id===id));
+  document.getElementById('intent-next').disabled = false;
+  SFX.select();
+  if(!prev){
+    const intent = INTENTS.find(i=>i.id===id);
+    addXP(intent.xp, ev);
+    showAchievement('Objetivo definido', ICONS.objetivo);
   }
 }
 
-function progressValue(){
-  const s=state[currentType];
-  const keys=Object.keys(s).filter(key=>key!=='budget');
-  const filled=keys.filter(key=>Boolean(s[key])).length;
-  return Math.round((filled/keys.length)*100);
+// COUNTRY
+function renderCountries(){
+  const c = document.getElementById('country-options');
+  c.innerHTML = COUNTRIES.map(co=>`
+    <button class="opt" data-id="${co.id}" onclick="selectCountry('${co.id}',event)">
+      <span class="opt-xp-badge">+${co.xp} XP</span>
+      <div class="opt-icon">${co.flag}</div>
+      <div class="opt-body">
+        <div class="opt-title">${co.name}</div>
+        <div class="opt-desc">${co.hook}</div>
+      </div>
+      <div class="opt-check">✓</div>
+    </button>
+  `).join('');
+}
+function selectCountry(id, ev){
+  const prev = state.country;
+  state.country = id;
+  document.querySelectorAll('#country-options .opt').forEach(o=>o.classList.toggle('selected', o.dataset.id===id));
+  document.getElementById('country-next').disabled = false;
+  SFX.select();
+  if(!prev){
+    const country = COUNTRIES.find(c=>c.id===id);
+    addXP(country.xp, ev);
+    showAchievement(`${country.name} selecionado`, country.flag);
+    showPassportStamp(country);
+  }
+}
+function showPassportStamp(country){
+  const overlay = document.getElementById('stamp-overlay');
+  const stamp = document.getElementById('stamp');
+  document.getElementById('stamp-flag').innerHTML = country.flag;
+  document.getElementById('stamp-name').textContent = country.name;
+  document.getElementById('stamp-sub').textContent  = 'APROVADO · FASE 02';
+  overlay.classList.add('active');
+  stamp.style.animation = 'none';
+  void stamp.offsetWidth;
+  stamp.style.animation = '';
+  SFX.stamp();
+  setTimeout(()=>overlay.classList.remove('active'), 1300);
 }
 
-function whatsSummary(){
-  const flow=flows[currentType];
-  const s=state[currentType];
-  const lines=[
-    'Olá, fiz a simulação no site da Global Travel.',
-    '',
-    `Objetivo: ${flow.label}`,
-    `Destino: ${labelFor('destination',s.destination)}`,
-    `Perfil: ${labelFor('profile',s.profile)}`,
-    `Prazo: ${labelFor('timeline',s.timeline)}`,
-    `Investimento previsto: ${budgetSummaryText(s)}`,
-    `${flow.specifics[0].title}: ${labelFor(flow.specifics[0].key,s[flow.specifics[0].key])}`,
-    `${flow.specifics[1].title}: ${labelFor(flow.specifics[1].key,s[flow.specifics[1].key])}`,
-    '',
-    'Quero avançar com um atendimento com base nessas informações.'
-  ];
-  return encodeURIComponent(lines.join('\n'));
+// QUESTIONS
+function getQuestions(){ return QUESTIONS[state.intent] || []; }
+function renderQuestion(){
+  const qs = getQuestions();
+  const q = qs[state.qIndex];
+  const c = document.getElementById('question-container');
+  document.getElementById('q-of').textContent = `Fase 03 de 05 · pergunta ${state.qIndex+1}/${qs.length}`;
+
+  if(!q || q.type === 'placeholder'){
+    c.innerHTML = `
+      <h2 class="question">Esse caminho está em desenvolvimento</h2>
+      <p class="helper">O protótipo atual implementa <strong>Trabalhar e morar → Portugal</strong> ponta-a-ponta. Outros caminhos já estão mapeados na matriz, vão entrar nas próximas rodadas.</p>
+      <div class="hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        <div>Pra ver o quiz completo, reinicie e escolha <strong>Trabalhar e morar → Portugal</strong>.</div>
+      </div>
+    `;
+    document.getElementById('q-next').disabled = false;
+    document.getElementById('q-next').onclick = ()=>nav('gate');
+    document.getElementById('q-back').onclick = ()=>nav('country');
+    return;
+  }
+
+  let body = `<h2 class="question">${q.title}</h2>${q.helper ? `<p class="helper">${q.helper}</p>`:''}`;
+  if(q.type === 'options'){
+    body += `<div class="options">${q.options.map(opt=>`
+      <button class="opt" data-val="${opt.value}" onclick="answer('${q.id}','${opt.value}',event)">
+        <span class="opt-xp-badge">+15 XP</span>
+        <div class="opt-body"><div class="opt-title">${opt.label}</div></div>
+        <div class="opt-check">✓</div>
+      </button>
+    `).join('')}</div>`;
+  } else if(q.type === 'scale'){
+    body += `<div class="question-scale">${q.options.map(opt=>`
+      <button class="scale-btn" data-val="${opt.value}" onclick="answer('${q.id}','${opt.value}',event)">
+        <div>${opt.label}</div>
+      </button>
+    `).join('')}</div>`;
+  }
+  c.innerHTML = body;
+  restoreAnswer(q.id);
+  document.getElementById('q-next').disabled = !state.answers[q.id];
+  document.getElementById('q-next').onclick = nextQuestion;
+  document.getElementById('q-back').onclick = prevQuestion;
+}
+function answer(qid, val, ev){
+  const wasAnswered = !!state.answers[qid];
+  state.answers[qid] = val;
+  document.querySelectorAll('#question-container .opt, #question-container .scale-btn').forEach(el=>{
+    el.classList.toggle('selected', el.dataset.val===val);
+  });
+  document.getElementById('q-next').disabled = false;
+  SFX.select();
+  if(!wasAnswered){
+    addXP(15, ev);
+    registerAnswer();
+    const answered = Object.keys(state.answers).length;
+    const total = getQuestions().length;
+    if(answered === Math.ceil(total/2)) showAchievement('Jornada iniciada', ICONS.jornada);
+    else if(answered === total){
+      addXP(50, ev);
+      showAchievement('Perfil mapeado', ICONS.perfil);
+    }
+  }
+}
+function restoreAnswer(qid){
+  const v = state.answers[qid];
+  if(!v) return;
+  document.querySelectorAll('#question-container .opt, #question-container .scale-btn').forEach(el=>{
+    if(el.dataset.val===v) el.classList.add('selected');
+  });
+}
+function nextQuestion(){
+  const qs = getQuestions();
+  if(state.qIndex < qs.length-1){ state.qIndex++; renderQuestion(); }
+  else nav('gate');
+}
+function prevQuestion(){
+  if(state.qIndex > 0){ state.qIndex--; renderQuestion(); }
+  else nav('country');
 }
 
-function specificCta(){
-  const flow=flows[currentType];
-  const s=state[currentType];
-  const dest=labelFor('destination',s.destination);
-  const budgetInfo=s.budgetValue ? ` com investimento previsto de ${budgetSummaryText(s)}` : '';
-  const messages={
-    viagem:`Olá, fiz a simulação de viagem no site. Quero montar uma proposta para ${dest}${budgetInfo}.`,
-    passagem:`Olá, fiz a simulação de passagens no site. Quero cotar uma emissão para ${dest}${budgetInfo}.`,
-    ingles:`Olá, fiz a simulação de intercâmbio de inglês no site. Quero avaliar opções para ${dest}${budgetInfo}.`,
-    estudos:`Olá, fiz a simulação de graduação/mestrado no site. Quero avaliar um projeto em ${dest}${budgetInfo}.`
+// GATE
+function validateGate(){
+  const nome = document.getElementById('lead-nome').value.trim();
+  const email = document.getElementById('lead-email').value.trim();
+  const wpp = document.getElementById('lead-wpp').value.trim();
+  const lgpd = document.getElementById('lead-lgpd').checked;
+  document.getElementById('gate-next').disabled = !(nome.length >= 2 && /.+@.+\..+/.test(email) && wpp.length >= 10 && lgpd);
+}
+function submitLead(){
+  state.lead = {
+    nome:document.getElementById('lead-nome').value.trim(),
+    email:document.getElementById('lead-email').value.trim(),
+    wpp:document.getElementById('lead-wpp').value.trim(),
+    ts:Date.now()
   };
-  return encodeURIComponent(messages[currentType]);
+  try{localStorage.setItem('gt_lead', JSON.stringify(state.lead));}catch(e){}
+  try{localStorage.setItem('gt_answers', JSON.stringify({intent:state.intent,country:state.country,answers:state.answers,xp:state.xp}));}catch(e){}
+  addXP(100);
+  showAchievement('Acesso concedido', ICONS.acesso);
+  nav('loading');
 }
+
+// LOADING
+function runLoadingSequence(){
+  const container = document.getElementById('loading-messages');
+  const meterFill = document.getElementById('loading-meter-fill');
+  container.innerHTML = LOADING_MESSAGES.map((m,i)=>`<div class="loading-msg${i===0?' show':''}" data-i="${i}">${m}</div>`).join('');
+  let idx = 0;
+  const total = LOADING_MESSAGES.length;
+  meterFill.style.width = `${((idx+1)/total)*100}%`;
+  const interval = setInterval(()=>{
+    const current = container.querySelector(`[data-i="${idx}"]`);
+    if(current) current.classList.remove('show');
+    idx++;
+    if(idx >= total){
+      clearInterval(interval);
+      meterFill.style.width = '100%';
+      setTimeout(()=>{ addXP(200); showAchievement('Plano desbloqueado', ICONS.plano); nav('result'); fireConfetti(); }, 400);
+      return;
+    }
+    const next = container.querySelector(`[data-i="${idx}"]`);
+    if(next) next.classList.add('show');
+    meterFill.style.width = `${((idx+1)/total)*100}%`;
+  }, 620);
+}
+
+// CONFETTI
+function fireConfetti(){
+  const wrap = document.createElement('div');
+  wrap.className = 'confetti-wrap';
+  document.body.appendChild(wrap);
+  const colors = ['#C79A4A','#F2D49B','#4ADE80','#60A5FA','#F9A8D4','#FBBF24'];
+  for(let i=0;i<120;i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = Math.random()*100 + '%';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    const driftX = (Math.random() - 0.5) * 400;
+    const rotation = 360 + Math.random()*1440;
+    p.style.setProperty('--x', driftX + 'px');
+    p.style.setProperty('--r', rotation + 'deg');
+    p.style.animationDelay = (Math.random()*0.8) + 's';
+    p.style.animationDuration = (2.8 + Math.random()*2) + 's';
+    p.style.width = (6 + Math.random()*8) + 'px';
+    p.style.height = (10 + Math.random()*10) + 'px';
+    wrap.appendChild(p);
+  }
+  setTimeout(()=>wrap.remove(), 5200);
+}
+function fireConfettiBurst(n=30){
+  const wrap = document.createElement('div');
+  wrap.className = 'confetti-wrap';
+  document.body.appendChild(wrap);
+  const colors = ['#C79A4A','#F2D49B','#60A5FA','#FBBF24'];
+  for(let i=0;i<n;i++){
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = (40 + Math.random()*20) + '%';
+    p.style.top = '40%';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    const driftX = (Math.random() - 0.5) * 700;
+    p.style.setProperty('--x', driftX + 'px');
+    p.style.setProperty('--r', (360+Math.random()*720) + 'deg');
+    p.style.animationDuration = (2 + Math.random()*1) + 's';
+    wrap.appendChild(p);
+  }
+  setTimeout(()=>wrap.remove(), 3500);
+}
+
+// PARTICLES
+function spawnParticles(count=18){
+  const wrap = document.getElementById('particles');
+  for(let i=0;i<count;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.top = (100 + Math.random()*30) + 'vh';
+    p.style.setProperty('--drift', ((Math.random()-0.5)*120) + 'px');
+    p.style.animationDuration = (12 + Math.random()*18) + 's';
+    p.style.animationDelay = (-Math.random()*20) + 's';
+    p.style.opacity = (0.3 + Math.random()*0.4);
+    wrap.appendChild(p);
+  }
+}
+
+// ENGINE
+function scorePath(visaKey, a){
+  const v = VISAS[visaKey];
+  if(!v) return 0;
+  let s = 0;
+  if(visaKey === 'pt-d8'){
+    if(a.remoto==='sim') s+=45;
+    else if(a.remoto==='poderia') s+=20;
+    else s-=30;
+    if(['3','4','5'].includes(a.renda)) s+=30;
+    else if(a.renda==='2') s+=10;
+    else s-=15;
+    if(a.profissao==='tech' || a.profissao==='criativo') s+=10;
+    if(a.prazo==='6m') s+=5;
+  }
+  if(visaKey === 'pt-d7'){
+    if(a.patrimonio==='sim') s+=50;
+    else if(a.patrimonio==='parcial') s+=20;
+    else s-=25;
+    if(['4','5'].includes(a.renda) && a.patrimonio!=='nao') s+=10;
+  }
+  if(visaKey === 'pt-d3'){
+    if(['tech','saude','eng','financas'].includes(a.profissao)) s+=30;
+    if(['4','5'].includes(a.renda)) s+=15;
+    if(a.remoto==='nao') s+=20;
+    if(a.prazo==='1a' || a.prazo==='2a') s+=10;
+  }
+  if(visaKey === 'pt-cidadania'){
+    if(a.descendencia==='pt') s+=100;
+    else return 0;
+  }
+  return Math.max(0, Math.min(100, s+50));
+}
+function pickBestPaths(){
+  const a = state.answers;
+  if(state.intent !== 'trabalhar' || state.country !== 'pt') return null;
+  const candidates = ['pt-cidadania','pt-d8','pt-d7','pt-d3'];
+  const scored = candidates.map(k=>({k, score:scorePath(k,a)})).sort((a,b)=>b.score-a.score);
+  return scored.filter(s=>s.score>=40).slice(0,3);
+}
+function animateScore(el, target){
+  const t0 = performance.now();
+  const duration = 1800;
+  function tick(now){
+    const p = Math.min(1, (now-t0)/duration);
+    const eased = 1 - Math.pow(1-p, 4);
+    el.textContent = Math.round(target*eased) + '%';
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function animateCompass(target){
+  const fill = document.getElementById('compass-fill');
+  // circumference ≈ 628 (2πr, r=100)
+  const offset = 628 - (628 * target / 100);
+  fill.style.strokeDashoffset = offset;
+}
+function rarityLabel(r){ return ({common:'Comum', rare:'Raro', epic:'Épico', legendary:'Lendário'})[r] || 'Comum'; }
 
 function renderResult(){
-  const flow=flows[currentType];
-  const s=state[currentType];
-  const dest=flow.destinations.find(item=>item.id===s.destination);
-  const pct=progressValue();
-  const budgetText=s.budgetValue ? `€ ${formatBudgetValue(s.budgetValue)}` : 'Informe o valor que pretende investir';
-  const budgetCopy=s.budgetValue
-    ? `Receba um atendimento mais alinhado ao seu objetivo, momento e investimento informado (${budgetModeLabel(s.budget).toLowerCase()}).`
-    : 'Preencha suas preferências e informe o valor que pretende investir para receber um atendimento mais alinhado ao que procura.';
+  const paths = pickBestPaths();
+  const c = document.getElementById('paths-container');
+  const stepsEl = document.getElementById('steps-block');
+  const scoreEl = document.getElementById('score-num');
+  const leadEl = document.getElementById('result-lead');
+  const nomeGreet = state.lead.nome || 'Você';
 
-  resultTitle.textContent=flow.label;
-  resultPrice.textContent=budgetText;
-  resultCopy.textContent=budgetCopy;
-  highlightIcon.textContent=dest.icon;
-  highlightTitle.textContent=dest.title;
-  highlightText.textContent=dest.desc;
-  nextStep.textContent=flow.nextStep;
-  teamAction.textContent=flow.teamAction;
+  if(!paths){
+    scoreEl.textContent = '—';
+    animateCompass(15);
+    leadEl.innerHTML = `<strong>${nomeGreet}</strong>, esse protótipo aprofunda apenas <strong>Portugal · Trabalhar e morar</strong>. Pra seu caminho, nosso especialista monta o plano completo pra você.`;
+    c.innerHTML = `<div class="path-card" style="animation-delay:.2s"><div class="path-head"><div class="path-title-wrap"><div class="path-subtitle">Próximo passo</div><div class="path-title">Consultoria gratuita personalizada</div></div><span class="rarity rarity-rare">Recomendado</span></div><div class="path-description">Baseado nas suas respostas, montamos um plano detalhado com visto, prazos, custos e checklist completo.</div></div>`;
+    stepsEl.innerHTML = '<h3>O que preparamos</h3><div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Análise personalizada</strong> do seu perfil</div></div><div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Plano com 3 alternativas</strong> de caminho</div></div><div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Orçamento transparente</strong> do processo completo</div></div>';
+  } else if(paths.length === 0){
+    scoreEl.textContent = '—';
+    animateCompass(10);
+    leadEl.innerHTML = `<strong>${nomeGreet}</strong>, seu perfil é muito específico — pede análise de especialista.`;
+    c.innerHTML = `<div class="path-card"><div class="path-description">Nossa consultoria analisa em profundidade e indica caminhos menos óbvios.</div></div>`;
+    stepsEl.innerHTML = '';
+  } else {
+    const best = paths[0];
+    setTimeout(()=>{
+      animateScore(scoreEl, best.score);
+      animateCompass(best.score);
+    }, 300);
+    const v0 = VISAS[best.k];
+    leadEl.innerHTML = `<strong>${nomeGreet}</strong>, o caminho mais indicado em <strong>Portugal</strong> é o <strong>${v0.title}</strong>.`;
 
-  progressFill.style.width=`${pct}%`;
-  progressLabel.textContent=`${pct}%`;
+    c.innerHTML = paths.map((p,i)=>{
+      const v = VISAS[p.k];
+      return `
+      <div class="path-card ${i===0?'primary':''}" style="animation-delay:${0.2 + i*0.18}s">
+        <div class="path-head">
+          <div class="path-title-wrap">
+            <div class="path-subtitle">${i===0?'Caminho principal':`Alternativa ${i}`} · <span class="fi flag-pt" style="vertical-align:-.18em"></span> ${v.code}</div>
+            <div class="path-title">${v.title}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <div class="match-badge">${p.score}% match</div>
+            <span class="rarity rarity-${v.rarity}">${rarityLabel(v.rarity)}</span>
+          </div>
+        </div>
+        <div class="path-description">${v.description}</div>
+        <div class="path-stats">
+          <div class="stat"><div class="stat-label">Prazo</div><div class="stat-value">${v.prazo}</div></div>
+          <div class="stat"><div class="stat-label">Custo</div><div class="stat-value">${v.custo}</div></div>
+          <div class="stat"><div class="stat-label">Cidadania</div><div class="stat-value">${v.cidadania}</div></div>
+        </div>
+        <div class="path-why"><strong>Por que encaixa no seu caso:</strong> ${v.why(state.answers)}</div>
+      </div>`;
+    }).join('');
+    stepsEl.innerHTML = `
+      <h3>Seus próximos passos</h3>
+      <div class="step-item"><div class="step-num">1</div><div class="step-text"><strong>Agende sua consultoria gratuita</strong> pra validar o plano e tirar dúvidas</div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text"><strong>Reunir documentação-chave</strong>: passaporte, antecedentes, comprovante de renda</div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text"><strong>Abrir processos paralelos</strong>: NIF, seguro saúde, organização financeira</div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-text"><strong>Solicitar o visto</strong> com acompanhamento da nossa equipe</div></div>
+    `;
+  }
 
-  const tags=[labelFor('destination',s.destination),labelFor('profile',s.profile),labelFor(flow.specifics[0].key,s[flow.specifics[0].key])];
-  resultTags.innerHTML=tags.map(tag=>`<span class="result-tag">${tag}</span>`).join('');
-
-  summaryList.innerHTML=[
-    ...flow.summary(s,dest),
-    `Investimento previsto: ${budgetSummaryText(s)}`
-  ].map(item=>`<div class="summary-item">${item}</div>`).join('');
-
-  primaryCta.textContent=currentType==='passagem' ? 'Levar pedido para o WhatsApp' : 'Levar para o WhatsApp';
-  primaryCta.href=`https://wa.me/351910346159?text=${whatsSummary()}`;
-  secondaryCta.href=`https://wa.me/351910346159?text=${encodeURIComponent(flow.compare)}`;
-  primaryCta.dataset.direct=specificCta();
+  const intent = INTENTS.find(i=>i.id===state.intent);
+  const country = COUNTRIES.find(c=>c.id===state.country);
+  const msg = `Olá! Sou ${state.lead.nome || '(seu nome)'}, fiz o simulador.\n\n` +
+    `▸ Objetivo: ${intent?intent.title:'—'}\n` +
+    `▸ Destino: ${country?country.name:'—'}\n` +
+    (paths && paths.length ? `▸ Caminho sugerido: ${VISAS[paths[0].k].title}\n` : '') +
+    `▸ XP: ${state.xp} · ${RANKS[state.rank].name}\n\n` +
+    `Gostaria de agendar a consultoria gratuita.`;
+  const tel = '351000000000';
+  document.getElementById('wpp-cta').href = `https://wa.me/${tel}?text=${encodeURIComponent(msg)}`;
 }
 
-function renderAll(){
-  renderTabs();
-  renderGroups();
-  attachStateEvents();
-  renderResult();
+// =============================================================
+// PDF GENERATION
+// =============================================================
+function downloadPDF(){
+  const paths = pickBestPaths();
+  const intent = INTENTS.find(i=>i.id===state.intent);
+  const country = COUNTRIES.find(c=>c.id===state.country);
+  const nome = state.lead.nome || 'Viajante';
+  const dateStr = new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'long',year:'numeric'});
+
+  document.getElementById('pdf-nome').textContent = nome;
+  document.getElementById('pdf-snap-objetivo').textContent = intent ? intent.title : '—';
+  document.getElementById('pdf-snap-destino').innerHTML  = country ? `${country.flag} ${country.name}` : '—';
+  document.getElementById('pdf-date').textContent = dateStr;
+  document.getElementById('pdf-footer-date').textContent = dateStr;
+
+  const pdfPaths = document.getElementById('pdf-paths');
+  const pdfSteps = document.getElementById('pdf-steps');
+  const pdfSummary = document.getElementById('pdf-summary');
+  const pdfMatch = document.getElementById('pdf-snap-match');
+
+  if(paths && paths.length){
+    const best = paths[0];
+    const v0 = VISAS[best.k];
+    pdfMatch.textContent = best.score + '%';
+    pdfSummary.innerHTML = `Baseado no seu perfil, o caminho mais indicado é o <b>${v0.title}</b>, com ${best.score}% de compatibilidade. ${v0.description} Detalhamos abaixo esse e ${paths.length-1} alternativa(s) viável(is) para o seu caso.`;
+
+    pdfPaths.innerHTML = paths.map((p,i)=>{
+      const v = VISAS[p.k];
+      return `
+      <div class="pdf-path ${i===0?'primary':''}">
+        <div class="pdf-path-head">
+          <div>
+            <p class="pdf-path-sub">${i===0?'Caminho principal':`Alternativa ${i}`} · Portugal · ${v.code}</p>
+            <h3 class="pdf-path-title">${v.title}</h3>
+          </div>
+          <div class="pdf-path-tags">
+            <span class="pdf-path-match">${p.score}% match</span>
+            <span class="pdf-path-rarity ${v.rarity}">${rarityLabel(v.rarity)}</span>
+          </div>
+        </div>
+        <p class="pdf-path-desc">${v.description}</p>
+        <div class="pdf-path-stats">
+          <div><div class="pdf-stat-label">Prazo</div><div class="pdf-stat-value">${v.prazo}</div></div>
+          <div><div class="pdf-stat-label">Custo estimado</div><div class="pdf-stat-value">${v.custo}</div></div>
+          <div><div class="pdf-stat-label">Cidadania</div><div class="pdf-stat-value">${v.cidadania}</div></div>
+        </div>
+        <div class="pdf-path-why"><b>Por que encaixa no seu caso:</b> ${v.why(state.answers).replace(/<strong>/g,'<b>').replace(/<\/strong>/g,'</b>')}</div>
+      </div>`;
+    }).join('');
+
+    pdfSteps.innerHTML = `
+      <h3>Plano de ação</h3>
+      <div class="pdf-step-item"><div class="pdf-step-n">1</div><div><b>Agende sua consultoria gratuita</b> pra validar o plano e tirar dúvidas específicas do seu caso</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">2</div><div><b>Reúna a documentação-chave:</b> passaporte válido, antecedentes criminais apostilados, comprovantes de renda/patrimônio, certidões</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">3</div><div><b>Abra processos paralelos:</b> NIF português, seguro saúde internacional, organização financeira e de reservas</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">4</div><div><b>Submeta o visto</b> no consulado com acompanhamento da nossa equipe, do agendamento à decisão</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">5</div><div><b>Prepare a chegada:</b> alojamento, NIF, SNS, abertura de conta bancária, integração local</div></div>
+    `;
+  } else {
+    pdfMatch.textContent = '—';
+    pdfSummary.innerHTML = `Com base nas suas respostas, recomendamos uma consultoria personalizada. Nosso especialista mapeia os caminhos mais viáveis considerando o seu perfil completo, objetivos e prazos.`;
+    pdfPaths.innerHTML = `
+      <div class="pdf-path primary">
+        <div class="pdf-path-head">
+          <div>
+            <div class="pdf-path-sub">Próximo passo recomendado</div>
+            <div class="pdf-path-title">Consultoria personalizada</div>
+          </div>
+          <span class="pdf-path-rarity rare">Recomendado</span>
+        </div>
+        <div class="pdf-path-desc">Nossa consultoria gratuita traz análise de perfil, mapeamento de caminhos viáveis, estimativas de custos e prazos, e plano de ação claro para sua mudança internacional.</div>
+      </div>`;
+    pdfSteps.innerHTML = `
+      <h3>Próximos passos</h3>
+      <div class="pdf-step-item"><div class="pdf-step-n">1</div><div><b>Agende sua consultoria gratuita</b> via WhatsApp</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">2</div><div><b>Receba análise personalizada</b> do seu perfil e objetivos</div></div>
+      <div class="pdf-step-item"><div class="pdf-step-n">3</div><div><b>Plano com 3 alternativas</b> de caminho viáveis</div></div>
+    `;
+  }
+
+  setTimeout(()=>window.print(), 120);
 }
 
-renderAll();
+function restart(){
+  state.intent=null;state.country=null;state.answers={};state.qIndex=0;state.lead={};state.xp=0;state.rank=0;
+  state.achievements.clear();state.milestonesShown.clear();state.lastAnswerTime=0;state.streak=0;
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+  document.getElementById('intent-next').disabled = true;
+  document.getElementById('country-next').disabled = true;
+  document.getElementById('xp-value').textContent = '0';
+  document.getElementById('rank-label').textContent = 'Novato';
+  document.getElementById('rank-icon').innerHTML = RANKS[0].icon;
+  document.getElementById('rank-progress-fill').style.width = '0%';
+  updateTabTitle();
+  nav('intro');
+}
 
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting) entry.target.classList.add('visible');
+// LIVE COUNTER
+function bumpLiveCount(){
+  const el = document.getElementById('live-count');
+  const current = parseInt(el.textContent,10) || 312;
+  const next = current + Math.floor(Math.random()*3) - 1;
+  el.textContent = Math.max(280, Math.min(360, next));
+}
+setInterval(bumpLiveCount, 4200);
+
+// =============================================================
+// INIT
+// =============================================================
+renderIntents();
+renderCountries();
+spawnParticles(14);
+['lead-nome','lead-email','lead-wpp','lead-lgpd'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',validateGate);
+  document.getElementById(id).addEventListener('change',validateGate);
+});
+document.getElementById('gate-back').addEventListener('click',()=>nav('questions'));
+document.getElementById('sound-toggle').addEventListener('click',toggleSound);
+
+// 3D tilt on option cards (desktop only)
+function bindTilt(){
+  if(window.matchMedia('(hover:none)').matches) return; // skip on touch
+  document.querySelectorAll('.opt').forEach(el=>{
+    if(el._tiltBound) return;
+    el._tiltBound = true;
+    el.addEventListener('mousemove', e=>{
+      const rect = el.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      const ty = (0.5 - y) * 7;
+      const tx = (x - 0.5) * 7;
+      el.style.setProperty('--ty', ty + 'deg');
+      el.style.setProperty('--tx', tx + 'deg');
+    });
+    el.addEventListener('mouseleave', ()=>{
+      el.style.setProperty('--ty','0deg');
+      el.style.setProperty('--tx','0deg');
+    });
   });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+// Wrap render funcs to rebind tilt after DOM updates
+const _origRenderIntents = renderIntents;
+renderIntents = function(){ _origRenderIntents(); bindTilt(); };
+const _origRenderCountries = renderCountries;
+renderCountries = function(){ _origRenderCountries(); bindTilt(); };
+const _origRenderQuestion = renderQuestion;
+renderQuestion = function(){ _origRenderQuestion(); bindTilt(); };
+
+// Update body data-rank for mesh reactivity
+const _origUpdateRankAndProgress = updateRankAndProgress;
+updateRankAndProgress = function(){
+  _origUpdateRankAndProgress();
+  document.body.setAttribute('data-rank', state.rank);
+};
+
+animateNumber(document.getElementById('stat-week'), 412, 1800);
+setTimeout(()=>{
+  const s = document.getElementById('stat-matched');
+  let n = 0;
+  const int = setInterval(()=>{
+    n++;
+    s.innerHTML = n + '<span style="font-size:.7em">%</span>';
+    if(n >= 89){ clearInterval(int); }
+  }, 20);
+}, 600);
+updateTabTitle();
+bindTilt();
+document.body.setAttribute('data-rank', '0');
+// Initialize rank icon on load (was emoji, now SVG)
+document.getElementById('rank-icon').innerHTML = RANKS[0].icon;
 </script>
 </body>
 </html>

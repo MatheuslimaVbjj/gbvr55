@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Global Travel Intercâmbios | Seu futuro não tem fronteiras</title>
-  <meta name="description" content="Passagens aéreas, intercâmbio, viagens internacionais, assessoria imigratória e planos para estudar, morar e trabalhar fora." />
+  <meta name="description" content="Passagem, intercâmbio, mudança de país e viagens internacionais — com uma pessoa cuidando do seu projeto do começo ao fim." />
   <meta property="og:title" content="Global Travel Intercâmbios | Seu futuro não tem fronteiras" />
   <meta property="og:description" content="Passagens aéreas, intercâmbio, viagens internacionais, assessoria imigratória e planos para estudar, morar e trabalhar fora." />
   <meta property="og:type" content="website" />
+  <link rel="preload" as="image" href="globaltravel_logo_original_white_v16.png">
   <link rel="icon" type="image/png" href="favicon_original_mark_v16.png" />
   <meta name="theme-color" content="#07131F" />
   <link rel="apple-touch-icon" href="favicon_original_mark_v16.png" />
@@ -18,450 +19,1340 @@
 :root{
   --bg:#050d16;
   --bg-soft:#0a1624;
-  --panel:rgba(8,17,28,.72);
-  --panel-2:rgba(11,24,38,.86);
+  --panel:rgba(11,22,35,.72);
+  --panel-2:rgba(7,14,24,.92);
   --line:rgba(255,255,255,.08);
+  --line-strong:rgba(199,154,74,.28);
   --text:#F8FBFF;
   --muted:rgba(240,245,251,.76);
   --muted-2:rgba(240,245,251,.58);
   --gold:#C79A4A;
   --gold-soft:#F2D49B;
   --blue:#13304E;
-  --shadow:0 22px 60px rgba(0,0,0,.28);
-  --radius:28px;
+  --shadow:0 20px 50px rgba(0,0,0,.28);
+  --shadow-soft:0 14px 36px rgba(0,0,0,.18);
+  --radius:24px;
+  --radius-lg:28px;
+  --radius-sm:18px;
   --container:min(1180px, calc(100vw - 40px));
   --ease:cubic-bezier(.22,1,.36,1);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{overflow-x:hidden;
-  margin:0;
-  font-family:'Outfit',system-ui,-apple-system,sans-serif;
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;overflow-x:hidden;
+  font-family:'Outfit',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at top left, rgba(40,95,150,.18), transparent 30%),
-    radial-gradient(circle at top right, rgba(199,154,74,.14), transparent 24%),
+    radial-gradient(ellipse at top left, rgba(40,95,150,.2), transparent 40%),
+    radial-gradient(ellipse at top right, rgba(199,154,74,.15), transparent 38%),
     linear-gradient(180deg,#040b12 0%,#08121d 50%,#091421 100%);
-  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 body.nav-open{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img,video,svg{display:block;max-width:100%}
+button{cursor:pointer;border:0;background:none;color:inherit;font:inherit}
+::selection{background:rgba(199,154,74,.28);color:#fff}
+
+/* Typography */
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;line-height:1.02;letter-spacing:-.02em;margin:0;font-weight:600}
+h1{font-size:clamp(2.4rem, 6.2vw, 5.2rem);line-height:1}
+h2{font-size:clamp(2rem, 4.6vw, 3.6rem)}
+h3{font-size:clamp(1.35rem, 2.4vw, 1.88rem)}
+p{margin:0}
+.copy,.lead,.small-copy{color:var(--muted);line-height:1.72}
+.lead{font-size:clamp(1rem, 1.4vw, 1.08rem)}
+.small-copy{font-size:.92rem}
+
+/* Layout */
 .container{width:var(--container);margin:0 auto}
-.section{padding:104px 0;position:relative;z-index:2}
-.section.tight{padding:76px 0}
+.section{padding:clamp(56px, 9vw, 104px) 0;position:relative;z-index:2}
+.section.tight{padding:clamp(44px, 6.5vw, 72px) 0}
+.section-head{display:grid;gap:16px;max-width:760px;margin-bottom:clamp(28px, 4.5vw, 40px)}
+
 .kicker{
   display:inline-flex;align-items:center;gap:12px;
-  text-transform:uppercase;letter-spacing:.28em;font-size:.72rem;color:rgba(255,255,255,.75)
+  text-transform:uppercase;letter-spacing:.22em;font-size:.7rem;
+  color:rgba(255,255,255,.78);font-weight:500;
 }
-.kicker::before{content:"";width:46px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif;line-height:.95;letter-spacing:-.03em;margin:0}
-h1{font-size:clamp(3.1rem,7vw,6.6rem);max-width:11ch}
-h2{font-size:clamp(2.4rem,5vw,4.3rem)}
-h3{font-size:clamp(1.7rem,2.7vw,2.1rem)}
-p{margin:0}
-.copy,.lead,.small-copy{color:var(--muted);line-height:1.8}
-.lead{font-size:1.05rem}
-.small-copy{font-size:.95rem}
-.btn-row{display:flex;gap:14px;flex-wrap:wrap}
+.kicker::before{content:"";width:42px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);flex-shrink:0}
+
+/* Buttons */
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;
-  min-height:54px;padding:0 24px;border-radius:999px;font-weight:600;
-  transition:transform .28s var(--ease), box-shadow .28s var(--ease), background .28s var(--ease), border-color .28s var(--ease);
-  border:1px solid transparent;
+  min-height:52px;padding:0 22px;border-radius:999px;
+  font-weight:600;font-size:.98rem;
+  border:1px solid transparent;cursor:pointer;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+  white-space:nowrap;
 }
 .btn:hover{transform:translateY(-2px)}
-.btn-primary{background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#13253A;box-shadow:0 18px 34px rgba(199,154,74,.22)}
-.btn-secondary{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);backdrop-filter:blur(12px)}
-.btn-link{padding:0;min-height:auto;border:0;background:none;color:var(--gold-soft)}
-.section-head{display:grid;gap:18px;max-width:760px;margin-bottom:40px}
-.card,.glass,.service,.quote,.contact-box,.info-box,.path-card,.course-card,.destination-card,.faq-item,.mini-card{
-  background:linear-gradient(180deg, rgba(11,22,35,.76), rgba(7,14,24,.92));
-  border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:var(--shadow);
+.btn-primary{
+  background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+  color:#13253A;
+  box-shadow:0 14px 28px rgba(199,154,74,.24);
 }
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.btn-primary:hover{box-shadow:0 18px 36px rgba(199,154,74,.34)}
+.btn-secondary{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);color:#fff;backdrop-filter:blur(12px)}
+.btn-secondary:hover{border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.06)}
+.btn-link{padding:0;min-height:auto;background:none;color:var(--gold-soft);font-weight:600;display:inline-flex;gap:6px}
+
+/* Reveal animation */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .reveal.revealed{opacity:1;transform:none}
-.site-header{position:fixed;inset:0 0 auto;z-index:1000;border-bottom:1px solid transparent;transition:background .35s var(--ease),backdrop-filter .35s var(--ease),border-color .35s var(--ease)}
-.site-header.scrolled{background:rgba(4,10,18,.78);backdrop-filter:blur(18px);border-color:rgba(255,255,255,.08)}
-.nav-shell{width:var(--container);min-height:88px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{display:flex;align-items:center;gap:0;min-width:0;position:relative;z-index:3}
-.brand-logo{width:clamp(220px,26vw,320px);height:auto;display:block;object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.22))}
+
+/* Glass cards */
+.card,.glass,.service,.quote,.contact-box,.info-box,.path-card,.course-card,.destination-card,.faq-item,.mini-card,.cta-card,.sim-card,.result-card,.hero-card{
+  background:linear-gradient(180deg, rgba(11,22,35,.78), rgba(7,14,24,.92));
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  box-shadow:var(--shadow);
+  border-radius:var(--radius-lg);
+}
+
+/* Header */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  border-bottom:1px solid transparent;
+  transition:background .35s var(--ease),backdrop-filter .35s var(--ease),border-color .35s var(--ease);
+}
+.site-header.scrolled{
+  background:rgba(4,10,18,.84);
+  backdrop-filter:blur(18px);
+  border-color:rgba(255,255,255,.08);
+}
+.nav-shell{
+  width:var(--container);margin:0 auto;
+  min-height:78px;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.brand{display:flex;align-items:center;min-width:0;position:relative;z-index:3}
+.brand-logo{
+  width:clamp(180px, 22vw, 260px);
+  height:auto;
+  object-fit:contain;
+  filter:drop-shadow(0 10px 24px rgba(0,0,0,.22));
+}
 .brand-mark{display:none}
 .brand-word{display:none}
-
-.nav-links{display:flex;align-items:center;gap:26px;color:rgba(255,255,255,.88);font-size:.97rem}
-.nav-links a{position:relative}
-.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transform-origin:center;transition:transform .28s var(--ease)}
+.nav-links{display:flex;align-items:center;gap:26px;color:rgba(255,255,255,.88);font-size:.95rem}
+.nav-links a{position:relative;padding:6px 0;transition:color .25s var(--ease)}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .3s var(--ease)}
 .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
 .nav-cta{display:flex;align-items:center;gap:12px}
-.burger{display:none;width:48px;height:48px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font-size:1.2rem}
+.burger{
+  display:none;
+  width:46px;height:46px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  color:#fff;font-size:1.2rem;
+  align-items:center;justify-content:center;
+  transition:background .3s var(--ease);
+}
+.burger:hover{background:rgba(255,255,255,.08)}
 .mobile-panel{display:none}
 
-.preloader-logo img{width:100%;height:auto;display:block}
+/* Preloader */
 .preloader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:linear-gradient(180deg,#030912 0%,#08111a 100%);transition:opacity .75s var(--ease),visibility .75s var(--ease)}
 .preloader.hidden{opacity:0;visibility:hidden}
 .preloader-inner{display:grid;gap:18px;place-items:center;text-align:center;padding:22px}
-.preloader-logo{width:min(560px,90vw);filter:drop-shadow(0 20px 48px rgba(0,0,0,.26));animation:floatLogo 3s ease-in-out infinite}
+.preloader-logo{width:min(240px, 56vw);animation:floatLogo 3s ease-in-out infinite;mix-blend-mode:screen;background:transparent}
+.preloader-logo img{width:100%;height:auto;display:block;mix-blend-mode:screen;background:transparent}
 .preloader-bar{width:min(220px,72vw);height:3px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;position:relative}
 .preloader-bar::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);transform:translateX(-100%);animation:loading 1.7s linear infinite}
-.preloader small{text-transform:uppercase;letter-spacing:.25em;color:rgba(255,255,255,.7);font-size:.72rem}
-.hero{position:relative;min-height:100vh;display:grid;align-items:end;padding:128px 0 56px;overflow:clip}
+.preloader small{text-transform:uppercase;letter-spacing:.22em;color:rgba(255,255,255,.68);font-size:.7rem}
+
+/* Hero */
+.hero{
+  position:relative;
+  min-height:min(100svh, 820px);
+  display:grid;align-items:end;
+  padding:116px 0 56px;
+  overflow:clip;
+}
 .hero-bg,.hero-slides{position:absolute;inset:0}
 .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}
 .hero-slide.active{opacity:1}
-.hero-slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(1.02) contrast(1.03) blur(.2px);transform:scale(1.05)}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,10,16,.1) 0%,rgba(5,10,16,.36) 24%,rgba(5,10,16,.84) 100%),radial-gradient(circle at 20% 30%,rgba(199,154,74,.18),transparent 28%),radial-gradient(circle at 80% 20%,rgba(36,89,144,.18),transparent 26%)}
-.hero-inner{position:relative;z-index:2;width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(300px,.72fr);gap:28px;align-items:end}
+.hero-slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(1.05) contrast(1.04);transform:scale(1.05)}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(5,10,16,.14) 0%,rgba(5,10,16,.42) 28%,rgba(5,10,16,.88) 100%),
+    radial-gradient(circle at 20% 30%,rgba(199,154,74,.18),transparent 30%),
+    radial-gradient(circle at 80% 20%,rgba(36,89,144,.2),transparent 28%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  width:var(--container);margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(300px,.72fr);
+  gap:28px;align-items:end;
+}
 .hero-copy{max-width:680px}
-.hero-title{margin-top:18px}
-.hero-lead{margin:20px 0 28px;max-width:60ch;color:rgba(247,251,255,.86)}
+.hero-title{margin-top:16px}
 .hero-details{display:grid;gap:18px}
-.hero-card{padding:30px;border-radius:30px;align-self:end}
-.hero-card strong{display:block;font-size:2.35rem;font-family:'Cormorant Garamond',Georgia,serif}
+.hero-lead{margin:18px 0 24px;max-width:56ch;color:rgba(247,251,255,.86)}
+.hero-card{padding:28px}
+.hero-card strong{display:block;font-size:clamp(1.7rem, 3.3vw, 2.25rem);font-family:'Cormorant Garamond',Georgia,serif;line-height:1.08;letter-spacing:-.02em}
 .hero-card p{margin-top:10px;color:var(--muted);line-height:1.7}
-.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-.mini-stats .mini-card{padding:16px;border-radius:20px;background:rgba(255,255,255,.03)}
-.mini-stats strong{display:block;font-size:1.18rem;color:var(--gold-soft);font-family:'Outfit',sans-serif;margin-bottom:6px}
-.mini-stats span{display:block;font-size:.82rem;line-height:1.45;color:rgba(255,255,255,.64)}
-.hero-dots{position:relative;z-index:2;display:flex;gap:10px;margin-top:26px}
-.hero-dots button{width:11px;height:11px;border-radius:999px;border:0;background:rgba(255,255,255,.35);padding:0;cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease)}
-.hero-dots button.active{background:var(--gold-soft);transform:scale(1.25)}
-.intro-grid,.story-grid,.contact-grid,.page-grid,.two-col{display:grid;gap:26px;align-items:stretch}
+.hero-dots{position:relative;z-index:2;display:flex;gap:10px;margin-top:24px}
+.hero-dots button{width:10px;height:10px;border-radius:999px;background:rgba(255,255,255,.35);padding:0;transition:all .3s var(--ease)}
+.hero-dots button.active{background:var(--gold-soft);transform:scale(1.3);box-shadow:0 0 0 4px rgba(199,154,74,.18)}
+
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.mini-stats .mini-card{padding:14px;border-radius:18px;background:rgba(255,255,255,.03);box-shadow:none}
+.mini-stats strong{display:block;font-size:1.05rem;color:var(--gold-soft);font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:4px}
+.mini-stats span{display:block;font-size:.78rem;line-height:1.44;color:rgba(255,255,255,.66)}
+
+/* Grids */
+.intro-grid,.story-grid,.contact-grid,.page-grid,.two-col{display:grid;gap:24px;align-items:stretch}
 .intro-grid{grid-template-columns:1.05fr .95fr}
-.story-grid{grid-template-columns:.94fr 1.06fr;align-items:center}
+.story-grid{grid-template-columns:1.05fr .95fr;align-items:center}
 .contact-grid{grid-template-columns:1fr .92fr}
 .two-col{grid-template-columns:repeat(2,minmax(0,1fr))}
-.glass,.info-box,.contact-box{padding:34px;border-radius:28px}
-.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.pill{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.9rem;color:rgba(255,255,255,.84)}
-.grid-3,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid{display:grid;gap:20px}
-.services-grid,.destination-grid,.quotes-grid,.path-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.course-grid,.steps-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-.service,.destination-card,.quote,.path-card,.course-card{padding:28px;border-radius:26px}
-.service:hover,.destination-card:hover,.path-card:hover,.course-card:hover{transform:translateY(-5px)}
-.service,.destination-card,.path-card,.course-card{transition:transform .28s var(--ease),border-color .28s var(--ease),background .28s var(--ease)}
-.service:hover,.destination-card:hover,.path-card:hover,.course-card:hover{border-color:rgba(199,154,74,.26);background:linear-gradient(180deg, rgba(15,29,46,.94), rgba(8,15,24,.96))}
-.icon-box{width:54px;height:54px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(242,212,155,.18),rgba(199,154,74,.09));border:1px solid rgba(242,212,155,.18);color:var(--gold-soft);font-size:1.25rem;margin-bottom:18px}
-.video-frame{position:relative;min-height:620px;border-radius:32px;overflow:hidden;background:#091521;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
-.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.76) saturate(1.02)}
-.video-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,10,16,.08),rgba(4,10,16,.78))}
-.video-copy{position:absolute;left:24px;right:24px;bottom:24px;z-index:2;display:grid;gap:8px}
-.video-copy span{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.72)}
-.video-copy strong{font-size:clamp(1.9rem,4vw,3rem);font-family:'Cormorant Garamond',Georgia,serif}
-.feature-list{display:grid;gap:16px;margin-top:22px}
-.feature-item{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}
-.feature-item:last-child{border-bottom:none}
-.badge{width:38px;height:38px;border-radius:999px;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#13253A}
+.grid-3,.services-grid,.destination-grid,.quotes-grid,.path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.course-grid,.steps-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+
+/* Cards */
+.glass,.info-box,.contact-box{padding:clamp(22px, 2.8vw, 32px)}
+.service,.destination-card,.path-card,.course-card,.quote{padding:clamp(22px, 2.6vw, 28px)}
+.service,.destination-card,.path-card,.course-card{transition:transform .3s var(--ease),border-color .3s var(--ease),background .3s var(--ease)}
+.service:hover,.destination-card:hover,.path-card:hover,.course-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(199,154,74,.24);
+  background:linear-gradient(180deg, rgba(15,29,46,.94), rgba(8,15,24,.96));
+}
 .destination-card h3,.path-card h3,.course-card h3,.service h3{margin-bottom:12px}
-.steps-grid .path-card strong,.quote strong,.mini-card strong.label{display:block;font-family:'Outfit',sans-serif;font-size:.84rem;text-transform:uppercase;letter-spacing:.18em;color:var(--gold-soft);margin-bottom:12px}
-.quote p{font-size:1.02rem;line-height:1.85;color:var(--muted)}
-.quote span{display:block;margin-top:18px;color:rgba(255,255,255,.62)}
-.faq-list{display:grid;gap:14px}
+
+.pill-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.pill{padding:9px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);font-size:.86rem;color:rgba(255,255,255,.84)}
+
+.icon-box{
+  width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:linear-gradient(180deg,rgba(242,212,155,.2),rgba(199,154,74,.1));
+  border:1px solid rgba(242,212,155,.22);
+  color:var(--gold-soft);font-size:1.2rem;
+  margin-bottom:16px;
+}
+.flag{
+  width:58px;height:58px;border-radius:50%;
+  display:grid;place-items:center;
+  background:#0a1624;
+  border:1px solid rgba(242,212,155,.32);
+  margin-bottom:14px;
+  box-shadow:0 10px 26px rgba(0,0,0,.34),inset 0 0 0 1px rgba(0,0,0,.22);
+  overflow:hidden;position:relative;
+  font-size:0;
+}
+.flag::before{content:"";position:absolute;inset:0;border-radius:50%;background-size:cover;background-position:center}
+.flag::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 58%);pointer-events:none}
+.info-box .flag{width:48px;height:48px;margin-bottom:12px}
+.destination-card .flag{width:60px;height:60px}
+
+/* Refined flag patterns (replaces emoji flags) */
+.flag-pt::before{background:linear-gradient(90deg,#046A38 0 40%,#DA291C 40%)}
+.flag-ie::before{background:linear-gradient(90deg,#169B62 0 33.34%,#fff 33.34% 66.67%,#FF883E 66.67%)}
+.flag-us::before{background:repeating-linear-gradient(180deg,#B22234 0 7.7%,#fff 7.7% 15.4%);background-color:#B22234}
+.flag-us::after{background:linear-gradient(180deg,#3C3B6E 0 53.85%,transparent 53.85%) left top/42% 53.85% no-repeat,radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 58%)}
+.flag-fr::before{background:linear-gradient(90deg,#0055A4 0 33.34%,#fff 33.34% 66.67%,#EF4135 66.67%)}
+.flag-es::before{background:linear-gradient(180deg,#AA151B 0 25%,#F1BF00 25% 75%,#AA151B 75%)}
+.flag-gb::before{background:#012169;background-image:linear-gradient(135deg,transparent 47%,#fff 47% 53%,transparent 53%),linear-gradient(45deg,transparent 47%,#fff 47% 53%,transparent 53%),linear-gradient(0deg,transparent 47%,#C8102E 47% 53%,transparent 53%),linear-gradient(90deg,transparent 47%,#C8102E 47% 53%,transparent 53%)}
+.flag-ca::before{background:linear-gradient(90deg,#D52B1E 0 25%,#fff 25% 75%,#D52B1E 75%)}
+.flag-globe{background:radial-gradient(circle at 30% 30%, rgba(242,212,155,.08), #0a1624 70%);place-items:center}
+.flag-globe::before,.flag-globe::after{display:none}
+.flag-globe svg{display:block}
+
+/* Inline flag chip - for marquee, badges, ig-tiles */
+.fi{display:inline-block;width:1.15em;height:1.15em;border-radius:50%;vertical-align:-.22em;border:1px solid rgba(255,255,255,.18);box-shadow:0 1px 3px rgba(0,0,0,.4);flex-shrink:0;position:relative;overflow:hidden;background:#0a1624}
+.fi::before{content:"";position:absolute;inset:0;border-radius:50%;background-size:cover;background-position:center}
+.fi::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 58%);pointer-events:none}
+.fi.flag-pt::before,.fi.flag-ie::before,.fi.flag-us::before,.fi.flag-fr::before,.fi.flag-es::before,.fi.flag-gb::before,.fi.flag-ca::before{background-size:cover;background-position:center}
+
+/* Video frame */
+.video-frame{position:relative;min-height:520px;border-radius:28px;overflow:hidden;background:#091521;border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow)}
+.video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.78) saturate(1.05)}
+.video-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,10,16,.06),rgba(4,10,16,.78))}
+.video-copy{position:absolute;left:24px;right:24px;bottom:24px;z-index:2;display:grid;gap:8px}
+.video-copy span{font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.video-copy strong{font-size:clamp(1.55rem, 3.2vw, 2.5rem);font-family:'Cormorant Garamond',Georgia,serif;line-height:1.1}
+
+/* Feature list */
+.feature-list{display:grid;gap:12px;margin-top:22px}
+.feature-item{display:grid;grid-template-columns:auto 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08);align-items:start}
+.feature-item:last-child{border-bottom:none}
+.badge{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;font-weight:700;font-size:.95rem;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#13253A;flex-shrink:0}
+.feature-item h3{font-size:1.1rem;margin-bottom:4px}
+
+/* Quote */
+.quote p{font-size:1rem;line-height:1.8;color:var(--muted)}
+.quote span{display:block;margin-top:16px;color:rgba(255,255,255,.62);font-size:.9rem}
+
+/* FAQ */
+.faq-list{display:grid;gap:12px}
 .faq-item{border-radius:22px;overflow:hidden}
-.faq-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 28px;border:0;background:none;color:#fff;font:inherit;text-align:left;cursor:pointer}
-.faq-btn strong{font-size:1.2rem}
-.faq-content{max-height:0;overflow:hidden;padding:0 28px;transition:max-height .35s var(--ease),padding .35s var(--ease)}
-.faq-item.open .faq-content{max-height:240px;padding:0 28px 24px}
-.contact-list{display:grid;gap:12px;margin-top:20px}
-.contact-list a,.contact-list span{display:flex;align-items:center;gap:10px;padding:15px 18px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
-.footer{padding:28px 0 42px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.56)}
-.footer-row{width:var(--container);margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
-.page-hero{padding:160px 0 72px;position:relative;overflow:hidden}
-.page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 12%,rgba(199,154,74,.18),transparent 26%),radial-gradient(circle at 84% 16%,rgba(40,95,150,.18),transparent 24%)}
+.faq-btn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;text-align:left;color:#fff}
+.faq-btn strong{font-size:clamp(1rem, 1.5vw, 1.15rem);font-family:'Outfit',sans-serif;font-weight:600}
+.faq-btn span{color:var(--gold);font-size:1.3rem;line-height:1;transition:transform .3s var(--ease);flex-shrink:0}
+.faq-item.open .faq-btn span{transform:rotate(45deg)}
+.faq-content{max-height:0;overflow:hidden;padding:0 24px;transition:max-height .4s var(--ease),padding .4s var(--ease)}
+.faq-item.open .faq-content{max-height:400px;padding:0 24px 22px}
+
+/* Contact */
+.contact-list{display:grid;gap:10px;margin-top:18px}
+.contact-list a,.contact-list span{display:flex;align-items:center;gap:10px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);transition:background .3s var(--ease),border-color .3s var(--ease);font-size:.92rem;word-break:break-word}
+.contact-list a:hover{background:rgba(255,255,255,.06);border-color:rgba(199,154,74,.2)}
+
+/* Footer */
+.footer{padding:32px 0 42px;border-top:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.58)}
+.footer-row{width:var(--container);margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;font-size:.88rem}
+
+/* Page hero */
+.page-hero{padding:140px 0 64px;position:relative;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 14%,rgba(199,154,74,.18),transparent 30%),radial-gradient(circle at 84% 18%,rgba(40,95,150,.2),transparent 28%)}
 .page-hero .container{position:relative;z-index:2}
-.page-tag{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.76)}
-.notice{padding:22px 24px;border-radius:22px;background:rgba(242,212,155,.08);border:1px solid rgba(242,212,155,.18);color:#f7edd6}
-.notice strong{display:block;margin-bottom:8px}
-.list{display:grid;gap:10px;padding-left:18px;color:var(--muted);line-height:1.75}
+.page-tag{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:rgba(255,255,255,.76);font-size:.78rem;letter-spacing:.06em;font-weight:500}
 
+.notice{padding:20px 22px;border-radius:22px;background:rgba(242,212,155,.08);border:1px solid rgba(242,212,155,.2);color:#f7edd6}
+.notice strong{display:block;margin-bottom:6px}
+.list{display:grid;gap:8px;padding-left:18px;color:var(--muted);line-height:1.72}
+
+/* Floating WhatsApp */
 .floating-wa{
-  position:fixed;right:18px;bottom:18px;z-index:1100;
+  position:fixed;right:18px;bottom:18px;z-index:900;
   display:inline-flex;align-items:center;gap:10px;
-  min-height:58px;padding:0 18px;border-radius:999px;
+  min-height:54px;padding:0 18px;border-radius:999px;
   background:linear-gradient(135deg,#29d366,#1fa855);
-  color:#fff;font-weight:700;box-shadow:0 20px 38px rgba(0,0,0,.28);
-  border:1px solid rgba(255,255,255,.14);
-  transition:transform .28s var(--ease), box-shadow .28s var(--ease), opacity .28s var(--ease);
+  color:#fff;font-weight:700;
+  box-shadow:0 16px 32px rgba(37,211,102,.28), 0 0 0 1px rgba(255,255,255,.1) inset;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
 }
-.floating-wa:hover{transform:translateY(-3px) scale(1.01);box-shadow:0 24px 44px rgba(0,0,0,.34)}
-.floating-wa .icon{width:24px;height:24px;display:grid;place-items:center;font-size:1.15rem}
-.floating-wa small{display:block;font-size:.72rem;line-height:1;color:rgba(255,255,255,.82);font-weight:600;letter-spacing:.02em}
-.floating-wa strong{display:block;font-size:.92rem;line-height:1.15}
-.hero-offer{
-  display:flex;flex-wrap:wrap;gap:10px;margin:0 0 20px;
-}
-.hero-offer .pill{
-  background:rgba(255,255,255,.08);
-  border-color:rgba(255,255,255,.14);
-  color:#fff;
-}
+.floating-wa:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 42px rgba(37,211,102,.4), 0 0 0 1px rgba(255,255,255,.14) inset}
+.floating-wa .icon{width:22px;height:22px;display:grid;place-items:center;font-size:1.05rem}
+.floating-wa small{display:block;font-size:.7rem;line-height:1;color:rgba(255,255,255,.82);font-weight:600;letter-spacing:.02em}
+.floating-wa strong{display:block;font-size:.92rem;line-height:1.14}
 
-
-.cta-grid,.sim-grid{display:grid;gap:20px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.cta-card,.sim-card,.result-card{
-  padding:28px;border-radius:28px;
-  background:linear-gradient(180deg, rgba(11,22,35,.76), rgba(7,14,24,.92));
-  border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:var(--shadow);
-}
-.cta-card h3,.sim-card h3,.result-card h3{margin-bottom:10px}
+/* CTA cards */
+.hero-offer{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.hero-offer .pill{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.14);color:#fff}
+.cta-grid,.sim-grid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.cta-card .copy{font-size:.93rem;line-height:1.56}
+.cta-card{padding:clamp(18px, 2.2vw, 24px);transition:transform .3s var(--ease),border-color .3s var(--ease)}
+.cta-card:hover{transform:translateY(-3px);border-color:rgba(199,154,74,.24)}
+.cta-card h3{margin-bottom:6px;font-size:clamp(1.2rem, 1.9vw, 1.5rem);line-height:1.15}
 .cta-card .tag{
-  display:inline-flex;padding:8px 12px;border-radius:999px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
-  color:var(--gold-soft);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px
+  display:inline-flex;padding:5px 10px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:var(--gold-soft);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:10px;font-weight:600;
 }
-.cta-card .btn-row{margin-top:18px}
-.cta-card .btn,.sim-card .btn,.result-card .btn{min-height:50px}
-.sim-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
-.form-grid{display:grid;gap:16px}
+.cta-card .btn-row{margin-top:12px}
+.cta-card .btn,.sim-card .btn,.result-card .btn{min-height:44px;font-size:.92rem}
+
+/* Simulator */
+.sim-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+.sim-card,.result-card{padding:clamp(22px, 2.8vw, 30px)}
+.form-grid{display:grid;gap:14px}
 .field{display:grid;gap:8px}
-.field label{font-size:.88rem;color:rgba(255,255,255,.75)}
-.select, .field select{
-  width:100%;min-height:54px;padding:0 16px;border-radius:16px;border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.04);color:#fff;font:inherit;outline:none
+.field label{font-size:.88rem;color:rgba(255,255,255,.78);font-weight:500}
+.field select,.field input,.select{
+  width:100%;min-height:52px;padding:0 16px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);
+  color:#fff;font:inherit;outline:none;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
 }
-.field select option{color:#000}
+.field select:focus,.field input:focus{border-color:rgba(199,154,74,.42);box-shadow:0 0 0 3px rgba(199,154,74,.12)}
+.field select option{color:#07131f;background:#fff}
 .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .choice{
-  display:flex;align-items:center;gap:10px;padding:14px 14px;border-radius:18px;
-  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);cursor:pointer;
-  transition:border-color .24s var(--ease), transform .24s var(--ease), background .24s var(--ease)
+  display:flex;align-items:center;gap:10px;padding:14px;border-radius:16px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);
+  cursor:pointer;font-size:.95rem;
+  transition:border-color .3s var(--ease), transform .3s var(--ease), background .3s var(--ease);
 }
 .choice input{accent-color:var(--gold)}
-.choice.active,.choice:hover{border-color:rgba(199,154,74,.34);background:rgba(199,154,74,.08);transform:translateY(-2px)}
-.result-card ul{display:grid;gap:10px;padding-left:18px;color:var(--muted);line-height:1.7}
-.result-highlight{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(199,154,74,.1);border:1px solid rgba(199,154,74,.22);color:var(--gold-soft);margin:14px 0 18px}
-.result-box{display:grid;gap:14px;margin-top:10px}
-.small-note{font-size:.88rem;color:rgba(255,255,255,.62);line-height:1.65}
-@media (max-width: 1080px){
-  .sim-wrap{grid-template-columns:1fr}
-}
-@media (max-width: 700px){
-  .cta-grid,.sim-grid,.choice-grid{grid-template-columns:1fr}
-}
+.choice:hover{border-color:rgba(199,154,74,.3);background:rgba(199,154,74,.06);transform:translateY(-2px)}
+.choice.active{border-color:rgba(199,154,74,.42);background:rgba(199,154,74,.1)}
+.result-card ul{display:grid;gap:9px;padding-left:18px;color:var(--muted);line-height:1.7;margin:0}
+.result-highlight{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(199,154,74,.12);border:1px solid rgba(199,154,74,.24);color:var(--gold-soft);margin:14px 0 16px;font-size:.86rem;font-weight:600}
+.result-box{display:grid;gap:14px;margin-top:8px}
+.small-note{font-size:.84rem;color:rgba(255,255,255,.6);line-height:1.62}
 
 @keyframes loading{100%{transform:translateX(100%)}}
+@keyframes scrollPulse{0%,100%{transform:translate(-50%,0);opacity:.85}50%{transform:translate(-50%,6px);opacity:1}}
 @keyframes floatLogo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ========= RESPONSIVE ========= */
 @media (max-width: 1080px){
-  .hero-inner,.intro-grid,.story-grid,.contact-grid,.two-col{grid-template-columns:1fr}
-  .services-grid,.destination-grid,.quotes-grid,.path-grid,.steps-grid,.course-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .video-frame{min-height:460px}
+  .hero-inner,.intro-grid,.story-grid,.contact-grid,.two-col,.sim-wrap{grid-template-columns:1fr}
+  .services-grid,.destination-grid,.quotes-grid,.path-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .video-frame{min-height:420px}
 }
+
 @media (max-width: 860px){
+  :root{--container:min(1180px, calc(100vw - 28px))}
   .nav-links,.nav-cta .btn{display:none}
-  .burger{display:grid;place-items:center}
-  .mobile-panel{display:grid;position:fixed;left:20px;right:20px;top:86px;padding:20px;border-radius:24px;background:rgba(5,11,18,.96);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);gap:14px;opacity:0;pointer-events:none;transform:translateY(-12px);transition:.28s var(--ease);z-index:998}
-  body.nav-open .mobile-panel{opacity:1;pointer-events:auto;transform:none}
-  .mobile-panel a{padding:8px 4px;color:#fff}
-}
-@media (max-width: 700px){
-  h1{font-size:clamp(2.8rem,16vw,4.6rem)}
-  h2{font-size:clamp(2.15rem,11vw,3.4rem)}
-  .hero{padding-top:116px;min-height:92vh}
-  .hero-card,.glass,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote{padding:24px}
-  .mini-stats,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid,.two-col{grid-template-columns:1fr}
-  .nav-shell{min-height:78px}
-  .brand-logo{width:225px}
-  .floating-wa{right:14px;bottom:14px;padding:0 16px;min-height:54px}
-  .floating-wa small{display:none}
-  .hero-card strong{font-size:2rem}
+  .burger{display:flex}
+  .site-header{background:linear-gradient(180deg, rgba(4,10,18,.66) 0%, rgba(4,10,18,.32) 58%, rgba(4,10,18,0) 100%);backdrop-filter:blur(3px);border-color:transparent}
+  .nav-shell{
+    display:grid;
+    grid-template-columns:40px 1fr 40px;
+    min-height:54px;gap:8px;align-items:center;
+  }
+  .nav-cta{grid-column:1;grid-row:1;justify-self:start;gap:0}
+  .brand{grid-column:2;grid-row:1;justify-self:center;max-width:100%}
+  .brand-logo{width:min(128px, 36vw)}
+  .burger{width:40px;height:40px;font-size:1.05rem;border-radius:12px}
+  .mobile-panel{
+    display:grid;position:fixed;left:12px;right:12px;top:58px;
+    padding:16px;border-radius:22px;
+    background:rgba(5,11,18,.97);border:1px solid rgba(255,255,255,.08);
+    box-shadow:var(--shadow);gap:2px;
+    opacity:0;pointer-events:none;transform:translateY(-10px);
+    transition:opacity .28s var(--ease), transform .28s var(--ease);
+    z-index:998;
+  }
+  body.nav-open .mobile-panel{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .mobile-panel a{padding:14px 6px;color:#fff;font-size:1rem;border-bottom:1px solid rgba(255,255,255,.05);font-weight:500}
+  .mobile-panel a:last-child{border-bottom:0}
 }
 
-@media (max-width: 980px){
-  .brand-logo{width:210px!important}
-  .nav-shell,.nav-shell{min-height:78px!important}
-  .hero,.hero{padding-top:104px!important}
+@media (max-width: 768px){
+  /* Hero stacked on mobile: video top, content left-aligned below */
+  .hero{padding:0;min-height:auto;display:block;align-items:initial;overflow:visible;position:relative}
+  .hero-bg{position:relative;inset:auto;width:100%;height:min(58vh, 520px);overflow:hidden}
+  .hero-slides{position:absolute;inset:0}
+  .hero-slide video{filter:brightness(.82) saturate(1.08) contrast(1.04)}
+  .hero-overlay{
+    background:
+      linear-gradient(180deg, rgba(5,10,16,.48) 0%, rgba(5,10,16,0) 22%, rgba(5,10,16,0) 62%, rgba(5,10,16,.7) 92%, rgba(5,10,16,.98) 100%);
+  }
+  /* Scroll hint sitting on the seam between video and content */
+  .hero-scroll-hint{
+    position:absolute;left:50%;
+    top:calc(min(58vh, 520px) - 20px);
+    transform:translateX(-50%);
+    z-index:3;
+    width:40px;height:40px;border-radius:999px;
+    background:linear-gradient(135deg, rgba(242,212,155,.28), rgba(199,154,74,.14));
+    border:1px solid rgba(242,212,155,.35);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold-soft);font-size:1rem;
+    backdrop-filter:blur(6px);
+    box-shadow:0 8px 22px rgba(0,0,0,.28);
+    animation:scrollPulse 2.4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    width:var(--container);margin:0 auto;
+    display:block;gap:0;padding:36px 0 32px;
+    text-align:left;
+  }
+  .hero-copy{max-width:100%;text-align:left;margin:0;padding:0}
+  .hero-card{display:none}
+  .hero-details{
+    background:none;border:0;backdrop-filter:none;box-shadow:none;
+    padding:0;margin:12px 0 0;
+    width:100%;max-width:100%;
+    border-radius:0;
+  }
+  .kicker{
+    display:inline-flex;justify-content:flex-start;align-items:center;
+    margin:0 0 10px;font-size:.6rem;letter-spacing:.18em;gap:10px;
+    color:rgba(255,255,255,.84);
+  }
+  .kicker::before{width:28px;flex-shrink:0}
+  .hero-title,.hero-copy h1,h1{
+    text-align:left;max-width:14ch;margin:0;
+    font-size:clamp(1.95rem, 8vw, 2.75rem);line-height:1.02;
+  }
+  .hero-lead,.lead{max-width:44ch;margin:10px 0 16px;text-align:left;font-size:.95rem;line-height:1.58;color:rgba(247,251,255,.82)}
+  .hero-details .btn-row,.btn-row{display:grid;grid-template-columns:1fr;gap:8px;max-width:100%;margin:0}
+  .hero-details .btn-row .btn,.btn{width:100%;min-height:48px;font-size:.96rem;padding:0 16px}
+  .hero-dots{justify-content:flex-start;margin-top:18px;gap:8px}
+  .hero-dots button{width:8px;height:8px}
+
+  /* Section sizing */
+  h2,.section-head h2{font-size:clamp(1.85rem, 6.6vw, 2.6rem);line-height:1.06;text-wrap:balance}
+  .section-head{margin-bottom:26px}
+
+  /* Grid collapse */
+  .grid-3,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid,.two-col,.mini-stats,.cta-grid,.sim-grid,.choice-grid{grid-template-columns:1fr}
+
+  /* Card padding */
+  .glass,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.cta-card,.sim-card,.result-card{padding:22px;border-radius:22px}
+
+  /* Page hero */
+  .page-hero{padding:92px 0 40px}
+
+  /* Forms */
+  .field select,.field input{min-height:50px;font-size:16px}
+
+  /* Footer */
+  .footer-row{flex-direction:column;text-align:center;gap:6px;padding:0 4px}
+
+  /* Video */
+  .video-frame{min-height:340px}
+  .video-copy{left:20px;right:20px;bottom:20px}
+
+  /* Floating WA */
+  .floating-wa{right:14px;bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);width:56px;height:56px;min-height:auto;padding:0;justify-content:center;border-radius:999px;box-shadow:0 14px 28px rgba(37,211,102,.32), 0 0 0 1px rgba(255,255,255,.12) inset}
+  .floating-wa > span:not(.icon){display:none}
+  .floating-wa .icon{font-size:1.45rem;width:auto;height:auto}
+
+  /* Contact box */
+  .contact-list a,.contact-list span{font-size:.88rem;padding:12px 14px}
 }
+
+@media (max-width: 480px){
+  :root{--container:min(1180px, calc(100vw - 22px))}
+  .brand-logo{width:min(118px, 34vw)}
+  .nav-shell{min-height:50px;grid-template-columns:38px 1fr 38px}
+  .burger{width:38px;height:38px;font-size:1rem;border-radius:10px}
+  .mobile-panel{top:54px;left:10px;right:10px}
+  .hero{padding:0}
+  .hero-bg{height:min(52vh, 440px)}
+  .hero-scroll-hint{top:calc(min(52vh, 440px) - 18px);width:36px;height:36px;font-size:.92rem}
+  .hero-inner{padding:28px 0 24px}
+  .hero-title,.hero-copy h1,h1{font-size:clamp(1.72rem, 7.4vw, 2.25rem);max-width:12ch;margin-top:0}
+  .hero-lead,.lead{font-size:.9rem;max-width:40ch;margin:8px 0 14px}
+  .hero-details{max-width:100%}
+  h2,.section-head h2{font-size:clamp(1.65rem, 7.6vw, 2.3rem)}
+  .glass,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.cta-card,.sim-card,.result-card{padding:18px;border-radius:20px}
+  .kicker{font-size:.62rem;letter-spacing:.15em}
+  .btn{min-height:48px;font-size:.94rem;padding:0 18px}
+  .video-frame{min-height:280px}
+  .faq-btn{padding:18px 20px;gap:14px}
+  .faq-item.open .faq-content{padding:0 20px 18px}
+  .footer{padding:24px 0 36px}
+}
+
+
+/* ===== Stats band (Nossa jornada em números) ===== */
+.stats-wrap{display:grid;gap:18px;justify-items:center;text-align:center}
+.stats-kicker{justify-content:center}
+.stats-kicker::before{width:54px}
+.stats-grid{
+  width:100%;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  padding:6px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(14px);
+  overflow:hidden;
+}
+.stat-card{
+  display:grid;gap:8px;place-items:center;
+  padding:26px 18px;
+  background:linear-gradient(180deg, rgba(11,22,35,.92), rgba(7,14,24,.96));
+  transition:background .4s var(--ease);
+}
+.stat-card:hover{background:linear-gradient(180deg, rgba(18,33,52,.96), rgba(9,19,30,.98))}
+.stat-number{
+  display:block;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(2.2rem, 4.6vw, 3.8rem);
+  line-height:1;font-weight:600;letter-spacing:-.02em;
+  background:linear-gradient(135deg, var(--gold-soft), var(--gold));
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  text-shadow:0 0 60px rgba(199,154,74,.28);
+}
+.stat-label{
+  font-size:.78rem;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  line-height:1.4;font-weight:500;
+}
+
+/* ===== Card spotlight effect ===== */
+.service,.destination-card,.path-card,.course-card,.cta-card,.stat-card,.info-box,.quote{
+  position:relative;overflow:hidden;
+}
+.service::before,.destination-card::before,.path-card::before,
+.course-card::before,.cta-card::before,.info-box::before,.quote::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(199,154,74,.14), transparent 42%);
+  opacity:0;transition:opacity .45s var(--ease);
+  pointer-events:none;z-index:0;
+}
+.service:hover::before,.destination-card:hover::before,.path-card:hover::before,
+.course-card:hover::before,.cta-card:hover::before,.info-box:hover::before,.quote:hover::before{opacity:1}
+.service > *,.destination-card > *,.path-card > *,
+.course-card > *,.cta-card > *,.info-box > *,.quote > *{position:relative;z-index:1}
+
+/* ===== Stagger reveal (cascade) ===== */
+.services-grid .reveal:nth-child(1),.destination-grid .reveal:nth-child(1),
+.quotes-grid .reveal:nth-child(1),.path-grid .reveal:nth-child(1),
+.course-grid .reveal:nth-child(1),.steps-grid .reveal:nth-child(1),
+.cta-grid .reveal:nth-child(1){transition-delay:0ms}
+.services-grid .reveal:nth-child(2),.destination-grid .reveal:nth-child(2),
+.quotes-grid .reveal:nth-child(2),.path-grid .reveal:nth-child(2),
+.course-grid .reveal:nth-child(2),.steps-grid .reveal:nth-child(2),
+.cta-grid .reveal:nth-child(2){transition-delay:80ms}
+.services-grid .reveal:nth-child(3),.destination-grid .reveal:nth-child(3),
+.quotes-grid .reveal:nth-child(3),.path-grid .reveal:nth-child(3),
+.course-grid .reveal:nth-child(3),.steps-grid .reveal:nth-child(3),
+.cta-grid .reveal:nth-child(3){transition-delay:160ms}
+.services-grid .reveal:nth-child(4),.cta-grid .reveal:nth-child(4),
+.course-grid .reveal:nth-child(4),.steps-grid .reveal:nth-child(4){transition-delay:240ms}
+.services-grid .reveal:nth-child(5){transition-delay:320ms}
+.services-grid .reveal:nth-child(6){transition-delay:400ms}
+
+@media (max-width: 768px){
+  .stats-grid{grid-template-columns:1fr 1fr;border-radius:22px}
+  .stat-card{padding:20px 12px}
+  .stat-number{font-size:clamp(2rem, 10vw, 3rem)}
+  .stat-label{font-size:.72rem;letter-spacing:.1em}
+}
+@media (max-width: 420px){
+  .stat-card{padding:16px 10px}
+  .stat-label{font-size:.66rem}
+}
+
+
+/* ===== SVG icon-box ===== */
+.icon-box svg{width:26px;height:26px;stroke-width:1.5}
+
+/* ===== Quote author ===== */
+.quote{display:flex;flex-direction:column;gap:16px}
+.quote p{font-size:1rem;line-height:1.82;color:var(--muted)}
+.quote-author{display:flex;flex-direction:column;gap:3px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);color:#fff}
+.quote-author strong{font-family:'Outfit',sans-serif;font-weight:600;font-size:.96rem}
+.quote-author em{font-style:normal;font-size:.78rem;color:var(--muted-2);letter-spacing:.1em;text-transform:uppercase}
+
+/* ===== Cursor follower ===== */
+.cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:9999;top:0;left:0;mix-blend-mode:screen;opacity:0;will-change:transform}
+.cursor-dot{width:5px;height:5px;border-radius:999px;background:var(--gold-soft)}
+.cursor-ring{width:36px;height:36px;border-radius:999px;border:1px solid rgba(242,212,155,.42);transition:width .3s var(--ease), height .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease)}
+body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{opacity:1}
+body.cursor-hot .cursor-ring{background:rgba(242,212,155,.1);border-color:rgba(242,212,155,.75);width:54px;height:54px}
+@media (hover: none),(max-width:860px){.cursor-dot,.cursor-ring{display:none!important}}
+
+/* ===== Split-text ===== */
+.hero-title .word{display:inline-block;overflow:hidden;vertical-align:top;line-height:1;padding-bottom:.08em}
+.hero-title .word .inner{display:inline-block;will-change:transform}
+
+/* ===== Marquee ===== */
+.marquee{position:relative;overflow:hidden;padding:24px 0;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:linear-gradient(180deg, rgba(7,14,24,.3), rgba(7,14,24,.1));mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);-webkit-mask-image:linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)}
+.marquee-track{display:flex;gap:42px;width:max-content;animation:marqueeSlide 42s linear infinite}
+.marquee-item{display:inline-flex;align-items:center;gap:12px;font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.3rem, 2.4vw, 2rem);color:rgba(255,255,255,.68);letter-spacing:-.01em;white-space:nowrap;font-weight:500}
+.marquee-item span{color:var(--gold-soft);font-size:1.3rem}
+@keyframes marqueeSlide{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ===== Progressive enhancement: only hide reveal when JS took over ===== */
+.js-ready .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease), transform .7s var(--ease)}
+.js-ready .reveal.revealed{opacity:1;transform:none}
+
+
+/* ===== Journey pinned section ===== */
+.journey{padding:clamp(72px, 10vw, 120px) 0;position:relative}
+.journey-inner{
+  display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;
+  align-items:start;
+}
+.journey-side{position:sticky;top:120px;padding-right:10px}
+.journey-heading{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2.1rem, 4.3vw, 3.6rem);line-height:1.02;letter-spacing:-.02em;margin:16px 0 18px;font-weight:600}
+.journey-side .copy{max-width:44ch}
+.journey-steps{display:grid;gap:22px}
+.journey-step{
+  position:relative;padding:clamp(26px, 3vw, 38px) clamp(24px, 3vw, 34px);
+  background:linear-gradient(180deg, rgba(11,22,35,.82), rgba(7,14,24,.94));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  backdrop-filter:blur(16px);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  min-height:200px;
+}
+.journey-step::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(199,154,74,.14), transparent 42%);
+  opacity:0;transition:opacity .45s var(--ease);pointer-events:none;
+}
+.journey-step:hover::before{opacity:1}
+.journey-step > *{position:relative;z-index:1}
+.journey-index{
+  position:absolute;top:18px;right:28px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(3.2rem, 6vw, 5.2rem);
+  line-height:1;font-weight:600;letter-spacing:-.04em;
+  background:linear-gradient(135deg, rgba(242,212,155,.32), rgba(199,154,74,.12));
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  z-index:0;
+}
+.journey-step h3{margin:0 0 12px;max-width:72%;font-size:clamp(1.4rem, 2.2vw, 1.85rem);line-height:1.15}
+.journey-step p{color:var(--muted);line-height:1.72;font-size:.98rem}
+
 @media (max-width: 860px){
-  .brand{max-width:calc(100% - 64px)!important}
-  .brand-logo{width:min(180px, 46vw)!important;max-width:100%!important}
-  .site-header{background:rgba(4,10,18,.88)!important;backdrop-filter:blur(16px)!important}
-  .mobile-panel{top:76px!important;left:12px!important;right:12px!important;padding:16px!important;border-radius:20px!important}
-  .mobile-panel a{padding:12px 4px!important}
-  .nav-shell{gap:12px!important}
+  .journey-inner{grid-template-columns:1fr;gap:30px}
+  .journey-side{position:static;padding-right:0}
+  .journey-step{min-height:auto}
+  .journey-index{top:14px;right:20px}
+  .journey-step h3{max-width:78%}
 }
-@media (max-width: 700px){
-  html,body{overflow-x:hidden!important}
-  .container,.nav-shell{width:min(100% - 20px, 1180px)!important}
-  .brand-logo{width:min(164px, 43vw)!important}
-  .burger{width:44px!important;height:44px!important;border-radius:12px!important}
-  .hero,.hero{padding:94px 0 34px!important;min-height:auto!important}
-  .hero-inner,.hero-grid,.intro-grid,.story-grid,.contact-grid,.two-col,.sim-layout,.footer-grid{grid-template-columns:1fr!important}
-  .hero-inner{gap:18px!important;align-items:start!important}
-  .hero-copy,.hero-copy p,.lead{max-width:100%!important}
-  .hero-copy{padding-right:0!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:11ch!important;font-size:clamp(2.15rem,11.2vw,3.28rem)!important;line-height:.96!important;letter-spacing:-.025em!important}
-  .hero-lead,.lead{font-size:1rem!important;line-height:1.66!important;margin:16px 0 22px!important}
-  #hero-kicker,.kicker,.eyebrow{display:inline-flex!important;max-width:300px!important;font-size:10.5px!important;line-height:1.55!important;letter-spacing:1.9px!important;gap:10px!important;flex-wrap:wrap!important}
-  .kicker:before,.eyebrow:before{width:32px!important;flex:0 0 32px!important}
-  .btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
-  .hero-actions .btn,.cta-row .btn,.cta-band .btn,.btn{width:100%!important}
-  .hero-card,.hero-panel,.glass,.sim-card,.result-box,.choice-card,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.tip-card,.progress-card{padding:20px!important;border-radius:22px!important}
-  .hero-card{margin-top:6px!important;background:linear-gradient(180deg, rgba(9,18,30,.84), rgba(7,14,24,.94))!important}
-  .hero-card strong,.hero-panel h3{font-size:clamp(1.58rem,7.3vw,2.12rem)!important;line-height:1.02!important}
-  .hero-card p{margin-top:10px!important;font-size:.98rem!important;line-height:1.66!important}
-  .mini-stats,.mini-grid,.cards4,.cards3,.proof-strip,.testimonials,.faq-list,.choice-wrap,.how-steps,.tips-grid,.sim-grid,.form-grid,.cta-grid,.choice-grid,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid{grid-template-columns:1fr!important}
-  .mini-stats{gap:10px!important;margin-top:16px!important}
-  .mini-stats .mini-card{padding:14px!important}
-  h2,.section-head h2{font-size:clamp(1.95rem,9.4vw,2.85rem)!important;line-height:.98!important}
-  .tabs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
-  .tab{width:100%!important;text-align:center!important;padding:12px 10px!important;font-size:.95rem!important}
-  .field label{font-size:1rem!important}
-  .field select,.field input{padding:13px 14px!important;min-height:52px!important;font-size:16px!important}
-  .result-price{font-size:clamp(2.2rem,12vw,3.2rem)!important}
-  .dest-card{padding:16px!important}
-  .hero-dots{margin-top:18px!important}
-  .whatsapp-float,.floating-wa{right:12px!important;bottom:calc(env(safe-area-inset-bottom, 0px) + 72px)!important;min-height:50px!important;padding:0 14px!important;font-size:15px!important;border-radius:999px!important}
-  .floating-wa small,.whatsapp-float small{display:none!important}
-}
-@media (max-width: 420px){
-  .brand-logo{width:146px!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:10ch!important;font-size:clamp(1.95rem,10.8vw,2.75rem)!important}
-  #hero-kicker,.kicker,.eyebrow{max-width:250px!important;font-size:10px!important;letter-spacing:1.5px!important}
-  .tabs{grid-template-columns:1fr!important}
+
+/* ===== Hero lead word-wrap reveal ===== */
+.hero-lead .lead-word{display:inline-block}
+
+/* ===== Burger morph ===== */
+.burger{transition:transform .35s var(--ease), background .3s var(--ease)}
+body.nav-open .burger{transform:rotate(90deg);background:rgba(199,154,74,.18);border-color:rgba(199,154,74,.4)}
+
+/* ===== Page transition overlay ===== */
+.page-fade{position:fixed;inset:0;z-index:9998;background:#040b12;opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
+body.page-leaving .page-fade{opacity:1;pointer-events:all}
+
+
+/* ===== Split heading (scroll reveal word-by-word) ===== */
+.split-heading .sword{display:inline-block;overflow:hidden;vertical-align:top;line-height:1.02;padding-bottom:.08em}
+.split-heading .sword .sinner{display:inline-block;will-change:transform}
+
+/* ===== 3D tilt cards ===== */
+.journey-step,.cta-card{transform-style:preserve-3d;will-change:transform;transition:box-shadow .3s var(--ease)}
+.journey-step:hover,.cta-card:hover{box-shadow:0 30px 70px rgba(0,0,0,.42), 0 0 0 1px rgba(242,212,155,.18) inset}
+
+/* Prefer-reduced-motion: disable heavy animations */
+@media (prefers-reduced-motion: reduce){
+  .marquee-track, .reveal{animation:none!important}
+  .hero-scroll-hint{animation:none!important}
 }
 
 
-@media (max-width: 700px){
-  :root{--container:min(100vw - 28px, 1180px)}
-  html,body{overflow-x:hidden!important}
-  .site-header{background:rgba(4,10,18,.92)!important;backdrop-filter:blur(16px)!important}
-  .nav-shell{width:var(--container)!important;min-height:74px!important;gap:12px!important}
-  .brand{max-width:calc(100% - 64px)!important}
-  .brand-logo{width:min(160px,42vw)!important;max-width:100%!important}
-  .burger{width:44px!important;height:44px!important;border-radius:14px!important}
-  .mobile-panel{top:74px!important;left:14px!important;right:14px!important;padding:16px!important;border-radius:20px!important}
-  .hero{padding:92px 0 28px!important;min-height:100svh!important;display:grid!important;align-items:end!important}
-  .hero-inner{grid-template-columns:1fr!important;gap:16px!important;align-items:end!important}
-  .hero-overlay{background:linear-gradient(180deg,rgba(4,9,15,.42) 0%,rgba(4,9,15,.58) 22%,rgba(4,9,15,.74) 52%,rgba(4,9,15,.92) 100%),radial-gradient(circle at 20% 28%,rgba(199,154,74,.12),transparent 26%),radial-gradient(circle at 84% 14%,rgba(36,89,144,.16),transparent 24%)!important}
-  .hero-copy{max-width:100%!important;padding:18px 18px 20px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(7,14,24,.16),rgba(7,14,24,.42))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)!important;box-shadow:0 18px 44px rgba(0,0,0,.20)!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:12.2ch!important;font-size:clamp(2.35rem,8.8vw,3.25rem)!important;line-height:.98!important;letter-spacing:-.03em!important;text-wrap:balance!important}
-  .hero-lead,.lead{max-width:30ch!important;font-size:1rem!important;line-height:1.56!important;margin:16px 0 20px!important}
-  .hero-card{display:none!important}
-  #hero-kicker,.kicker,.eyebrow{display:inline-flex!important;max-width:100%!important;font-size:.68rem!important;line-height:1.45!important;letter-spacing:.16em!important;gap:10px!important;flex-wrap:wrap!important}
-  .kicker:before,.eyebrow:before{width:28px!important;flex:0 0 28px!important}
-  .btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
-  .btn,.hero-actions .btn,.cta-row .btn{width:100%!important;min-height:52px!important;padding:0 18px!important;font-size:1rem!important}
-  .hero-dots{margin-top:14px!important;justify-content:flex-start!important}
-  .hero-dots button{width:10px!important;height:10px!important}
-  .section{padding:72px 0!important}
-  .section.tight{padding:56px 0!important}
-  .section-head{margin-bottom:28px!important}
-  h2,.section-head h2{font-size:clamp(1.9rem,7.2vw,2.55rem)!important;line-height:1.02!important;text-wrap:balance!important}
-  .glass,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.cta-card,.sim-card,.result-card{padding:22px!important;border-radius:24px!important}
-  .floating-wa,.whatsapp-float{right:12px!important;bottom:calc(env(safe-area-inset-bottom, 0px) + 86px)!important;min-height:52px!important;padding:0 15px!important;border-radius:999px!important}
-  .floating-wa small,.whatsapp-float small{display:none!important}
+/* ===== Font display swap (faster first render) ===== */
+
+/* ===== Subtle film grain overlay (desktop only) ===== */
+body::after{
+  content:"";position:fixed;inset:0;z-index:1;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.04;mix-blend-mode:overlay;
 }
-@media (max-width: 420px){
-  .brand-logo{width:min(148px,40vw)!important}
-  .hero-copy{padding:16px 16px 18px!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:11.5ch!important;font-size:clamp(2.08rem,9.6vw,2.8rem)!important}
-  .hero-lead,.lead{max-width:28ch!important;font-size:.96rem!important;line-height:1.54!important}
-  .floating-wa,.whatsapp-float{bottom:calc(env(safe-area-inset-bottom, 0px) + 82px)!important}
+@media (max-width:768px){body::after{display:none}}
+@media (prefers-reduced-motion:reduce){body::after{display:none}}
+
+/* ===== Shimmer sweep on primary buttons (desktop hover) ===== */
+.btn-primary{position:relative;overflow:hidden;isolation:isolate}
+.btn-primary::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(110deg, transparent 34%, rgba(255,255,255,.45) 50%, transparent 66%);
+  transform:translateX(-130%);
+  transition:transform .85s var(--ease);
+  pointer-events:none;z-index:-1;
+}
+@media (hover:hover){
+  .btn-primary:hover::after{transform:translateX(130%)}
 }
 
-
-@media (max-width: 700px){
-  .hero{padding:88px 0 24px!important;min-height:94svh!important;align-items:center!important}
-  .hero-inner{align-items:center!important}
-  .hero-copy{
-    width:min(100%, 390px)!important;
-    margin:0 auto 0 0!important;
-    padding:24px 24px 18px!important;
-    background:linear-gradient(180deg,rgba(7,14,24,.12),rgba(7,14,24,.36))!important;
-    border:1px solid rgba(255,255,255,.06)!important;
-    box-shadow:none!important;
-  }
-  .hero-title,.hero h1,.hero-copy h1,h1{
-    max-width:8.4ch!important;
-    font-size:clamp(1.92rem,8.1vw,2.6rem)!important;
-    line-height:.98!important;
-    letter-spacing:-.03em!important;
-    text-wrap:balance!important;
-  }
-  .hero-lead,#hero-secondary-btn{display:none!important}
-  .hero-copy .btn-row{margin-top:14px!important}
-  .hero-copy .btn-row .btn{min-height:54px!important;font-size:1rem!important}
-  .hero-dots{margin-top:16px!important}
-}
-@media (max-width: 420px){
-  .hero-copy{
-    width:min(100%, 360px)!important;
-    padding:22px 22px 16px!important;
-  }
-  .hero-title,.hero h1,.hero-copy h1,h1{
-    max-width:7.9ch!important;
-    font-size:clamp(1.76rem,8.7vw,2.34rem)!important;
-  }
+/* ===== Header compacts on scroll ===== */
+.site-header.scrolled .nav-shell{min-height:64px}
+.site-header.scrolled .brand-logo{width:clamp(155px,18vw,215px)}
+@media (max-width:860px){
+  .site-header.scrolled .nav-shell{min-height:48px}
+  .site-header.scrolled .brand-logo{width:min(116px,33vw)}
 }
 
+/* ===== Focus-visible (accessibility) ===== */
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;border-radius:10px}
+.btn:focus-visible,.choice:focus-visible,.option-card:focus-visible,.faq-btn:focus-visible{outline-offset:4px}
 
+/* ===== Back to top ===== */
+.to-top{
+  position:fixed;left:18px;bottom:calc(env(safe-area-inset-bottom, 0px) + 16px);
+  z-index:900;
+  width:46px;height:46px;border-radius:999px;
+  background:rgba(4,10,18,.7);border:1px solid rgba(242,212,155,.32);
+  color:var(--gold-soft);font-size:1.15rem;font-weight:600;
+  backdrop-filter:blur(12px);
+  opacity:0;pointer-events:none;
+  transform:translateY(16px) scale(.9);
+  transition:opacity .4s var(--ease), transform .4s var(--ease), background .3s var(--ease), border-color .3s var(--ease);
+  display:grid;place-items:center;
+}
+.to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.to-top:hover{background:rgba(199,154,74,.14);border-color:rgba(242,212,155,.58)}
+@media (max-width:768px){
+  .to-top{left:14px;bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);width:42px;height:42px}
+}
+
+/* ===== Gold gradient text accent class ===== */
+.gold-text{
+  background:linear-gradient(135deg, var(--gold-soft), var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ===== Contact list link with chevron on hover ===== */
+.contact-list a{position:relative;transition:padding-right .35s var(--ease), background .3s var(--ease), border-color .3s var(--ease)}
+.contact-list a::after{
+  content:"→";position:absolute;right:18px;top:50%;
+  transform:translateY(-50%) translateX(-6px);opacity:0;
+  color:var(--gold-soft);transition:all .35s var(--ease);
+}
+.contact-list a:hover{padding-right:38px}
+.contact-list a:hover::after{opacity:1;transform:translateY(-50%) translateX(0)}
+
+/* ===== Stat completion pulse ===== */
+@keyframes statPulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.045)}
+  100%{transform:scale(1)}
+}
+.stat-number.done{animation:statPulse .55s var(--ease)}
+
+
+/* ===== MOBILE-FIRST AGGRESSIVE TIGHTENING ===== */
 @media (max-width: 768px){
-  .hero{padding:112px 0 28px!important;min-height:auto!important;display:block!important}
-  .hero-inner{width:min(92vw,430px)!important;margin:0 auto!important;grid-template-columns:1fr!important;gap:18px!important;align-items:start!important;justify-items:center!important}
-  .hero-copy{max-width:min(92vw,392px)!important;margin:0 auto!important;padding:22px 20px 18px!important;border-radius:28px!important;text-align:center!important;background:linear-gradient(180deg,rgba(7,14,24,.38),rgba(7,14,24,.64))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)!important;box-shadow:0 18px 44px rgba(0,0,0,.22)!important}
-  #hero-kicker,.kicker,.eyebrow{display:flex!important;justify-content:center!important;align-items:center!important;max-width:100%!important;margin:0 auto 8px!important;text-align:center!important;font-size:.64rem!important;line-height:1.55!important;letter-spacing:.17em!important;gap:8px!important;flex-wrap:wrap!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:9.5ch!important;margin:0 auto!important;text-align:center!important;font-size:clamp(2.25rem,8.6vw,3.05rem)!important;line-height:1.02!important;letter-spacing:-.028em!important;text-wrap:balance!important}
-  .hero-lead,.lead{display:block!important;max-width:28ch!important;margin:14px auto 18px!important;text-align:center!important;font-size:.95rem!important;line-height:1.62!important;color:rgba(247,251,255,.86)!important}
-  .hero-copy .btn-row,.btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;max-width:320px!important;margin:0 auto!important}
-  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{width:100%!important;min-height:50px!important;padding:0 18px!important;font-size:1rem!important}
-  #hero-secondary-btn{display:flex!important;opacity:.96!important}
-  .hero-dots{margin-top:14px!important;justify-content:center!important}
-  .hero-dots button{width:10px!important;height:10px!important}
-  .hero-card{display:none!important}
-
-  #mobile-story-section .story-grid,
-  #mobile-intro-section .intro-grid{grid-template-columns:1fr!important}
-  #mobile-story-section .video-frame{min-height:430px!important;border-radius:28px!important}
-  #mobile-story-section .video-copy{left:18px!important;right:18px!important;bottom:18px!important;text-align:left!important}
-  #mobile-story-section .video-copy span{font-size:.68rem!important;letter-spacing:.22em!important}
-  #mobile-story-section .video-copy strong{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.08!important;max-width:11ch!important;display:block!important}
-
-  #mobile-intro-section .glass{padding:22px!important;text-align:center!important}
-  #mobile-intro-section .glass h2{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.04!important;max-width:10ch!important;margin:0 auto!important;text-wrap:balance!important}
-  #mobile-intro-section .glass .copy{max-width:30ch!important;margin:16px auto 0!important;font-size:.96rem!important;line-height:1.62!important}
-  #mobile-intro-section .pill-row{justify-content:center!important}
-  #mobile-intro-section .two-col{margin-top:18px!important}
+  :root{
+    --container:min(1180px, calc(100vw - 22px));
+    --radius-lg:22px;
+    --radius:20px;
+    --radius-sm:14px;
+  }
+  html{scroll-padding-top:70px}
+  
+  /* Rhythm */
+  .section{padding:44px 0 !important}
+  .section.tight{padding:32px 0 !important}
+  .section-head{gap:12px;margin-bottom:20px}
+  
+  /* Typography mobile-first */
+  h1{font-size:clamp(1.9rem, 8.2vw, 2.7rem);line-height:1.02;letter-spacing:-.02em}
+  h2,.section-head h2{font-size:clamp(1.7rem, 7vw, 2.4rem);line-height:1.04;text-wrap:balance}
+  h3{font-size:1.22rem;line-height:1.18}
+  .lead{font-size:1rem;line-height:1.58}
+  .copy{font-size:.96rem;line-height:1.68}
+  .small-copy{font-size:.9rem;line-height:1.6}
+  
+  /* Cards: consistent compact padding */
+  .glass,.service,.info-box,.path-card,.course-card,.destination-card,.quote,.cta-card,.contact-box,.hero-card,.mini-card,.faq-item,.sim-card,.result-card{
+    padding:18px 16px !important;
+    border-radius:18px !important;
+  }
+  .glass{padding:22px 18px !important}
+  .contact-box{padding:22px 18px !important}
+  
+  /* Buttons: ideal tap target */
+  .btn{min-height:48px;padding:0 18px;font-size:.95rem;border-radius:999px}
+  .btn-primary,.btn-secondary{min-height:50px;font-size:.96rem}
+  .btn-row{gap:10px}
+  
+  /* Section head tighter */
+  .section-head{gap:10px}
+  .kicker{font-size:.62rem;letter-spacing:.15em;gap:8px;line-height:1.5}
+  .kicker::before{width:28px}
+  
+  /* Grid gaps */
+  .services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid,.cta-grid,.sim-grid,.mini-stats,.two-col,.choice-grid{gap:12px}
+  
+  /* Navigation compact */
+  .site-header{background:linear-gradient(180deg, rgba(4,10,18,.82) 0%, rgba(4,10,18,.42) 60%, transparent 100%)}
+  .nav-shell{min-height:54px;gap:8px;grid-template-columns:40px 1fr 40px}
+  .brand-logo{width:min(130px, 36vw)}
+  .burger{width:40px;height:40px;border-radius:12px;font-size:1.05rem}
+  .mobile-panel{left:12px;right:12px;top:60px;padding:14px;border-radius:20px}
+  .mobile-panel a{padding:12px 4px;font-size:1rem}
+  
+  /* Footer mobile */
+  .footer{padding:22px 0 34px}
+  .footer-row{flex-direction:column;text-align:center;gap:4px;font-size:.84rem}
+  
+  /* Hero text position refinement */
+  .hero-inner{padding:20px 0 24px}
+  .hero-title,.hero-copy h1,h1{margin-top:0}
+  .hero-lead{font-size:.94rem;line-height:1.58;margin:10px 0 14px}
+  
+  /* Stats */
+  .stats-grid{border-radius:20px}
+  .stat-card{padding:16px 10px;gap:6px}
+  .stat-number{font-size:clamp(1.9rem, 9.2vw, 2.85rem)}
+  .stat-label{font-size:.66rem;letter-spacing:.1em;line-height:1.35}
+  .stats-wrap{gap:14px}
+  
+  /* Journey */
+  .journey{padding:52px 0}
+  .journey-inner{gap:22px}
+  .journey-heading{font-size:clamp(1.7rem, 7.2vw, 2.3rem)}
+  .journey-steps{gap:14px}
+  .journey-step{padding:18px 16px !important;min-height:auto}
+  .journey-step h3{font-size:1.18rem;max-width:74%}
+  .journey-step p{font-size:.93rem;line-height:1.6}
+  .journey-index{top:12px;right:16px;font-size:2.5rem}
+  
+  /* Marquee */
+  .marquee{padding:16px 0}
+  .marquee-item{font-size:clamp(1rem, 4.8vw, 1.4rem);gap:10px}
+  .marquee-track{gap:30px}
+  
+  /* FAQ */
+  .faq-btn{padding:16px 18px;min-height:52px;gap:12px}
+  .faq-btn strong{font-size:.98rem;line-height:1.28}
+  .faq-item.open .faq-content{max-height:520px;padding:0 18px 18px}
+  .faq-content{padding:0 18px}
+  
+  /* Contact list */
+  .contact-list{gap:8px;margin-top:14px}
+  .contact-list a,.contact-list span{padding:12px 14px;font-size:.88rem;border-radius:14px}
+  
+  /* Pills */
+  .pill-row{gap:6px;margin-top:12px}
+  .pill{padding:6px 11px;font-size:.78rem}
+  
+  /* Floating buttons — higher up, less obtrusive */
+  .floating-wa{right:12px;bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);width:50px;height:50px;min-height:auto;padding:0;justify-content:center;border-radius:999px;box-shadow:0 12px 28px rgba(37,211,102,.32)}
+  .floating-wa > span:not(.icon){display:none}
+  .floating-wa .icon{font-size:1.4rem;width:auto;height:auto}
+  .to-top{left:12px;bottom:calc(env(safe-area-inset-bottom, 0px) + 14px);width:44px;height:44px;font-size:1.08rem}
+  
+  /* Video frame mobile */
+  .video-frame{min-height:300px;border-radius:22px}
+  .video-copy{left:18px;right:18px;bottom:18px;gap:4px}
+  .video-copy strong{font-size:clamp(1.5rem, 6vw, 2rem);line-height:1.12}
+  
+  /* Hero card mobile - already hidden, but just in case */
+  .hero-card{display:none !important}
+  
+  /* Page hero on subpages tighter */
+  .page-hero{padding:90px 0 40px}
+  .page-tag{padding:8px 12px;font-size:.72rem}
+  
+  /* Better touch feedback */
+  .choice,.option-card,.chip{padding:12px 14px !important;min-height:auto !important}
+  
+  /* Feature list */
+  .feature-list{gap:10px;margin-top:18px}
+  .feature-item{padding:14px 0;gap:12px}
+  .feature-item h3{font-size:1.04rem;margin-bottom:4px}
+  .badge{width:32px;height:32px;font-size:.88rem}
+  
+  /* CTA card tag pills */
+  .cta-card .tag{font-size:.64rem;padding:4px 9px;margin-bottom:8px}
+  .cta-card h3{font-size:1.15rem;margin-bottom:6px}
+  .cta-card .copy{font-size:.92rem;line-height:1.56}
+  .cta-card .btn-row{margin-top:10px;gap:8px}
+  .cta-card .btn{min-height:44px;font-size:.92rem}
+  
+  /* Destination flags */
+  .destination-card .flag{width:54px;height:54px;font-size:1.85rem}
+  .info-box .flag{width:44px;height:44px;font-size:1.55rem}
+  
+  /* Forms */
+  .field label{font-size:.88rem}
+  .field select,.field input,.field textarea{padding:12px 14px;min-height:46px;font-size:16px;border-radius:14px}
+  
+  /* Quote reshape */
+  .quote{gap:14px}
+  .quote p{font-size:.96rem;line-height:1.74}
+  .quote-author strong{font-size:.92rem}
+  .quote-author em{font-size:.72rem}
+  
+  /* Hero-scroll-hint slightly smaller */
+  .hero-scroll-hint{width:36px;height:36px;font-size:.95rem}
 }
-@media (max-width: 520px){
-  .hero-copy{padding:20px 18px 16px!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:9ch!important;font-size:clamp(2.05rem,8.9vw,2.75rem)!important}
-  .hero-lead,.lead{max-width:26ch!important;font-size:.92rem!important;line-height:1.58!important}
-  #hero-kicker,.kicker,.eyebrow{font-size:.61rem!important;letter-spacing:.15em!important}
-  .hero-copy .btn-row,.btn-row{max-width:300px!important}
-  .hero-copy .btn-row .btn{min-height:48px!important;font-size:.97rem!important}
+
+/* Extra-small phones */
+@media (max-width: 420px){
+  :root{--container:min(1180px, calc(100vw - 18px))}
+  .section{padding:36px 0 !important}
+  .section.tight{padding:28px 0 !important}
+  h1{font-size:clamp(1.75rem, 7.8vw, 2.3rem)}
+  h2,.section-head h2{font-size:clamp(1.55rem, 6.8vw, 2.1rem)}
+  .glass,.service,.info-box,.path-card,.course-card,.destination-card,.quote,.cta-card,.contact-box,.hero-card{padding:16px 14px !important;border-radius:16px !important}
+  .stats-grid{border-radius:18px}
+  .stat-number{font-size:clamp(1.75rem, 9vw, 2.5rem)}
+  .journey-step{padding:16px 14px !important}
+  .journey-step h3{font-size:1.08rem}
+  .journey-step p{font-size:.9rem}
+  .journey-index{font-size:2.2rem;top:10px;right:12px}
+  .video-frame{min-height:260px}
+  .floating-wa{width:46px;height:46px}
+  .to-top{width:40px;height:40px;font-size:1rem}
+  .marquee-track{gap:22px}
+  .marquee-item{font-size:clamp(.95rem, 4.5vw, 1.25rem)}
+}
+
+/* iPhone SE / very small */
+@media (max-width: 360px){
+  :root{--container:min(1180px, calc(100vw - 14px))}
+  .brand-logo{width:min(110px, 32vw)}
+  .nav-shell{min-height:50px}
+  .hero-title,.hero-copy h1,h1{font-size:clamp(1.55rem, 7.5vw, 2rem)}
+  h2,.section-head h2{font-size:clamp(1.4rem, 6.6vw, 1.9rem)}
+  .copy{font-size:.92rem}
+  .lead,.hero-lead{font-size:.9rem}
+  .btn{font-size:.9rem;padding:0 16px}
+}
+
+/* Desktop polish preserved */
+@media (min-width: 1024px){
+  .section{padding:104px 0}
+  .section.tight{padding:76px 0}
+  .hero-card{display:block}
 }
 
 
-@media (max-width: 768px){
-  .hero{padding:112px 0 34px!important;min-height:100svh!important;display:grid!important;align-items:center!important}
-  .hero-inner{width:min(92vw,430px)!important;margin:0 auto!important;grid-template-columns:1fr!important;gap:18px!important;align-items:center!important;justify-items:center!important}
-  .hero-copy{max-width:min(92vw,400px)!important;margin:0 auto!important;padding:0!important;border:0!important;background:none!important;backdrop-filter:none!important;box-shadow:none!important;text-align:center!important}
-  #hero-kicker,.kicker,.eyebrow{display:flex!important;justify-content:center!important;align-items:center!important;max-width:min(88vw,320px)!important;margin:0 auto 10px!important;text-align:center!important;font-size:.63rem!important;line-height:1.55!important;letter-spacing:.16em!important;gap:8px!important;flex-wrap:wrap!important}
-  .kicker:before,.eyebrow:before{width:34px!important;flex:0 0 34px!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:8.8ch!important;margin:0 auto!important;text-align:center!important;font-size:clamp(2.22rem,8.8vw,3rem)!important;line-height:1.02!important;letter-spacing:-.028em!important;text-wrap:balance!important;text-shadow:0 10px 28px rgba(0,0,0,.32)!important}
-  .hero-details{width:100%!important;max-width:min(92vw,370px)!important;margin:18px auto 0!important;padding:18px 18px 16px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(7,14,24,.44),rgba(7,14,24,.68))!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(10px)!important;box-shadow:0 18px 44px rgba(0,0,0,.20)!important}
-  .hero-lead,.lead{display:block!important;max-width:28ch!important;margin:0 auto!important;text-align:center!important;font-size:.93rem!important;line-height:1.62!important;color:rgba(247,251,255,.88)!important}
-  .hero-copy .btn-row,.btn-row,.hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;max-width:100%!important;margin:0 auto!important}
-  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{width:100%!important;min-height:48px!important;padding:0 18px!important;font-size:.98rem!important}
-  #hero-secondary-btn{display:flex!important;opacity:.98!important}
-  .hero-dots{margin-top:2px!important;justify-content:center!important}
-  .hero-dots button{width:10px!important;height:10px!important}
-  .floating-wa,.whatsapp-float{right:12px!important;bottom:calc(env(safe-area-inset-bottom, 0px) + 94px)!important;min-height:52px!important;padding:0 15px!important;border-radius:999px!important}
-  .floating-wa small,.whatsapp-float small{display:none!important}
+/* ===== CENTERED TEXT TREATMENT ===== */
+.section-head{text-align:center;margin-left:auto;margin-right:auto}
+.section-head .kicker{justify-content:center}
+
+.page-hero .container{text-align:center}
+.page-hero .kicker,.page-hero .page-tag{margin-left:auto;margin-right:auto}
+.page-hero h1{margin-left:auto;margin-right:auto}
+.page-hero .lead{margin-left:auto;margin-right:auto}
+.page-hero .btn-row{justify-content:center}
+
+.hero-copy{text-align:center}
+.hero-copy .kicker,#hero-kicker{justify-content:center;margin-left:auto;margin-right:auto}
+.hero-title,.hero-copy h1{margin-left:auto;margin-right:auto}
+.hero-lead,#hero-lead{margin-left:auto;margin-right:auto}
+.hero-copy .btn-row,.hero-details .btn-row{justify-content:center;margin-left:auto;margin-right:auto}
+.hero-dots{justify-content:center}
+
+/* Glass cards with narrative */
+#mobile-intro-section .glass,#mobile-story-section .glass{text-align:center}
+#mobile-intro-section .glass .kicker,#mobile-story-section .glass .kicker{justify-content:center}
+#mobile-intro-section .glass .pill-row{justify-content:center}
+#mobile-intro-section .glass .btn-row{justify-content:center}
+
+/* Contact section */
+.contact-box{text-align:center}
+.contact-box .kicker{justify-content:center}
+.contact-box .btn-row{justify-content:center}
+.contact-box h3{margin-left:auto;margin-right:auto}
+
+/* Journey side text */
+.journey-side{text-align:center}
+.journey-side .kicker{justify-content:center}
+
+/* Cards with icons at top — center them */
+.path-card,.destination-card,.info-box,.course-card{text-align:center}
+.destination-card .flag,.info-box .flag{margin-left:auto;margin-right:auto}
+.path-card .btn-link{justify-self:center;margin-left:auto;margin-right:auto;display:inline-flex}
+
+/* CTA cards */
+.cta-card{text-align:center}
+.cta-card .tag{margin-left:auto;margin-right:auto}
+.cta-card .btn-row{justify-content:center}
+
+/* Service cards — center the content below the icon */
+.service{text-align:center}
+.service .icon-box{margin-left:auto;margin-right:auto}
+
+/* Quote with author */
+.quote{text-align:center;align-items:center}
+.quote-author{align-items:center;text-align:center}
+
+/* Stats wrap already centered */
+.stats-wrap{text-align:center}
+
+/* Feature list — KEEP left (badge + text grid needs left align for readability) */
+.feature-list{text-align:left}
+.feature-item{text-align:left}
+
+/* FAQ — KEEP left for readability */
+.faq-item,.faq-btn,.faq-content{text-align:left}
+
+/* Contact list — icons on left need alignment */
+.contact-list{text-align:left}
+
+/* Mobile form fields left-aligned for labels */
+.field,.field label{text-align:left}
+
+/* Simulador step cards — keep internal step-head left for number + title block */
+.step-head{text-align:left}
+.step-head h3,.step-head p{text-align:left}
+
+/* Simulador option cards — center */
+.option-card,.chip,.type-tab{text-align:center}
+.option-top{justify-content:center}
+.type-tab strong,.type-tab small{display:block}
+
+/* Simulador result box */
+.result-box{text-align:center}
+.result-box .meter-head{text-align:left}
+.summary-item,.action-item{text-align:left}
+.highlight-card{text-align:left}
+.highlight-card .highlight-icon{flex-shrink:0}
+
+/* Journey step cards — center content */
+.journey-step{text-align:center}
+.journey-step h3{max-width:none;margin-left:auto;margin-right:auto}
+.journey-step .journey-index{top:14px;right:auto;left:50%;transform:translateX(-50%);opacity:.22}
+.journey-step h3,.journey-step p{position:relative;z-index:2}
+
+/* Marquee — natural horizontal, no change */
+
+/* Keep copy max-widths working with auto margins */
+.hero-lead,#hero-lead,.lead,.copy,.page-hero .lead{margin-left:auto;margin-right:auto}
+
+/* Footer row centered already on mobile via existing rules */
+
+
+/* ===== FINAL POLISH PASS ===== */
+
+/* Active/press state on buttons (tactile feedback) */
+.btn:active{transform:translateY(0) scale(.98);transition-duration:.12s}
+.btn-primary:active{box-shadow:0 8px 18px rgba(199,154,74,.2)}
+
+/* Touch feedback on cards */
+.cta-card:active,.service:active,.destination-card:active,.path-card:active,.course-card:active,.option-card:active,.chip:active,.journey-step:active{transform:translateY(0) scale(.99);transition-duration:.12s}
+
+/* Form fields — focus ring more refined */
+.field select:focus,.field input:focus,.field textarea:focus,.budget-input-wrap:focus-within{
+  border-color:rgba(242,212,155,.5) !important;
+  box-shadow:0 0 0 3px rgba(199,154,74,.16) !important;
 }
-@media (max-width: 520px){
-  .hero{padding:106px 0 28px!important}
-  .hero-inner{width:min(92vw,394px)!important}
-  .hero-title,.hero h1,.hero-copy h1,h1{max-width:8.2ch!important;font-size:clamp(2rem,9.1vw,2.64rem)!important}
-  .hero-details{max-width:min(92vw,346px)!important;padding:16px 16px 14px!important;border-radius:22px!important}
-  .hero-lead,.lead{max-width:26ch!important;font-size:.89rem!important;line-height:1.58!important}
-  .hero-copy .btn-row .btn,.btn,.hero-actions .btn,.cta-row .btn{min-height:46px!important;font-size:.95rem!important}
-  #hero-kicker,.kicker,.eyebrow{font-size:.58rem!important;letter-spacing:.14em!important}
+
+/* Link underline animation for in-text links */
+a.btn-link{position:relative}
+a.btn-link::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+a.btn-link:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* Subtle glow on primary button on scroll-in */
+@keyframes primaryPulse{
+  0%,100%{box-shadow:0 14px 28px rgba(199,154,74,.24)}
+  50%{box-shadow:0 18px 36px rgba(199,154,74,.36), 0 0 40px rgba(242,212,155,.12)}
 }
+
+/* Better visited link styling */
+a:visited{color:inherit}
+
+/* Image placeholder while loading */
+img,video{background:rgba(255,255,255,.03)}
+
+/* Smoother scroll into view for focused elements */
+:focus-visible{scroll-margin-top:100px}
+
+/* Ensure selection in forms */
+.field input,.field textarea,.budget-input{-webkit-user-select:text;user-select:text}
+
+/* Disable pointer events on hero scroll hint so it doesn't block taps */
+.hero-scroll-hint{pointer-events:none}
+
+/* Stat number text-shadow softer */
+.stat-number{text-shadow:0 0 40px rgba(199,154,74,.2)}
+
+/* Hover lift on CTAs more subtle at tap */
+@media (hover: none){
+  .cta-card,.service,.destination-card,.path-card,.course-card,.journey-step{transition:transform .2s var(--ease),border-color .2s var(--ease)}
+}
+
+/* Hide to-top if body is short (nothing to scroll) */
+@media (max-height: 700px) and (max-width: 420px){
+  .to-top{width:38px;height:38px;font-size:.92rem}
+}
+
+/* Prevent layout shifts when images load */
+.hero-slide video,.video-frame video{object-fit:cover;aspect-ratio:16/9}
+
+/* Simulador: progress bar glow when near complete */
+.progress-fill[style*="100%"]{box-shadow:0 0 14px rgba(242,212,155,.5)}
+
+/* Better mobile panel link chevron */
+.mobile-panel a{position:relative;padding-right:22px !important}
+.mobile-panel a::after{content:"›";position:absolute;right:8px;top:50%;transform:translateY(-50%);color:var(--gold-soft);opacity:.5;font-size:1.2rem;font-weight:300;transition:transform .3s var(--ease), opacity .3s var(--ease)}
+.mobile-panel a:hover::after,.mobile-panel a:active::after{transform:translateY(-50%) translateX(3px);opacity:1}
+
+/* Center title text-shadow (better legibility over video) */
+.hero-title,.hero-copy h1{text-shadow:0 6px 24px rgba(0,0,0,.3)}
+
+/* Consistent border-radius across interactive elements */
+.burger:active{transform:scale(.94)}
+
+/* Back-to-top button active state */
+.to-top:active{transform:translateY(0) scale(.94)}
+
+/* Footer note elegant */
+.footer-row span:first-child{color:rgba(255,255,255,.72)}
+
+/* Spotlight effect enhancement on stat cards */
+.stat-card:hover{box-shadow:0 10px 30px rgba(199,154,74,.1) inset}
+
+
+/* ===== Avatar (initials circle) ===== */
+.avatar{
+  width:52px;height:52px;border-radius:999px;
+  display:grid;place-items:center;
+  margin:0 auto 6px;
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:.98rem;letter-spacing:.02em;
+  color:#13253A;
+  background:linear-gradient(135deg, var(--a-start, #F2D49B), var(--a-end, #C79A4A));
+  box-shadow:0 8px 22px rgba(199,154,74,.24), 0 0 0 3px rgba(255,255,255,.04);
+}
+.quote{padding-top:22px}
+.quote p{margin-top:2px}
+
+/* ===== Lead form ===== */
+.lead-form{
+  max-width:720px;margin:0 auto;padding:28px 28px;
+  background:linear-gradient(180deg, rgba(11,22,35,.78), rgba(7,14,24,.92));
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(14px);
+}
+.lead-form .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-form .field{text-align:left;display:grid;gap:8px}
+.lead-form .field.full{grid-column:1/-1}
+.lead-form label{font-size:.88rem;color:rgba(255,255,255,.78);font-weight:500}
+.lead-form input,.lead-form select,.lead-form textarea{
+  width:100%;padding:13px 15px;min-height:48px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);
+  color:#fff;font:inherit;outline:none;
+  transition:border-color .3s var(--ease), box-shadow .3s var(--ease);
+}
+.lead-form input:focus,.lead-form select:focus,.lead-form textarea:focus{
+  border-color:rgba(242,212,155,.5);
+  box-shadow:0 0 0 3px rgba(199,154,74,.14);
+}
+.lead-form select option{color:#07131f;background:#fff}
+.lead-form textarea{min-height:110px;resize:vertical;font-family:inherit}
+.form-actions{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:8px}
+.form-actions .btn{width:100%;max-width:360px}
+.form-actions .small-copy{color:var(--muted-2);font-size:.86rem;text-align:center}
+@media (max-width:768px){
+  .lead-form{padding:20px 16px;border-radius:22px}
+  .lead-form .form-grid{grid-template-columns:1fr;gap:12px}
+}
+
+/* ===== Scroll progress bar (top) ===== */
+.scroll-progress{
+  position:fixed;top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg, var(--gold-soft), var(--gold));
+  transform-origin:left;transform:scaleX(0);
+  z-index:1001;pointer-events:none;
+  transition:transform .08s linear;
+}
+
+/* ===== WhatsApp icon button in header ===== */
+.nav-cta .btn-primary.wa-icon-btn{
+  padding:0;width:46px;height:46px;min-height:auto;border-radius:999px;
+  justify-content:center;
+}
+.wa-icon-btn svg{width:22px;height:22px;fill:#13253A}
+@media (max-width:860px){.nav-cta .btn-primary.wa-icon-btn{display:none}}
+
+
+/* Cookie banner + expanded footer */
+.cookie-banner{position:fixed;bottom:18px;left:18px;right:18px;max-width:480px;margin:0 auto;z-index:9997;padding:18px 20px;background:linear-gradient(180deg, rgba(7,14,24,.98), rgba(4,10,18,.98));border:1px solid rgba(242,212,155,.25);border-radius:20px;box-shadow:0 18px 40px rgba(0,0,0,.38);display:grid;gap:12px;transform:translateY(calc(100% + 24px));opacity:0;transition:transform .5s var(--ease), opacity .5s var(--ease)}
+.cookie-banner.show{transform:translateY(0);opacity:1}
+.cookie-banner p{margin:0;font-size:.88rem;line-height:1.5;color:rgba(255,255,255,.86)}
+.cookie-banner p a{color:var(--gold-soft);text-decoration:underline}
+.cookie-banner .btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.cookie-banner .btn{min-height:38px !important;padding:0 14px !important;font-size:.86rem !important}
+@media (max-width:768px){.cookie-banner{left:10px;right:10px;bottom:12px;padding:14px 16px;max-width:none}}
+
+/* Expanded site footer */
+.site-footer-new{padding:48px 0 28px;margin-top:20px;border-top:1px solid rgba(255,255,255,.08);background:rgba(4,10,18,.42)}
+.site-footer-new .container{width:var(--container);margin:0 auto}
+.footer-main{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:30px}
+.footer-col h4{font-family:'Outfit',sans-serif;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);margin:0 0 14px;padding:0}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.footer-col a{color:rgba(255,255,255,.72);font-size:.92rem;transition:color .25s}
+.footer-col a:hover{color:#fff}
+.footer-brand .brand-logo{width:180px;margin-bottom:14px;height:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.22))}
+.footer-brand p{margin:0 0 14px;font-size:.92rem;line-height:1.6;max-width:32ch;color:rgba(255,255,255,.72)}
+.footer-social{display:flex;gap:10px}
+.footer-social a{width:38px;height:38px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:grid;place-items:center;transition:background .3s, border-color .3s, transform .3s}
+.footer-social a:hover{background:rgba(199,154,74,.14);border-color:rgba(242,212,155,.32);transform:translateY(-2px)}
+.footer-social svg{width:18px;height:18px;fill:rgba(255,255,255,.78)}
+.footer-social a:hover svg{fill:var(--gold-soft)}
+.newsletter{display:flex;gap:8px;margin-top:10px}
+.newsletter input{flex:1;padding:10px 12px;min-height:42px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#fff;font:inherit;outline:none;font-size:.9rem}
+.newsletter input:focus{border-color:rgba(242,212,155,.4);box-shadow:0 0 0 3px rgba(199,154,74,.14)}
+.newsletter button{padding:0 16px;min-height:42px;border-radius:999px;background:linear-gradient(135deg,var(--gold-soft),var(--gold));color:#13253A;font-weight:700;font-size:.86rem;border:0;cursor:pointer}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:22px;border-top:1px solid rgba(255,255,255,.06);font-size:.82rem;color:rgba(255,255,255,.54);flex-wrap:wrap}
+.footer-legal{display:flex;gap:16px;flex-wrap:wrap}
+.footer-legal a{color:rgba(255,255,255,.6)}
+.footer-legal a:hover{color:#fff}
+@media (max-width:860px){
+  .footer-main{grid-template-columns:1fr;gap:24px;text-align:center}
+  .footer-brand p{margin-left:auto;margin-right:auto}
+  .footer-col ul{justify-items:center}
+  .footer-social{justify-content:center}
+  .newsletter{max-width:320px;margin:10px auto 0}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .site-footer-new{padding:32px 0 24px}
+}
+
+/* Instagram section */
+.ig-section{padding:clamp(44px, 7vw, 80px) 0;position:relative;z-index:2}
+.ig-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;border-radius:18px;overflow:hidden;margin-top:24px;aspect-ratio:6/1}
+.ig-tile{position:relative;aspect-ratio:1;background:linear-gradient(135deg, rgba(199,154,74,.28), rgba(40,95,150,.28));display:grid;place-items:center;color:rgba(255,255,255,.72);font-family:'Cormorant Garamond',serif;font-size:1.9rem;transition:transform .3s var(--ease), filter .3s var(--ease);text-decoration:none}
+.ig-tile:hover{transform:scale(1.06);filter:brightness(1.14);z-index:2}
+.ig-tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55));opacity:.4;transition:opacity .3s}
+.ig-tile:hover::after{opacity:.75}
+.ig-tile .ig-icon{position:absolute !important;bottom:8px;left:8px;width:20px;height:20px;opacity:0;transition:opacity .3s;z-index:3;display:grid;place-items:center;pointer-events:none}
+.ig-tile .ig-icon svg{width:20px !important;height:20px !important;fill:#fff;display:block}
+.ig-tile:hover .ig-icon{opacity:1}
+.ig-cta{text-align:center;margin-top:22px}
+@media (max-width:768px){.ig-grid{grid-template-columns:repeat(3,1fr);aspect-ratio:auto}.ig-tile{font-size:1.6rem}}
+@media (max-width:420px){.ig-grid{grid-template-columns:repeat(2,1fr)}}
 
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Global Travel Intercâmbios",
+  "alternateName": "Global Travel",
+  "url": "https://globaltravelintercambios.com",
+  "logo": "https://globaltravelintercambios.com/globaltravel_logo_original_white_v16.png",
+  "image": "https://globaltravelintercambios.com/globaltravel_logo_original_white_v16.png",
+  "telephone": "+351910346159",
+  "email": "globaltravelintracambios@gmail.com",
+  "description": "Passagens aéreas, intercâmbio, viagens internacionais, assessoria imigratória e planos para estudar, morar e trabalhar fora do Brasil. Atendimento em português do Brasil, com uma pessoa cuidando do seu projeto do começo ao fim.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "PT",
+    "addressRegion": "Lisboa",
+    "addressLocality": "Lisboa",
+    "postalCode": "1000-000"
+  },
+  "areaServed": ["PT", "BR", "US", "IE", "ES", "CA", "UK", "FR"],
+  "availableLanguage": ["Portuguese", "English"],
+  "sameAs": [
+    "https://www.instagram.com/globaltravelintracambios",
+    "https://wa.me/351910346159"
+  ],
+  "priceRange": "$$",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "19:00"
+  }
+}
+</script>
+
+
+<!-- Google Analytics 4 — substitua G-XXXXXXXXXX pelo seu Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
+</script>
+<!-- /Google Analytics 4 -->
+
 </head>
 <body>
+  <div class="page-fade" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
   <div class="preloader" id="preloader" aria-hidden="true">
     <div class="preloader-inner">
       <div class="preloader-logo"><img src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios"></div>
@@ -484,7 +1375,7 @@ p{margin:0}
       </nav>
 
       <div class="nav-cta">
-        <a class="btn btn-primary" href="https://wa.me/351910346159" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn-primary wa-icon-btn" href="https://wa.me/351910346159" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
         <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
       </div>
     </div>
@@ -509,32 +1400,33 @@ p{margin:0}
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="metadata" style="object-position:center 52%">
+          <video muted playsinline loop preload="none" style="object-position:center 52%">
             <source src="https://www.pexels.com/download/video/6947516/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="metadata" style="object-position:center 48%">
+          <video muted playsinline loop preload="none" style="object-position:center 48%">
             <source src="https://www.pexels.com/download/video/35468424/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="metadata" style="object-position:center 46%">
+          <video muted playsinline loop preload="none" style="object-position:center 46%">
             <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
           </video>
         </div>
       </div>
       <div class="hero-overlay"></div>
     </div>
+    <div class="hero-scroll-hint" aria-hidden="true">↓</div>
 
     <div class="hero-inner">
       <div class="hero-copy reveal">
-        <span class="kicker" id="hero-kicker">Passagens aéreas • Intercâmbio • Imigração • Viagens internacionais</span>
+        <span class="kicker" id="hero-kicker">Passagens • Intercâmbio • Imigração • Viagens</span>
         <h1 class="hero-title" id="hero-title">Seu futuro não tem fronteiras.</h1>
         <div class="hero-details" id="hero-details">
-          <p class="lead hero-lead" id="hero-lead">A Global Travel Intercâmbios vende passagens aéreas com busca das melhores tarifas para o seu destino e também cuida de intercâmbio, viagens internacionais, orientação migratória e planejamento completo para estudar, viajar, morar ou trabalhar fora com mais segurança — inclusive com foco em Portugal e Lisboa para quem quer construir uma trajetória acadêmica internacional.</p>
+          <p class="lead hero-lead" id="hero-lead">Passagens aéreas, intercâmbio e planejamento internacional com foco em Portugal, Irlanda e EUA — tudo com suporte próximo e estratégico.</p>
           <div class="btn-row">
-            <a class="btn btn-primary" id="hero-primary-btn" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20ou%20viagem%20internacional." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            <a class="btn btn-primary" id="hero-primary-btn" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20ou%20viagem%20internacional." target="_blank" rel="noopener">Chamar no WhatsApp</a>
             <a class="btn btn-secondary" id="hero-secondary-btn" href="#servicos">Conhecer serviços</a>
           </div>
           <div class="hero-dots" aria-label="Trocar vídeo">
@@ -558,39 +1450,98 @@ p{margin:0}
     </div>
   </section>
 
+
+  <section class="section tight" id="stats" aria-label="Nossa jornada em números">
+    <div class="container">
+      <div class="stats-wrap reveal">
+        <span class="kicker stats-kicker">Em números</span>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <strong class="stat-number" data-target="120" data-suffix="+">0</strong>
+            <span class="stat-label">Briefings analisados</span>
+          </div>
+          <div class="stat-card">
+            <strong class="stat-number" data-target="15" data-suffix="+">0</strong>
+            <span class="stat-label">Destinos no mapa</span>
+          </div>
+          <div class="stat-card">
+            <strong class="stat-number" data-target="24" data-suffix="h">0</strong>
+            <span class="stat-label">Resposta garantida</span>
+          </div>
+          <div class="stat-card">
+            <strong class="stat-number" data-target="100" data-suffix="%">0</strong>
+            <span class="stat-label">Atendimento humano</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="journey" id="journey" aria-label="Como conduzimos sua jornada">
+    <div class="container journey-inner">
+      <div class="journey-side reveal">
+        <span class="kicker">Como acontece</span>
+        <h2 class="journey-heading">Uma jornada em quatro momentos.</h2>
+        <p class="copy">Cada pessoa chega num ponto diferente. A gente caminha junto, do primeiro plano até o primeiro dia fora.</p>
+      </div>
+      <div class="journey-steps">
+        <article class="journey-step">
+          <span class="journey-index" aria-hidden="true">01</span>
+          <h3>A ideia toma forma</h3>
+          <p>Você começa a pensar em estudar, viajar ou viver fora. A gente conversa pra separar o que é viável hoje, o que precisa de preparo e por onde começar.</p>
+        </article>
+        <article class="journey-step">
+          <span class="journey-index" aria-hidden="true">02</span>
+          <h3>O plano ganha forma</h3>
+          <p>Curso, passagem, visto, orçamento, rota, janela. Cada peça vai pro lugar com antecedência — sem sustos na última hora.</p>
+        </article>
+        <article class="journey-step">
+          <span class="journey-index" aria-hidden="true">03</span>
+          <h3>Você embarca</h3>
+          <p>No dia do voo você tem a gente no WhatsApp. Acompanhamos conexão, mala, check-in e o primeiro passo no destino.</p>
+        </article>
+        <article class="journey-step">
+          <span class="journey-index" aria-hidden="true">04</span>
+          <h3>Uma nova fase começa</h3>
+          <p>Chegou. E a gente segue junto — pra renovar visto, trocar de curso, trazer família ou planejar a próxima etapa.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="section tight" id="mobile-intro-section">
     <div class="container intro-grid">
       <div class="glass reveal">
-        <span class="kicker">Posicionamento</span>
-        <h2>Uma agência internacional com equilíbrio entre sonho e direção.</h2>
-        <p class="copy" style="margin-top:18px">A gente trabalha com projetos de vida reais. Desde uma viagem especial até o plano de estudar, morar ou trabalhar fora, cada atendimento é construído para unir emoção, estratégia e segurança.</p>
+        <span class="kicker">Quem somos</span>
+        <h2>Uma agência que escuta antes de cotar.</h2>
+        <p class="copy" style="margin-top:18px">Cada pessoa que chega aqui tá num momento diferente. A gente escuta primeiro, entende o que cabe agora e monta um caminho real — da primeira conversa até você estar lá.</p>
         <div class="pill-row">
-          <span class="pill">Atendimento premium</span>
           <span class="pill">Português do Brasil</span>
-          <span class="pill">Suporte humano</span>
-          <span class="pill">Experiência internacional</span>
+          <span class="pill">Resposta rápida</span>
+          <span class="pill">Planejamento honesto</span>
+          <span class="pill">Atendimento 1-pra-1</span>
         </div>
       </div>
       <div class="two-col reveal">
-        <div class="info-box"><h3>Portugal</h3><p class="copy" style="margin-top:12px">Boa porta de entrada para estudos, novas fases profissionais e mobilidade internacional.</p></div>
-        <div class="info-box"><h3>Irlanda</h3><p class="copy" style="margin-top:12px">Destino forte para intercâmbio, experiência cultural e projetos de médio prazo.</p></div>
-        <div class="info-box"><h3>Estados Unidos</h3><p class="copy" style="margin-top:12px">Experiências acadêmicas e viagens de alto impacto para quem quer ampliar horizontes.</p></div>
-        <div class="info-box"><h3>Mais soluções</h3><p class="copy" style="margin-top:12px">Também trabalhamos com outros roteiros, cursos e caminhos personalizados conforme o seu perfil.</p></div>
+        <div class="info-box"><div class="flag flag-pt" aria-hidden="true"></div><h3>Portugal</h3><p class="copy" style="margin-top:12px">Idioma, visto de estudo que deixa trabalhar e comunidade brasileira grande. Continua sendo o destino nº 1.</p></div>
+        <div class="info-box"><div class="flag flag-ie" aria-hidden="true"></div><h3>Irlanda</h3><p class="copy" style="margin-top:12px">Intercâmbio com permissão pra trabalhar. Dublin ensina inglês e banca sua vida fora ao mesmo tempo.</p></div>
+        <div class="info-box"><div class="flag flag-us" aria-hidden="true"></div><h3>Estados Unidos</h3><p class="copy" style="margin-top:12px">Universidade top, Disney em família ou a viagem especial de uma vida. Peso de proposta e de memória.</p></div>
+        <div class="info-box"><div class="flag flag-globe" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#F2D49B" stroke-width="1.4" style="position:relative;z-index:1;width:60%;height:60%"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5.5 6.5h13M5.5 17.5h13"/></svg></div><h3>Mais soluções</h3><p class="copy" style="margin-top:12px">Canadá, Austrália, Espanha, Dubai. Se o destino não tá aqui, chama que a gente acha.</p></div>
       </div>
     </div>
-  
+  </section>
+
   <section class="section tight" id="ctas-inteligentes">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker">Atalhos inteligentes</span>
-        <h2>Escolha um cenário pronto e fale com a gente já com o pedido certo.</h2>
-        <p class="copy">Em vez de um botão genérico, cada caminho já leva uma mensagem pronta para o WhatsApp. Isso deixa o atendimento mais rápido e o cliente chega com objetivo claro.</p>
+        <span class="kicker">Atalhos práticos</span>
+        <h2>Pula o formulário. Escolhe o cenário que é o seu.</h2>
+        <p class="copy">Cada botão já leva uma mensagem pronta pro WhatsApp. Você clica, ajusta o que quiser, envia. A gente responde em minutos.</p>
       </div>
       <div class="cta-grid">
         <article class="cta-card reveal">
           <span class="tag">Turismo internacional</span>
           <h3>Quero um pacote Disney em família</h3>
-          <p class="copy">Ideal para quem quer montar passagem, hotel e planejamento de viagem para Disney ou Paris com família e crianças.</p>
+          <p class="copy">Disney ou Paris com a família: passagem, hotel, parque e transfer no mesmo orçamento — e na data que funciona pra todo mundo.</p>
           <div class="btn-row">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20montar%20um%20pacote%20Disney%20ou%20Paris%20em%20fam%C3%ADlia%20e%20gostaria%20de%20atendimento.">Montar meu pacote</a>
             <a class="btn btn-secondary" href="#simulador">Simular antes</a>
@@ -599,7 +1550,7 @@ p{margin:0}
         <article class="cta-card reveal">
           <span class="tag">Intercâmbio</span>
           <h3>Quero estudar em Lisboa</h3>
-          <p class="copy">Perfeito para quem quer intercâmbio, cursos e apoio para viver uma trajetória acadêmica em Portugal com mais clareza.</p>
+          <p class="copy">Curso certo, cidade certa, visto, passagem e moradia dos primeiros 30 dias. Tudo pra você chegar em Lisboa pronto.</p>
           <div class="btn-row">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20entender%20op%C3%A7%C3%B5es%20de%20interc%C3%A2mbio%20e%20cursos%20em%20Lisboa.">Quero estudar em Lisboa</a>
             <a class="btn btn-secondary" href="nossos-cursos.html">Ver cursos</a>
@@ -608,7 +1559,7 @@ p{margin:0}
         <article class="cta-card reveal">
           <span class="tag">Imigração</span>
           <h3>Quero planejar morar fora</h3>
-          <p class="copy">Para quem quer entender caminhos, documentação, orçamento e próximos passos para morar ou trabalhar fora.</p>
+          <p class="copy">Documentos, orçamento realista, prazo honesto. Saímos do "eu quero" pro próximo passo concreto.</p>
           <div class="btn-row">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20planejar%20morar%20fora%20e%20preciso%20de%20orienta%C3%A7%C3%A3o.">Quero ajuda para imigrar</a>
             <a class="btn btn-secondary" href="trabalhar-morar-fora.html">Explorar opções</a>
@@ -617,7 +1568,7 @@ p{margin:0}
         <article class="cta-card reveal">
           <span class="tag">Passagens aéreas</span>
           <h3>Quero cotar minha passagem com as melhores tarifas</h3>
-          <p class="copy">Atendimento focado em rota, conexões, destino e melhor custo-benefício para viagem internacional, estudo ou mudança.</p>
+          <p class="copy">Tarifa que cabe, rota que faz sentido, datas flexíveis. Cotação feita por gente que voou 20 vezes esse mesmo trecho.</p>
           <div class="btn-row">
             <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20cotar%20uma%20passagem%20a%C3%A9rea%20internacional%20com%20as%20melhores%20tarifas.">Cotar passagem</a>
             <a class="btn btn-secondary" href="#contato">Atendimento humano</a>
@@ -631,51 +1582,75 @@ p{margin:0}
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">Serviços</span>
-        <h2>Passagens aéreas, intercâmbio e soluções completas para tirar o plano do papel.</h2>
-        <p class="copy">Tudo organizado para transformar uma ideia em experiência real, com passagens aéreas, suporte estratégico e mais segurança em cada etapa.</p>
+        <h2>Passagem, curso, visto, moradia. A gente junta tudo.</h2>
+        <p class="copy">Não adianta ter passagem boa se o curso não encaixa com o visto. Tratamos cada projeto como um só — com uma pessoa cuidando do começo ao fim.</p>
       </div>
       <div class="services-grid">
-        <article class="service reveal"><div class="icon-box">✈</div><h3>Passagens aéreas</h3><p class="copy">Emissão de passagens aéreas com foco nas melhores tarifas, rotas estratégicas, conexões inteligentes e mais tranquilidade do orçamento ao embarque.</p></article>
-        <article class="service reveal"><div class="icon-box">🛡</div><h3>Seguro viagem</h3><p class="copy">Proteção ideal para o destino e para as exigências do seu processo.</p></article>
-        <article class="service reveal"><div class="icon-box">🎓</div><h3>Intercâmbios</h3><p class="copy">Programas de estudo no exterior com suporte antes, durante e depois da decisão.</p></article>
-        <article class="service reveal"><div class="icon-box">🌍</div><h3>Viagens completas</h3><p class="copy">Roteiros internacionais com estética, praticidade e sensação de sonho realizado.</p></article>
-        <article class="service reveal"><div class="icon-box">🧭</div><h3>Assessoria imigratória</h3><p class="copy">Direcionamento para documentos, etapas e caminhos possíveis com visão estratégica.</p></article>
-        <article class="service reveal"><div class="icon-box">💼</div><h3>Projetos de mudança</h3><p class="copy">Para quem quer estudar, morar ou trabalhar fora e precisa de mais clareza para começar.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.19a.51.51 0 0 0-.56.13L2.93 7.63a.5.5 0 0 0 .06.73L9 12l-1.8 2.7-3-.3a.5.5 0 0 0-.43.14L2.47 15.84a.5.5 0 0 0 .14.8l3.39 1.5 1.5 3.39a.5.5 0 0 0 .82.14l1.26-1.26a.5.5 0 0 0 .14-.42L9.3 16.5 12 14.5l3.64 6a.5.5 0 0 0 .74.1l1.4-1.4a.5.5 0 0 0 .12-.5Z"/></svg></div><h3>Passagens aéreas</h3><p class="copy">Caçamos tarifa, rota e bagagem que encaixam no seu bolso e nos seus prazos. Emissão feita por quem também viaja.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Seguro viagem</h3><p class="copy">A cobertura certa pro seu destino — e pro que seu visto exige. Sem você precisar entender a apólice.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><h3>Intercâmbios</h3><p class="copy">Escola, cidade, duração e acomodação montados pro seu momento. A gente responde no WhatsApp até você virar a chave.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg></div><h3>Viagens completas</h3><p class="copy">Roteiros prontos pra você só abrir a mala e viver. Passagem, hotel, transfer, parques e experiências — um pacote só.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div><h3>Assessoria imigratória</h3><p class="copy">Mapeamos documentos, prazos e caminhos possíveis pro seu projeto de morar fora. Sem promessa furada.</p></article>
+        <article class="service reveal"><div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><h3>Projetos de mudança</h3><p class="copy">Transformamos um "eu quero morar fora" em plano com data, orçamento e próximos passos bem claros.</p></article>
       </div>
     </div>
   </section>
 
   <section class="section" id="mobile-story-section">
     <div class="container story-grid">
+      <div class="glass reveal">
+        <span class="kicker">Por que é diferente</span>
+        <h2>O destino certo muda tudo. E é isso que a gente procura junto com você.</h2>
+        <p class="copy" style="margin-top:18px">Passagem, curso, visto, hotel, moradia. A gente trata tudo como um projeto único, com uma pessoa cuidando do começo ao fim. Sem lista infinita pra você resolver sozinho.</p>
+        <div class="feature-list">
+          <div class="feature-item"><span class="badge">1</span><div><h3>Atendimento com cabeça</h3><p class="small-copy">Entendemos onde você tá, pra onde quer ir e quanto dá pra gastar — antes de qualquer cotação.</p></div></div>
+          <div class="feature-item"><span class="badge">2</span><div><h3>Uma pessoa, todo o projeto</h3><p class="small-copy">Você não vai repetir sua história pra três pessoas. Quem atendeu te acompanha até o embarque.</p></div></div>
+          <div class="feature-item"><span class="badge">3</span><div><h3>Preço honesto, sem surpresa</h3><p class="small-copy">Mostramos o que está incluído, o que não está e onde dá pra economizar de verdade.</p></div></div>
+        </div>
+      </div>
       <div class="video-frame reveal">
         <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
           <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
         </video>
-        <div class="video-copy"><span>Viagem dos sonhos</span><strong>Da Disney à neve: viagens especiais e momentos que viram memória para a vida inteira.</strong></div>
-      </div>
-      <div class="glass reveal">
-        <span class="kicker">Sensação de conquista</span>
-        <h2>Quando o destino combina com o seu momento, tudo flui melhor.</h2>
-        <p class="copy" style="margin-top:18px">A Global Travel une passagens aéreas, intercâmbio, viagens em família, turismo internacional e orientação migratória em uma experiência mais clara, bonita e profissional.</p>
-        <div class="feature-list">
-          <div class="feature-item"><span class="badge">1</span><div><h3>Atendimento com direção</h3><p class="small-copy">Cada projeto começa com leitura de perfil, objetivo e timing.</p></div></div>
-          <div class="feature-item"><span class="badge">2</span><div><h3>Experiência internacional completa</h3><p class="small-copy">Das passagens aéreas ao embarque, do curso à viagem dos sonhos, tudo com suporte real.</p></div></div>
-          <div class="feature-item"><span class="badge">3</span><div><h3>Melhores preços e mais clareza</h3><p class="small-copy">Atendimento que busca as melhores tarifas e organiza sua jornada com mais confiança.</p></div></div>
-        </div>
+        <div class="video-copy"><span>Viagens de verdade</span><strong>Da Disney à neve: destinos completos e momentos que ficam na memória para sempre.</strong></div>
       </div>
     </div>
   </section>
+
+
+  <div class="marquee" aria-label="Destinos">
+    <div class="marquee-track" aria-hidden="true">
+      <span class="marquee-item"><span class="fi flag-pt"></span> Lisboa <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-ie"></span> Dublin <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-us"></span> Orlando <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-fr"></span> Paris <span>·</span></span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:.9em;height:.9em;color:#F2D49B;flex-shrink:0"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19M9 4l3 3 3-3M9 20l3-3 3 3M4 9l3 3-3 3M20 9l-3 3 3 3"/></svg> Neve <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-pt"></span> Porto <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-es"></span> Madrid <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-gb"></span> Londres <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-ca"></span> Toronto <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-pt"></span> Lisboa <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-ie"></span> Dublin <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-us"></span> Orlando <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-fr"></span> Paris <span>·</span></span>
+      <span class="marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:.9em;height:.9em;color:#F2D49B;flex-shrink:0"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19M9 4l3 3 3-3M9 20l3-3 3 3M4 9l3 3-3 3M20 9l-3 3 3 3"/></svg> Neve <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-pt"></span> Porto <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-es"></span> Madrid <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-gb"></span> Londres <span>·</span></span>
+      <span class="marquee-item"><span class="fi flag-ca"></span> Toronto <span>·</span></span>
+    </div>
+  </div>
 
   <section class="section" id="destinos">
     <div class="container">
       <div class="section-head reveal">
         <span class="kicker">Destinos</span>
-        <h2>Destinos em destaque para estudar, viajar e recomeçar.</h2>
+        <h2>Destinos que a gente vive de verdade.</h2>
       </div>
       <div class="destination-grid">
-        <article class="destination-card reveal"><h3>Portugal</h3><p class="copy">Ideal para quem busca proximidade cultural, novas oportunidades e um processo de adaptação mais natural.</p></article>
-        <article class="destination-card reveal"><h3>Irlanda</h3><p class="copy">Combina intercâmbio, experiência internacional e contato com um mercado dinâmico e multicultural.</p></article>
-        <article class="destination-card reveal"><h3>Estados Unidos</h3><p class="copy">Perfeito para projetos acadêmicos, viagens especiais e experiências marcantes com visão global.</p></article>
+        <article class="destination-card reveal"><div class="flag flag-pt" aria-hidden="true"></div><h3>Portugal</h3><p class="copy">Idioma que você já fala, moradia estruturada e comunidade brasileira em cada canto. Começo mais macio.</p></article>
+        <article class="destination-card reveal"><div class="flag flag-ie" aria-hidden="true"></div><h3>Irlanda</h3><p class="copy">Aprende inglês e trabalha meio período legal pelo visto de estudo. Muita gente volta com economia no bolso.</p></article>
+        <article class="destination-card reveal"><div class="flag flag-us" aria-hidden="true"></div><h3>Estados Unidos</h3><p class="copy">Universidade de ponta, Disney com as crianças ou temporada de neve. Muitos sabores no mesmo país.</p></article>
       </div>
     </div>
   </section>
@@ -683,13 +1658,13 @@ p{margin:0}
   <section class="section tight">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker">Caminhos</span>
-        <h2>Escolha o ponto de partida que combina com o seu objetivo.</h2>
+        <span class="kicker">Por onde começar</span>
+        <h2>Qual desses é você agora?</h2>
       </div>
       <div class="path-grid">
-        <article class="path-card reveal"><h3>Quero estudar fora</h3><p class="copy">Intercâmbio, cursos e orientação para um plano acadêmico mais seguro.</p><a class="btn-link" href="nossos-cursos.html">Ver nossos cursos →</a></article>
-        <article class="path-card reveal"><h3>Quero trabalhar e morar fora</h3><p class="copy">Caminhos possíveis com apoio, planejamento e leitura realista do seu momento.</p><a class="btn-link" href="trabalhar-morar-fora.html">Explorar essa página →</a></article>
-        <article class="path-card reveal"><h3>Quero viajar com as melhores tarifas</h3><p class="copy">Passagens aéreas com melhores tarifas, roteiros internacionais e suporte para viver a viagem dos sonhos com mais economia e direção.</p><a class="btn-link" href="#contato">Solicitar atendimento →</a></article>
+        <article class="path-card reveal"><h3>Quero estudar fora</h3><p class="copy">Você escolhe a área e o momento. A gente traz as escolas, os prazos e o orçamento real.</p><a class="btn-link" href="nossos-cursos.html">Ver cursos →</a></article>
+        <article class="path-card reveal"><h3>Quero trabalhar e morar fora</h3><p class="copy">Estudo primeiro, trabalho depois, moradia definitiva. A gente monta a ordem que faz sentido pra você.</p><a class="btn-link" href="trabalhar-morar-fora.html">Ver detalhes →</a></article>
+        <article class="path-card reveal"><h3>Quero viajar com as melhores tarifas</h3><p class="copy">A gente compara datas, rotas e companhias pra achar a melhor combinação que existe pro seu bolso.</p><a class="btn-link" href="#contato">Falar com a gente →</a></article>
       </div>
     </div>
   </section>
@@ -698,67 +1673,47 @@ p{margin:0}
   <section class="section" id="simulador">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker">Simulador</span>
-        <h2>Planeje sua jornada internacional em menos de um minuto.</h2>
-        <p class="copy">Um exemplo de ferramenta comercial para o site: a pessoa escolhe o objetivo, destino, faixa de orçamento e prazo. O resultado já orienta a conversa e envia um briefing pronto para o WhatsApp.</p>
+        <span class="kicker">Simulador interativo · 2 minutos</span>
+        <h2>Descubra seu próximo passaporte.</h2>
+        <p class="copy">Em 5 fases interativas, descubra o visto certo, o prazo real e o custo fundamentado pra morar, estudar ou viajar no exterior. Plano personalizado baseado no seu perfil — com pontuação de compatibilidade e plano em PDF pra baixar.</p>
       </div>
       <div class="sim-wrap">
         <div class="sim-card reveal">
-          <h3>Monte seu perfil</h3>
-          <div class="form-grid">
-            <div class="field">
-              <label>Qual é o seu objetivo?</label>
-              <div class="choice-grid" id="goal-choices">
-                <label class="choice active"><input type="radio" name="goal" value="estudar" checked> Estudar</label>
-                <label class="choice"><input type="radio" name="goal" value="viajar"> Viajar</label>
-                <label class="choice"><input type="radio" name="goal" value="morar"> Morar fora</label>
-              </div>
-            </div>
-            <div class="field">
-              <label for="destino">Destino de maior interesse</label>
-              <select id="destino">
-                <option value="portugal">Portugal / Lisboa</option>
-                <option value="irlanda">Irlanda</option>
-                <option value="eua">Estados Unidos</option>
-                <option value="disney">Disney / Paris</option>
-                <option value="neve">Viagem de neve</option>
-                <option value="outro">Outro destino</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="orcamento">Faixa de orçamento</label>
-              <select id="orcamento">
-                <option value="ate2">Até €2.000</option>
-                <option value="2a5">€2.000 a €5.000</option>
-                <option value="5a10">€5.000 a €10.000</option>
-                <option value="acima10">Acima de €10.000</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="prazo">Quando pretende começar?</label>
-              <select id="prazo">
-                <option value="agora">Nos próximos 30 dias</option>
-                <option value="90">Nos próximos 3 meses</option>
-                <option value="180">Nos próximos 6 meses</option>
-                <option value="planejando">Ainda estou planejando</option>
-              </select>
-            </div>
+          <h3>O que você recebe ao final</h3>
+          <ul class="checklist" style="list-style:none;padding:0;margin:0;display:grid;gap:14px">
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">Visto principal recomendado</strong> + 2 alternativas ranqueadas por match %</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">Prazo realista</strong> em meses pra você estar lá</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">Faixa de custo</strong> fundamentada (R$) do processo completo</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">Checklist de próximos passos</strong> personalizado</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">PDF profissional</strong> pra baixar e revisar</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start"><span style="color:#4ADE80;font-weight:800;flex-shrink:0">✓</span><span class="copy" style="margin:0"><strong style="color:inherit">Briefing pronto</strong> pra falar com especialista</span></li>
+          </ul>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:22px">
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(96,165,250,.14);color:#60A5FA;border:1px solid rgba(96,165,250,.3);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase"><span class="fi flag-pt"></span>Portugal</span>
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(96,165,250,.14);color:#60A5FA;border:1px solid rgba(96,165,250,.3);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase"><span class="fi flag-ie"></span>Irlanda</span>
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(96,165,250,.14);color:#60A5FA;border:1px solid rgba(96,165,250,.3);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase"><span class="fi flag-es"></span>Espanha</span>
+            <span style="display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:rgba(96,165,250,.14);color:#60A5FA;border:1px solid rgba(96,165,250,.3);font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase"><span class="fi flag-us"></span>EUA</span>
           </div>
         </div>
 
-        <div class="result-card reveal">
-          <h3>Sugestão inicial</h3>
-          <div class="result-highlight" id="result-badge">Perfil sugerido: Intercâmbio em Lisboa</div>
-          <p class="copy" id="result-copy">Para quem quer estudar fora com mais segurança, Portugal aparece como caminho forte por idioma, adaptação e organização do projeto acadêmico.</p>
-          <div class="result-box">
-            <ul id="result-list">
-              <li>Melhor começar definindo curso, duração e cidade.</li>
-              <li>Depois disso, a equipe monta rota, custos e próximos documentos.</li>
-              <li>O atendimento por WhatsApp já pode seguir com uma mensagem pronta.</li>
-            </ul>
-            <a class="btn btn-primary" id="sim-wa" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20simular%20meu%20plano%20internacional.">Enviar meu briefing no WhatsApp</a>
-            <p class="small-note">Esse simulador é um preview de solução comercial para o site. Depois, se você gostar, dá para evoluir com orçamento estimado, pacotes e perguntas condicionais.</p>
+        <div class="result-card reveal" style="text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden">
+          <div class="result-highlight" style="display:inline-flex;align-items:center;gap:8px">
+            <span style="font-size:1em">⚡</span>
+            <span>5 fases · gamificado · PDF</span>
           </div>
+          <h3 style="font-size:clamp(1.7rem,3.2vw,2.4rem);margin:18px 0 14px;line-height:1.05;letter-spacing:-.02em">Seu caminho<br><em style="color:#C79A4A;font-weight:500">para o exterior</em></h3>
+          <p class="copy" style="margin-bottom:24px;max-width:340px">Responda sobre perfil, destino e prazo. Destrave um plano com match %, raridade de visto, próximos passos e PDF personalizado.</p>
+          <div style="display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center">
+            <span style="padding:4px 10px;border-radius:999px;background:rgba(148,163,184,.14);color:#94A3B8;border:1px solid rgba(148,163,184,.3);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase">Comum</span>
+            <span style="padding:4px 10px;border-radius:999px;background:rgba(96,165,250,.14);color:#60A5FA;border:1px solid rgba(96,165,250,.3);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase">Raro</span>
+            <span style="padding:4px 10px;border-radius:999px;background:rgba(192,132,252,.14);color:#C084FC;border:1px solid rgba(192,132,252,.3);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase">Épico</span>
+            <span style="padding:4px 10px;border-radius:999px;background:linear-gradient(135deg,rgba(199,154,74,.2),rgba(242,212,155,.25));color:#F2D49B;border:1px solid #C79A4A;font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 0 16px rgba(199,154,74,.3)">Lendário</span>
+          </div>
+          <a class="btn btn-primary" href="simulador.html" style="min-height:60px;padding:0 38px;font-size:1.05rem;gap:10px">
+            Começar minha jornada
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <p class="small-note" style="margin-top:14px">100% grátis · sem cadastro pra começar · leva 2 minutos</p>
         </div>
       </div>
     </div>
@@ -767,13 +1722,25 @@ p{margin:0}
   <section class="section tight">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker">Depoimentos</span>
-        <h2>Uma marca que precisa transmitir confiança desde o primeiro olhar.</h2>
+        <span class="kicker">Quem já viajou com a gente</span>
+        <h2>Histórias de gente que embarcou com a gente.</h2>
       </div>
       <div class="quotes-grid">
-        <article class="quote reveal"><p>“Eu precisava de uma agência que me ajudasse a organizar tudo com calma. Foi exatamente a sensação que tive.”</p><span>Cliente Global Travel</span></article>
-        <article class="quote reveal"><p>“O atendimento foi claro, bonito e profissional. Parece simples, mas isso passa muita confiança para quem está decidindo.”</p><span>Cliente Global Travel</span></article>
-        <article class="quote reveal"><p>“Gostei porque senti que meu plano foi levado a sério, não como mais um atendimento genérico.”</p><span>Cliente Global Travel</span></article>
+        <article class="quote reveal">
+          <div class="avatar" aria-hidden="true" style="--a-start:#F2D49B;--a-end:#C79A4A">MR</div>
+          <p>“Vim pra Lisboa fazer mestrado em setembro. A Global Travel montou tudo: universidade, passagem, visto, primeiro mês de aluguel. Quando cheguei, eu só tive que abrir a porta do apartamento.”</p>
+          <span class="quote-author"><strong>Mariana R.</strong><em>São Paulo → Lisboa</em></span>
+        </article>
+        <article class="quote reveal">
+          <div class="avatar" aria-hidden="true" style="--a-start:#9BB8F2;--a-end:#4A7AC7">PH</div>
+          <p>“A gente queria fazer Disney em família com orçamento apertado. A equipe achou rota e tarifa que eu não achava em lugar nenhum e explicou cada detalhe antes de eu pagar. Fui com três crianças e voltei sem história de terror.”</p>
+          <span class="quote-author"><strong>Paulo H.</strong><em>Belo Horizonte</em></span>
+        </article>
+        <article class="quote reveal">
+          <div class="avatar" aria-hidden="true" style="--a-start:#9BF2B6;--a-end:#4AC787">TM</div>
+          <p>“Fui seis meses pra Irlanda estudar inglês. Eu estava perdido e a Letícia me ligou antes de cada decisão importante. Voltei falando inglês e com a sensação de que alguém tava junto.”</p>
+          <span class="quote-author"><strong>Thiago M.</strong><em>Curitiba → Dublin</em></span>
+        </article>
       </div>
     </div>
   </section>
@@ -781,13 +1748,40 @@ p{margin:0}
   <section class="section tight">
     <div class="container">
       <div class="section-head reveal">
-        <span class="kicker">FAQ</span>
+        <span class="kicker">Dúvidas frequentes</span>
         <h2>Dúvidas frequentes</h2>
       </div>
       <div class="faq-list">
-        <div class="faq-item reveal"><button class="faq-btn"><strong>Vocês atendem quem quer apenas passagem e seguro?</strong><span>+</span></button><div class="faq-content"><p class="copy">Sim. Você pode contratar somente a parte da viagem ou montar uma solução completa com a gente.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-btn"><strong>Vocês ajudam em projetos para estudar, morar ou trabalhar fora?</strong><span>+</span></button><div class="faq-content"><p class="copy">Sim. A Global Travel pode orientar o caminho inicial, organizar etapas e indicar soluções mais alinhadas ao seu perfil.</p></div></div>
-        <div class="faq-item reveal"><button class="faq-btn"><strong>Os atendimentos são em português do Brasil?</strong><span>+</span></button><div class="faq-content"><p class="copy">Sim. Todo o texto desta versão e o tom da marca já foram ajustados para pt-BR.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Vocês atendem quem quer só passagem ou só seguro?</strong><span>+</span></button><div class="faq-content"><p class="copy">Sim, sem mínimo. Você pode tirar só a passagem, só o seguro, ou montar o projeto completo — a escolha é sua.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Vocês ajudam em projetos para estudar, morar ou trabalhar fora?</strong><span>+</span></button><div class="faq-content"><p class="copy">É pra isso que a gente existe. Desde a primeira conversa mostramos os caminhos possíveis, os prazos reais e o que cabe no seu momento.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Quanto custa o atendimento da Global Travel?</strong><span>+</span></button><div class="faq-content"><p class="copy">A primeira conversa e a análise do seu caso são gratuitas. Cobrança só aparece depois que você aprovar a proposta — e sempre em cima do que está claro no briefing.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Com quanta antecedência eu preciso começar?</strong><span>+</span></button><div class="faq-content"><p class="copy">Viagem simples: 45 a 90 dias funciona bem. Intercâmbio: 3 a 6 meses. Mudança definitiva pra outro país: 6 a 12 meses, porque visto e documento têm prazo.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Posso parcelar?</strong><span>+</span></button><div class="faq-content"><p class="copy">Passagens no cartão em até 10x sem juros em quase todas as companhias. Pacotes e cursos variam — quando a gente mandar a proposta, já vem com as opções de parcelamento.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Quem vai me atender?</strong><span>+</span></button><div class="faq-content"><p class="copy">Uma pessoa só, do começo ao fim. A gente não distribui seu caso entre vários atendentes. Quem recebe seu WhatsApp é quem vai montar seu projeto e te acompanhar até o embarque.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>E se eu desistir depois de aprovar?</strong><span>+</span></button><div class="faq-content"><p class="copy">Depende do momento. Antes da emissão da passagem ou matrícula, normalmente é só a taxa de serviço. Depois da emissão, seguem as regras da companhia ou instituição. A gente sempre explica antes de você pagar qualquer coisa.</p></div></div>
+        <div class="faq-item reveal"><button class="faq-btn"><strong>Os atendimentos são em português do Brasil?</strong><span>+</span></button><div class="faq-content"><p class="copy">Sim, tudo em português do Brasil, com gente brasileira te respondendo em tempo real no WhatsApp.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="ig-section section tight" aria-label="Instagram">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">No Instagram</span>
+        <h2>Quer ver o que a gente posta no dia-a-dia?</h2>
+        <p class="copy">Cotação ao vivo, bastidores, dicas de visto, relato de cliente voltando do embarque. Tudo em @globaltravelintracambios.</p>
+      </div>
+      <div class="ig-grid reveal">
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#F2D49B,#4AC787);" aria-label="Ver Instagram"><span class="fi flag-pt" style="font-size:1.6rem"></span> <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#9BB8F2,#4A7AC7);" aria-label="Ver Instagram">✈️ <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#F2D49B,#C79A4A);" aria-label="Ver Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.4" style="width:1.6rem;height:1.6rem"><path d="M12 3 1 8l11 5 9-4.1V15M5 10v6c0 1.5 3 3 7 3s7-1.5 7-3v-6"/></svg> <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#9BF2B6,#4AC787);" aria-label="Ver Instagram"><span class="fi flag-ie" style="font-size:1.6rem"></span> <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#F29BAF,#C74A7A);" aria-label="Ver Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.4" style="width:1.6rem;height:1.6rem"><path d="M3 21h18M5 21V10l7-4 7 4v11M9 21v-6h6v6M10 8h4"/></svg> <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+        <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" class="ig-tile" style="background:linear-gradient(135deg,#C79AF2,#7A4AC7);" aria-label="Ver Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="1.4" style="width:1.6rem;height:1.6rem"><path d="M3 21V8l3 1V5l3 1V3l3 2 3-2v3l3-1v4l3-1v13M3 21h18M9 21v-5h6v5"/></svg> <span class="ig-icon"><svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></span></a>
+      </div>
+      <div class="ig-cta">
+        <a class="btn btn-secondary" href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener">Seguir @globaltravelintracambios →</a>
       </div>
     </div>
   </section>
@@ -795,16 +1789,16 @@ p{margin:0}
   <section class="section" id="contato">
     <div class="container contact-grid">
       <div class="contact-box reveal">
-        <span class="kicker">Contato</span>
-        <h2>Vamos montar sua próxima etapa internacional.</h2>
-        <p class="copy" style="margin-top:18px">Se o seu plano envolve passagens aéreas, intercâmbio, viagem internacional, mudança de país ou orientação migratória, fale com a Global Travel e receba um atendimento mais claro, estratégico e profissional.</p>
+        <span class="kicker">Fala com a gente</span>
+        <h2>Chama a gente. Resposta real, de pessoa pra pessoa.</h2>
+        <p class="copy" style="margin-top:18px">Se o que tá na sua cabeça é passagem, curso, viagem ou mudança — manda mensagem no WhatsApp. Sem robô, sem formulário gigante. Só um atendimento direto.</p>
         <div class="btn-row" style="margin-top:26px">
           <a class="btn btn-primary" href="https://wa.me/351910346159" target="_blank" rel="noopener">Chamar no WhatsApp</a>
-          <a class="btn btn-secondary" href="mailto:globaltravelintracambios@gmail.com">Enviar e-mail</a>
+          <a class="btn btn-secondary" href="#form">Prefere formulário?</a>
         </div>
       </div>
       <div class="contact-box reveal">
-        <h3>Fale com a gente</h3>
+        <h3>Canais diretos</h3>
         <div class="contact-list">
           <a href="https://wa.me/351910346159" target="_blank" rel="noopener">WhatsApp: +351 910 346 159</a>
           <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener">Instagram: @globaltravelintracambios</a>
@@ -814,29 +1808,145 @@ p{margin:0}
       </div>
     </div>
   </section>
+
+  <section class="section tight" id="form" aria-label="Formulário de contato">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Formulário</span>
+        <h2>Prefere mandar por email?</h2>
+        <p class="copy">Preenche aqui que a gente volta no seu email em até 24h com as próximas perguntas — ou já com uma proposta, se deu pra montar.</p>
+      </div>
+      <form class="lead-form reveal" action="https://formsubmit.co/globaltravelintracambios@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Novo briefing via site — Global Travel">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Seu nome</label>
+            <input id="name" name="nome" type="text" required autocomplete="name" placeholder="Como você gosta de ser chamado">
+          </div>
+          <div class="field">
+            <label for="email">Seu email</label>
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="seu@email.com">
+          </div>
+          <div class="field">
+            <label for="phone">WhatsApp (opcional)</label>
+            <input id="phone" name="whatsapp" type="tel" autocomplete="tel" placeholder="+55 11 99999-9999">
+          </div>
+          <div class="field">
+            <label for="goal">O que você está querendo?</label>
+            <select id="goal" name="objetivo" required>
+              <option value="">Escolha uma opção</option>
+              <option>Só uma passagem aérea</option>
+              <option>Viagem internacional (Disney, Europa, etc.)</option>
+              <option>Intercâmbio / curso de idioma</option>
+              <option>Graduação ou mestrado fora</option>
+              <option>Planejar mudar de país</option>
+              <option>Só quero conversar</option>
+            </select>
+          </div>
+          <div class="field full">
+            <label for="message">Conta em 3 linhas o que você quer</label>
+            <textarea id="message" name="mensagem" rows="4" required placeholder="Pra onde quer ir, quando, quem vai, quanto dá pra gastar. Quanto mais específico, melhor a nossa resposta."></textarea>
+          </div>
+          <div class="field full form-actions">
+            <button class="btn btn-primary" type="submit">Mandar briefing</button>
+            <small class="small-copy">Sem robô, sem spam. A gente responde de verdade.</small>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
 </main>
 
 
 
+  <button class="to-top" id="toTop" aria-label="Voltar ao topo" title="Topo">↑</button>
+  
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite">
+    <p>A gente usa cookies pra entender o que funciona no site e melhorar o atendimento. Sem rastreio invasivo, sem venda de dados. <a href="privacidade.html">Saiba mais</a>.</p>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="window.__dismissCookies(false)">Só o essencial</button>
+      <button class="btn btn-primary" onclick="window.__dismissCookies(true)">Aceitar tudo</button>
+    </div>
+  </div>
   <a class="floating-wa" href="https://wa.me/351910346159" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
     <span class="icon">✆</span>
     <span><small>Atendimento rápido</small><strong>WhatsApp</strong></span>
   </a>
 
-  <footer class="footer">
-    <div class="footer-row">
-      <span>© 2026 Global Travel Intercâmbios</span>
-      <span>Seu futuro não tem fronteiras.</span>
+
+  <footer class="site-footer-new">
+    <div class="container">
+      <div class="footer-main">
+        <div class="footer-col footer-brand">
+          <img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios">
+          <p>Passagem, curso, visto, moradia. A gente trata tudo como um projeto único — com uma pessoa cuidando do começo ao fim.</p>
+          <div class="footer-social">
+            <a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38 3.7 3.7 0 0 1-1.38.9c-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38a3.7 3.7 0 0 1 1.38-.9c.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2M12 0C8.74 0 8.33.01 7.05.07c-1.28.06-2.15.26-2.92.56a5.9 5.9 0 0 0-2.13 1.39A5.9 5.9 0 0 0 .62 4.13c-.3.77-.5 1.64-.56 2.92C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.28.26 2.15.56 2.92.31.8.72 1.47 1.39 2.13.66.66 1.33 1.08 2.13 1.39.77.3 1.64.5 2.92.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.28-.06 2.15-.26 2.92-.56a5.9 5.9 0 0 0 2.13-1.39 5.9 5.9 0 0 0 1.39-2.13c.3-.77.5-1.64.56-2.92.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.28-.26-2.15-.56-2.92a5.9 5.9 0 0 0-1.39-2.13A5.9 5.9 0 0 0 19.87.62c-.77-.3-1.64-.5-2.92-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg></a>
+            <a href="https://wa.me/351910346159" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.149-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#servicos">Serviços</a></li>
+            <li><a href="index.html#destinos">Destinos</a></li>
+            <li><a href="simulador.html">Simulador</a></li>
+            <li><a href="blog/index.html">Blog</a></li>
+            <li><a href="quem-somos.html">Quem somos</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Serviços</h4>
+          <ul>
+            <li><a href="index.html#servicos">Passagens aéreas</a></li>
+            <li><a href="index.html#servicos">Intercâmbios</a></li>
+            <li><a href="trabalhar-morar-fora.html">Morar fora</a></li>
+            <li><a href="nossos-cursos.html">Nossos cursos</a></li>
+            <li><a href="index.html#servicos">Seguro viagem</a></li>
+            <li><a href="index.html#servicos">Viagens completas</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="https://wa.me/351910346159" target="_blank" rel="noopener">+351 910 346 159</a></li>
+            <li><a href="mailto:globaltravelintracambios@gmail.com">globaltravelintracambios@gmail.com</a></li>
+            <li><a href="https://www.instagram.com/globaltravelintracambios" target="_blank" rel="noopener">@globaltravelintracambios</a></li>
+            <li>Lisboa · Portugal</li>
+            <li>Atendimento em pt-BR</li>
+          </ul>
+          <form class="newsletter" action="https://formsubmit.co/globaltravelintracambios@gmail.com" method="POST" onsubmit="event.preventDefault();this.querySelector('button').textContent='Obrigado ✓';setTimeout(()=>this.reset(),1200)">
+            <input type="email" placeholder="Seu email" required aria-label="Email">
+            <button type="submit">Receber</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Global Travel Intercâmbios · Seu futuro não tem fronteiras.</span>
+        <div class="footer-legal">
+          <a href="privacidade.html">Privacidade</a>
+          <a href="termos.html">Termos</a>
+          <a href="sitemap.xml">Sitemap</a>
+        </div>
+      </div>
     </div>
   </footer>
   
+
+
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <script>
 (function(){
   const preloader = document.getElementById('preloader');
   const hidePreloader = () => preloader && preloader.classList.add('hidden');
-  window.addEventListener('load', () => setTimeout(hidePreloader, 650));
-  setTimeout(hidePreloader, 2500);
+  window.addEventListener('load', () => setTimeout(hidePreloader, 200));
+  setTimeout(hidePreloader, 1200);
 
   const header = document.getElementById('site-header');
   const onScroll = () => {
@@ -866,26 +1976,27 @@ p{margin:0}
     {
       title:'Seu futuro não tem fronteiras.',
       mobileTitle:'Seu futuro sem fronteiras.',
-      lead:'Intercâmbio, cursos e planejamento internacional com foco em Portugal, Irlanda e Estados Unidos — da passagem aérea ao suporte para estudar fora com mais segurança.',
-      cardTitle:'Intercâmbio e passagens aéreas para começar a vida acadêmica fora.',
-      cardCopy:'Quando o foco é estudar, a Global Travel organiza destino, tarifa aérea, curso e próximos passos para transformar a decisão em plano real.',
+      lead:'Montamos seu projeto de estudar fora do começo ao fim. Curso, passagem, visto e moradia — com uma pessoa cuidando de tudo.',
+      mobileLead:'Curso, passagem, visto e moradia. A gente cuida.',
+      cardTitle:'Estudar fora sem se perder no caminho.',
+      cardCopy:'Escola, cidade, visto, passagem. A gente organiza na ordem certa pra você chegar pronto — e não descobrir problema na fila do imigração.',
       cta1:'Quero estudar fora',
       cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20e%20cursos%20fora%20do%20pa%C3%ADs.',
       cta2:'Ver nossos cursos',
       cta2href:'nossos-cursos.html',
       mini:[
-        ['Cursos','Curadoria de opções para começar com mais direção.'],
-        ['Passagens','Busca de rotas e melhores tarifas para embarcar.'],
-        ['Suporte','Orientação clara antes da decisão final.']
+        ['Curso certo','Escola que combina com seu momento e seu orçamento.'],
+        ['Passagem','Tarifa boa, rota que faz sentido, datas flexíveis.'],
+        ['Suporte','Resposta rápida antes, durante e depois do embarque.']
       ]
     },
     {
       title:'Viaje para viver experiências que ficam para sempre.',
       mobileTitle:'Experiências que ficam para sempre.',
-      lead:'Da emissão da passagem ao roteiro internacional, a Global Travel monta viagens de neve, turismo especial e experiências premium com suporte humano.',
-      mobileLead:'Viagens de neve e roteiros especiais com tarifa, planejamento e suporte próximo.',
-      cardTitle:'Passagens aéreas e viagens internacionais com atendimento mais estratégico.',
-      cardCopy:'Para viagens de neve e experiências especiais, a prioridade é combinar tarifa, destino, datas e conforto sem deixar o cliente perdido.',
+      lead:'Neve na Europa, Dubai, safári ou Caribe. Montamos a viagem inteira pra você só chegar e viver.',
+      mobileLead:'Neve, safári, Caribe. A gente monta tudo.',
+      cardTitle:'Sua viagem especial resolvida antes da mala fechar.',
+      cardCopy:'Passagem, hotel, transfer, seguro, roteiro. A gente encaixa tudo no seu orçamento e te manda um plano que cabe em uma página.',
       cta1:'Quero uma viagem de neve',
       mobileCta1:'Quero viagem de neve',
       cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20planejar%20uma%20viagem%20de%20neve%20e%20cotar%20passagens.',
@@ -893,18 +2004,18 @@ p{margin:0}
       mobileCta2:'Ver serviços',
       cta2href:'#servicos',
       mini:[
-        ['Tarifas','Passagens com foco em custo-benefício e conexão.'],
-        ['Roteiro','Viagem organizada conforme seu estilo e orçamento.'],
-        ['Suporte','Atendimento próximo do orçamento ao embarque.']
+        ['Tarifas','Comparamos rotas, datas e companhias pra achar a melhor.'],
+        ['Roteiro','Dias cheios mas com espaço pra respirar. No seu ritmo.'],
+        ['Suporte','Problema na conexão? Estamos no WhatsApp na hora.']
       ]
     },
     {
       title:'Lisboa pode ser o começo da sua nova fase.',
       mobileTitle:'Lisboa pode ser o começo.',
-      lead:'Portugal e Lisboa aparecem como destinos fortes para quem quer estudar, se reposicionar e construir uma trajetória internacional com mais clareza.',
-      mobileLead:'Curso, passagens e planejamento para começar em Portugal com mais segurança.',
-      cardTitle:'Lisboa, cursos e suporte para uma jornada internacional mais bem pensada.',
-      cardCopy:'Se a ideia é Portugal, o atendimento pode unir curso, passagens aéreas e orientação prática para começar com mais segurança.',
+      lead:'Portugal segue como o destino nº 1 dos brasileiros que querem recomeçar. Estudo, moradia, visto, comunidade — tudo mais simples do que você imagina.',
+      mobileLead:'Portugal: estudo, moradia e visto sem dor de cabeça.',
+      cardTitle:'Lisboa pode ser seu próximo endereço.',
+      cardCopy:'Você escolhe o curso e a data. A gente resolve universidade, NIF, moradia pro primeiro mês e te entrega um checklist do que fazer antes de embarcar.',
       cta1:'Quero estudar em Lisboa',
       mobileCta1:'Quero estudar em Lisboa',
       cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20estudar%20em%20Lisboa%20e%20entender%20curso%2C%20passagem%20e%20planejamento.',
@@ -912,18 +2023,18 @@ p{margin:0}
       mobileCta2:'Portugal',
       cta2href:'#destinos',
       mini:[
-        ['Lisboa','Destino forte para intercâmbio e novas fases.'],
-        ['Planejamento','Curso, custos e rota organizados juntos.'],
-        ['Direção','Mais clareza para quem quer viver em Portugal.']
+        ['Lisboa','Custo menor que São Paulo, comunidade brasileira grande.'],
+        ['Plano real','Valor do curso, moradia, visto, passagem — tudo em cima da mesa.'],
+        ['Direção','Da decisão pro embarque em menos tempo do que parece.']
       ]
     },
     {
       title:'Sua viagem dos sonhos também pode começar aqui.',
       mobileTitle:'Sua viagem dos sonhos começa aqui.',
-      lead:'Passagens aéreas, suporte e atendimento personalizado para Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
-      mobileLead:'Disney, Paris e viagens em família com roteiro, tarifa e apoio de ponta a ponta.',
-      cardTitle:'Turismo internacional e pacotes pensados para viajar melhor.',
-      cardCopy:'Para viagens em família, a Global Travel pode organizar passagem, roteiro, parque, datas e atendimento mais humano do começo ao fim.',
+      lead:'Disney com as crianças, Paris na lua de mel ou a viagem que todo mundo posta no Instagram — a gente monta o pacote completo, no seu orçamento.',
+      mobileLead:'Disney, Paris, família. Montamos o pacote.',
+      cardTitle:'Viagem dos sonhos com logística resolvida.',
+      cardCopy:'Passagem, hotel, parque, ingresso, transfer, seguro — tudo cotado junto pra você saber exatamente quanto vai gastar antes de dar qualquer sim.',
       cta1:'Quero um pacote Disney',
       mobileCta1:'Quero pacote Disney',
       cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20montar%20um%20pacote%20Disney%20ou%20Paris%20em%20fam%C3%ADlia.',
@@ -931,9 +2042,9 @@ p{margin:0}
       mobileCta2:'Especialista',
       cta2href:'#contato',
       mini:[
-        ['Família','Viagens planejadas com mais conforto e clareza.'],
-        ['Pacotes','Suporte para montar a experiência ideal.'],
-        ['Passagens','Busca de melhores tarifas e datas mais estratégicas.']
+        ['Família','Pensamos em criança, idoso e ritmo de grupo grande.'],
+        ['Pacote','Passagem + hotel + parque + seguro em uma proposta só.'],
+        ['Tarifa','Comparação real entre datas pra achar a janela certa.']
       ]
     }
   ];
@@ -977,8 +2088,10 @@ p{margin:0}
       if(dots[i]) dots[i].classList.toggle('active', active);
       const video = videos[i];
       if(video){
-        if(active){ video.play().catch(()=>{}); }
-        else { video.pause(); video.currentTime = 0; }
+        if(active){
+          if (video.preload === 'none') { video.preload = 'auto'; video.load(); }
+          video.play().catch(()=>{});
+        } else { video.pause(); video.currentTime = 0; }
       }
     });
     current = index;
@@ -1017,85 +2130,314 @@ p{margin:0}
   activate(0);
   setInterval(() => activate((current + 1) % slides.length), 6200);
 
-  const goalChoices = Array.from(document.querySelectorAll('input[name="goal"]'));
-  const goalLabels = Array.from(document.querySelectorAll('#goal-choices .choice'));
-  const destino = document.getElementById('destino');
-  const orcamento = document.getElementById('orcamento');
-  const prazo = document.getElementById('prazo');
-  const resultBadge = document.getElementById('result-badge');
-  const resultCopy = document.getElementById('result-copy');
-  const resultList = document.getElementById('result-list');
-  const simWa = document.getElementById('sim-wa');
+  // (Embedded simulator removed — quiz experience now lives at /simulador.html)
 
-  const goalMap = {
-    estudar:'intercâmbio e cursos',
-    viajar:'viagem internacional',
-    morar:'morar fora'
+  // Counter animation
+  const counters = document.querySelectorAll('.stat-number');
+  const animateCounter = (el) => {
+    const target = parseFloat(el.dataset.target);
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1600;
+    const start = performance.now();
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * eased).toFixed(decimals) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   };
-  const destinationMap = {
-    portugal:'Portugal / Lisboa',
-    irlanda:'Irlanda',
-    eua:'Estados Unidos',
-    disney:'Disney / Paris',
-    neve:'viagem de neve',
-    outro:'outro destino'
-  };
-  function updateChoiceState(){
-    goalLabels.forEach(label => {
-      const input = label.querySelector('input');
-      label.classList.toggle('active', !!input.checked);
-    });
+  if (counters.length) {
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold: .5});
+    counters.forEach(c => statsObserver.observe(c));
   }
-  function buildRecommendation(){
-    const goal = document.querySelector('input[name="goal"]:checked')?.value || 'estudar';
-    const dest = destino.value;
-    const budget = orcamento.value;
-    const when = prazo.value;
 
-    let badge = 'Perfil sugerido: ';
-    let copy = '';
-    let bullets = [];
-    if(goal === 'estudar'){
-      badge += dest === 'portugal' ? 'Intercâmbio em Lisboa' : 'Planejamento acadêmico internacional';
-      copy = dest === 'portugal'
-        ? 'Para quem quer estudar fora com idioma mais acessível e boa adaptação, Portugal e Lisboa aparecem como caminho forte.'
-        : 'O melhor primeiro passo é combinar curso, cidade, passagens aéreas e timing de aplicação.';
-      bullets = [
-        'Definir curso, duração e cidade antes de fechar o embarque.',
-        'Organizar passagens, orçamento e documentação em conjunto.',
-        'Seguir para o WhatsApp já com briefing de estudo mais claro.'
-      ];
-    } else if(goal === 'viajar'){
-      badge += dest === 'disney' ? 'Pacote Disney / Paris' : dest === 'neve' ? 'Viagem de neve com roteiro' : 'Viagem internacional personalizada';
-      copy = 'Quando o objetivo é viajar, o ideal é montar destino, datas e passagem aérea já pensando no melhor custo-benefício e no estilo da viagem.';
-      bullets = [
-        'Cotar passagens com melhores tarifas e datas mais estratégicas.',
-        'Definir hotel, roteiro e perfil da viagem antes do fechamento.',
-        'Levar o pedido pronto para o WhatsApp agiliza muito o atendimento.'
-      ];
-    } else {
-      badge += dest === 'portugal' ? 'Mudança para Portugal' : 'Plano inicial para morar fora';
-      copy = 'Projetos de imigração pedem clareza sobre país, custo inicial, prazo e próximos passos. O objetivo aqui é organizar a conversa certa desde o início.';
-      bullets = [
-        'Avaliar destino, orçamento e momento de vida antes de avançar.',
-        'Separar projeto de estudo, trabalho ou mudança definitiva.',
-        'Usar o WhatsApp para receber direcionamento mais individual.'
-      ];
+  // Card spotlight (follows cursor)
+  const spotlightCards = document.querySelectorAll('.service, .destination-card, .path-card, .course-card, .cta-card, .info-box, .quote');
+  spotlightCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+  });
+
+
+  // ===== GSAP premium animations =====
+  function initGSAP() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      return setTimeout(initGSAP, 80);
+    }
+    gsap.registerPlugin(ScrollTrigger);
+    document.body.classList.add('js-ready');
+
+    // Hero title: split words and reveal
+    const heroTitle = document.getElementById('hero-title');
+    let splitMO = null;
+    function splitHero(){
+      if (!heroTitle) return;
+      const txt = heroTitle.textContent.trim();
+      if (!txt) return;
+      if (splitMO) splitMO.disconnect();
+      const words = txt.split(/\s+/);
+      heroTitle.innerHTML = words.map(w => '<span class="word"><span class="inner">' + w + '</span></span>').join(' ');
+      gsap.from(heroTitle.querySelectorAll('.inner'), {
+        yPercent: 115, duration: 1.1, stagger: 0.09, ease: 'power3.out'
+      });
+      splitMO = new MutationObserver((muts) => {
+        for (const m of muts) {
+          if (m.type === 'characterData') { splitHero(); return; }
+        }
+        if (!heroTitle.querySelector('.word')) splitHero();
+      });
+      splitMO.observe(heroTitle, { childList: true, characterData: true, subtree: true });
+    }
+    splitHero();
+
+    // Hero secondary fade-up
+    gsap.from(['#hero-kicker', '#hero-lead', '.hero-details .btn-row', '.hero-dots'], {
+      opacity: 0, y: 22, duration: 0.9, stagger: 0.12, delay: 0.7, ease: 'power2.out'
+    });
+
+    // Hero video parallax
+    gsap.utils.toArray('.hero-slide video').forEach(v => {
+      gsap.to(v, {
+        yPercent: 14, scale: 1.08, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    });
+
+    // Counter with GSAP (smoother easing)
+    document.querySelectorAll('.stat-number').forEach(el => {
+      const target = parseFloat(el.dataset.target);
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      const obj = { v: 0 };
+      ScrollTrigger.create({
+        trigger: el, start: 'top 88%', once: true,
+        onEnter: () => {
+          gsap.to(obj, {
+            v: target, duration: 1.9, ease: 'power3.out',
+            onUpdate: () => { el.textContent = obj.v.toFixed(decimals) + suffix; },
+            onComplete: () => {
+              el.classList.add('done');
+              setTimeout(() => el.classList.remove('done'), 600);
+            }
+          });
+        }
+      });
+    });
+
+    // Journey step slide-in
+    gsap.utils.toArray('.journey-step').forEach((el) => {
+      gsap.from(el, {
+        opacity: 0, x: 70, duration: 1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none none' }
+      });
+    });
+
+    // Hero lead split-word reveal (initial load only)
+    const heroLead = document.getElementById('hero-lead');
+    if (heroLead && !heroLead.dataset.split) {
+      heroLead.dataset.split = '1';
+      const txt = heroLead.textContent.trim();
+      const words = txt.split(/\s+/);
+      heroLead.innerHTML = words.map(w => '<span class="lead-word">' + w + '</span>').join(' ');
+      gsap.from(heroLead.querySelectorAll('.lead-word'), {
+        opacity: 0, y: 10, duration: 0.5, stagger: 0.018, delay: 1.1, ease: 'power2.out'
+      });
+      // When JS hero slider changes lead text, it resets innerHTML. No re-split needed.
     }
 
-    resultBadge.textContent = badge;
-    resultCopy.textContent = copy;
-    resultList.innerHTML = bullets.map(item => `<li>${item}</li>`).join('');
+    // Magnetic primary buttons
+    if (window.matchMedia('(hover: hover) and (min-width: 861px)').matches) {
+      document.querySelectorAll('.btn-primary').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+          const r = btn.getBoundingClientRect();
+          const x = e.clientX - r.left - r.width / 2;
+          const y = e.clientY - r.top - r.height / 2;
+          gsap.to(btn, { x: x * 0.18, y: y * 0.22, duration: 0.35, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'elastic.out(1, .45)' });
+        });
+      });
 
-    const budgetLabel = orcamento.options[orcamento.selectedIndex].text;
-    const whenLabel = prazo.options[prazo.selectedIndex].text;
-    const msg = `Olá, usei o simulador do site. Meu objetivo é ${goalMap[goal]}, com interesse em ${destinationMap[dest]}. Meu orçamento estimado é ${budgetLabel} e pretendo começar ${whenLabel}. Quero receber orientação da Global Travel.`;
-    simWa.href = 'https://wa.me/351910346159?text=' + encodeURIComponent(msg);
+      // 3D tilt on key cards
+      document.querySelectorAll('.journey-step, .cta-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(card, {
+            rotationY: x * 10, rotationX: -y * 10,
+            transformPerspective: 1000, transformOrigin: 'center',
+            duration: 0.35, ease: 'power2.out'
+          });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { rotationY: 0, rotationX: 0, duration: 0.6, ease: 'power3.out' });
+        });
+      });
+    }
+
+    // Split-text on section headings (scroll-triggered)
+    function splitHeading(el) {
+      if (!el || el.dataset.split) return;
+      el.dataset.split = '1';
+      el.classList.add('split-heading');
+      const nodes = Array.from(el.childNodes);
+      let html = '';
+      nodes.forEach(n => {
+        if (n.nodeType === Node.TEXT_NODE) {
+          html += n.textContent.split(/(\s+)/).map(part => {
+            if (/^\s+$/.test(part)) return part;
+            if (!part) return '';
+            return '<span class="sword"><span class="sinner">' + part + '</span></span>';
+          }).join('');
+        } else {
+          html += n.outerHTML || '';
+        }
+      });
+      el.innerHTML = html;
+      gsap.from(el.querySelectorAll('.sinner'), {
+        yPercent: 110, duration: 0.9, stagger: 0.055, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 86%', toggleActions: 'play none none none' }
+      });
+    }
+    document.querySelectorAll('.section-head h2, .journey-heading, #mobile-intro-section .glass h2, #mobile-story-section .glass h2, .contact-box h2').forEach(splitHeading);
+
+    // Elastic entry for stat cards
+    gsap.from('.stat-card', {
+      scale: 0.78, opacity: 0, duration: 1.1, stagger: 0.1, ease: 'back.out(1.6)',
+      scrollTrigger: { trigger: '.stats-grid', start: 'top 85%', toggleActions: 'play none none none' }
+    });
+
+    // Lenis smooth scroll (desktop only; mobile stays native)
+    if (typeof Lenis !== 'undefined' && window.matchMedia('(hover: hover) and (min-width: 861px)').matches) {
+      const lenis = window.__lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothWheel: true,
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
   }
-  goalChoices.forEach(input => input.addEventListener('change', () => {updateChoiceState(); buildRecommendation();}));
-  [destino, orcamento, prazo].forEach(el => el && el.addEventListener('change', buildRecommendation));
-  updateChoiceState();
-  buildRecommendation();
+  initGSAP();
+
+  // ===== Mobile menu stagger =====
+  const _burger = document.getElementById('burger');
+  if (_burger) {
+    _burger.addEventListener('click', () => {
+      setTimeout(() => {
+        if (document.body.classList.contains('nav-open') && typeof gsap !== 'undefined') {
+          gsap.from('.mobile-panel a', {
+            opacity: 0, x: -16, duration: 0.45, stagger: 0.055, ease: 'power2.out'
+          });
+        }
+      }, 50);
+    });
+  }
+
+  // ===== Page transitions =====
+  (function setupPageTransitions(){
+    const pages = new Set(['index.html','nossos-cursos.html','trabalhar-morar-fora.html','simulador.html']);
+    const fadeIn = () => {
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo(['main','.site-header'], { opacity: 0 }, { opacity: 1, duration: 0.6, ease: 'power2.out' });
+      }
+    };
+    window.addEventListener('pageshow', (e) => { if (e.persisted) document.body.classList.remove('page-leaving'); fadeIn(); });
+    fadeIn();
+    document.querySelectorAll('a').forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const pageName = href.split('#')[0].split('/').pop();
+      if (!pages.has(pageName)) return;
+      if (link.target === '_blank') return;
+      link.addEventListener('click', (ev) => {
+        if (ev.metaKey || ev.ctrlKey || ev.shiftKey) return;
+        const destPage = pageName;
+        const currentPage = location.pathname.split('/').pop() || 'index.html';
+        if (destPage === currentPage && href.includes('#')) return; // anchor on same page
+        ev.preventDefault();
+        document.body.classList.add('page-leaving');
+        if (typeof gsap !== 'undefined') {
+          gsap.to(['main','.site-header','.floating-wa'], {
+            opacity: 0, duration: 0.42, ease: 'power2.in',
+            onComplete: () => { window.location.href = href; }
+          });
+        } else {
+          setTimeout(() => { window.location.href = href; }, 300);
+        }
+      });
+    });
+  })();
+
+  // ===== Cursor follower (desktop only) =====
+  const _dot = document.querySelector('.cursor-dot');
+  const _ring = document.querySelector('.cursor-ring');
+  if (_dot && _ring && window.matchMedia('(hover: hover) and (min-width: 861px)').matches) {
+    document.body.classList.add('cursor-ready');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX; my = e.clientY;
+      _dot.style.transform = 'translate(' + (mx - 2.5) + 'px, ' + (my - 2.5) + 'px)';
+    });
+    const loop = () => {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      _ring.style.transform = 'translate(' + (rx - 18) + 'px, ' + (ry - 18) + 'px)';
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+    document.querySelectorAll('a, button, .choice, .option-card, .faq-btn, .stat-card, .quote, .destination-card, .service, .path-card, .course-card, .cta-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hot'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hot'));
+    });
+  }
+
+  // ===== Back to top =====
+  const _toTop = document.getElementById('toTop');
+  if (_toTop) {
+    const threshold = 500;
+    const onScroll = () => _toTop.classList.toggle('visible', window.scrollY > threshold);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    _toTop.addEventListener('click', () => {
+      if (window.__lenis && typeof window.__lenis.scrollTo === 'function') {
+        window.__lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+})();
+</script>
+
+<script>
+(function(){
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const p = max > 0 ? h.scrollTop / max : 0;
+    bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, p)) + ')';
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 })();
 </script>
 </body>

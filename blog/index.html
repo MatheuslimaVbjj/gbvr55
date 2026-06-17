@@ -45,23 +45,10 @@
   gtag('config', 'G-XXXXXXXXXX', { anonymize_ip: true });
 </script>
 
-<style id="globaltravel-logo-fix">
-/* Correção pontual: mantém a logo transparente em todas as páginas. */
-.brand,
-.brand-logo,
-.preloader-logo,
-.preloader-logo img,
-.footer-brand .brand-logo {
-  background: transparent !important;
-}
-.site-header .brand-logo,
-.footer-brand .brand-logo,
-.preloader-logo img {
-  object-fit: contain !important;
-  mix-blend-mode: normal !important;
-}
+<style id="gt-logo-transparent-fix">
+.brand,.brand-logo,.preloader-logo,.preloader-logo img{background:transparent!important;mix-blend-mode:normal!important;}
+.brand-logo{object-fit:contain!important;}
 </style>
-
 </head>
 <body>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>

@@ -1348,6 +1348,11 @@ img,video{background:rgba(255,255,255,.03)}
 </script>
 <!-- /Google Analytics 4 -->
 
+
+<style id="gt-logo-transparent-fix">
+.brand,.brand-logo,.preloader-logo,.preloader-logo img{background:transparent!important;mix-blend-mode:normal!important;}
+.brand-logo{object-fit:contain!important;}
+</style>
 </head>
 <body>
   <div class="page-fade" aria-hidden="true"></div>
@@ -1395,22 +1400,22 @@ img,video{background:rgba(255,255,255,.03)}
     <div class="hero-bg" aria-hidden="true">
             <div class="hero-slides">
         <div class="hero-slide active">
-          <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
+          <video muted playsinline autoplay loop preload="auto" style="object-position:center 46%">
             <source src="https://www.pexels.com/download/video/7712312/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 52%">
+          <video autoplay muted playsinline loop preload="auto" style="object-position:center 52%">
             <source src="https://www.pexels.com/download/video/6947516/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 48%">
+          <video autoplay muted playsinline loop preload="auto" style="object-position:center 48%">
             <source src="https://www.pexels.com/download/video/35468424/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 46%">
+          <video autoplay muted playsinline loop preload="auto" style="object-position:center 46%">
             <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
           </video>
         </div>
@@ -1609,7 +1614,7 @@ img,video{background:rgba(255,255,255,.03)}
         </div>
       </div>
       <div class="video-frame reveal">
-        <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
+        <video muted playsinline autoplay loop preload="auto" style="object-position:center 46%">
           <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
         </video>
         <div class="video-copy"><span>Viagens de verdade</span><strong>Da Disney à neve: destinos completos e momentos que ficam na memória para sempre.</strong></div>
@@ -2089,7 +2094,8 @@ img,video{background:rgba(255,255,255,.03)}
       const video = videos[i];
       if(video){
         if(active){
-          if (video.preload === 'none') { video.preload = 'auto'; video.load(); }
+          if (video.preload !== 'auto') { video.preload = 'auto'; video.load(); }
+          video.playbackRate = 0.72;
           video.play().catch(()=>{});
         } else { video.pause(); video.currentTime = 0; }
       }
@@ -2128,7 +2134,7 @@ img,video{background:rgba(255,255,255,.03)}
     heroResizeTimer = setTimeout(() => paintHero(current), 120);
   });
   activate(0);
-  setInterval(() => activate((current + 1) % slides.length), 6200);
+  setInterval(() => activate((current + 1) % slides.length), 10000);
 
   // (Embedded simulator removed — quiz experience now lives at /simulador.html)
 

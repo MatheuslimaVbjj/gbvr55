@@ -1,17 +1,25 @@
-PACOTE CORRIGIDO - GLOBAL TRAVEL
+CORREÇÃO SEGURA - GLOBAL TRAVEL
 
-O que foi feito:
-1. A página principal (index.html) foi restaurada a partir do arquivo original enviado.
-2. Os vídeos da Home foram mantidos exatamente como no original: mesmos links, mesma sequência, mesmo tempo e mesmo JavaScript.
-3. A correção aplicada foi apenas na logo, para remover o fundo/bloco visual em todas as páginas.
-4. A página trabalhar-morar-fora.html também recebeu a mesma correção de logo.
+Base usada:
+- Arquivos originais enviados no começo para Home, Cursos, Quem Somos, Privacidade e Blog.
 
-Como subir no GitHub:
-- Envie/substitua os arquivos deste pacote no repositório.
-- Não apague arquivos antigos do repositório que não estejam neste ZIP, principalmente assets, scripts, vídeos ou pastas que já existiam.
-- Depois de publicar, abra em janela anônima ou limpe o cache do navegador.
+O que foi alterado:
+1. Logos substituídas por PNG/WebP com fundo transparente.
+2. Adicionado CSS mínimo para a logo não aparecer com bloco/fundo.
+3. Na Home, os vídeos originais foram mantidos; só deixei o carregamento como vídeo e a rotação mais lenta/fluida.
+4. Nenhuma copy/texto do site foi reescrita.
 
-Arquivos mais importantes para substituir:
+Importante:
+- Não incluí um novo trabalhar-morar-fora.html porque o arquivo original dessa página não estava disponível como HTML separado nos uploads acessíveis aqui.
+- Assim você não corre o risco de sobrescrever sua página real com uma versão reescrita.
+- Para corrigir a logo nessa página sem mexer na copy, substitua somente as logos deste pacote no repositório e mantenha seu trabalhar-morar-fora.html atual.
+
+Arquivos principais para subir:
 - index.html
-- trabalhar-morar-fora.html
 - globaltravel_logo_original_white_v16.png
+- globaltravel_logo_original_white_v16.webp
+- globaltravel_logo_full.png
+- favicon_original_mark_v16.png
+- favicon.png
+
+Depois de subir, abra em janela anônima ou limpe o cache.

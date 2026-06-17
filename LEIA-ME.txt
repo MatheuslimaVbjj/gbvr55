@@ -1,0 +1,19 @@
+PATCH DE EMERGÊNCIA — RESTAURAR HOME ORIGINAL
+
+Este pacote NÃO recria o site inteiro.
+Ele contém apenas a Home original enviada no início da conversa, com os vídeos do hero preservados.
+
+Arquivos incluídos:
+- index.html
+- globaltravel_logo_original_white_v16.png
+- favicon_original_mark_v16.png
+
+Como aplicar no GitHub:
+1. Entre no repositório.
+2. Substitua SOMENTE o arquivo index.html da raiz por este index.html.
+3. Substitua a logo apenas se quiser manter este arquivo junto.
+4. NÃO apague a pasta assets, nem outras imagens, nem outras páginas.
+5. Aguarde o GitHub Pages atualizar e abra em janela anônima.
+
+Importante:
+A Home original usa vídeos externos da Pexels no próprio HTML. Se algum vídeo ficar parado, verifique no navegador se existe bloqueio de autoplay, economia de dados, modo de baixo consumo ou cache antigo.

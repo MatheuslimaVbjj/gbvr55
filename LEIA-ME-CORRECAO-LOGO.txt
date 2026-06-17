@@ -1,0 +1,5 @@
+Correção aplicada:
+- globaltravel_logo_original_white_v16.png foi recortado mantendo transparência real.
+- globaltravel_logo_original_white_v16.webp foi regenerado com alpha/transparência.
+- CSS de correção foi inserido nas páginas para impedir que a logo crie um bloco escuro no header.
+- Observação: o xadrez no Inspetor/DevTools é apenas o indicador visual de transparência do navegador, não é fundo da imagem.

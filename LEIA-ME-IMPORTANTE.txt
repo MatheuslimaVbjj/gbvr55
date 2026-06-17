@@ -1,25 +1,15 @@
-CORREÇÃO SEGURA - GLOBAL TRAVEL
+Correção segura - Global Travel
 
-Base usada:
-- Arquivos originais enviados no começo para Home, Cursos, Quem Somos, Privacidade e Blog.
+Este pacote foi montado para corrigir a Home sem trocar as copys originais.
 
 O que foi alterado:
-1. Logos substituídas por PNG/WebP com fundo transparente.
-2. Adicionado CSS mínimo para a logo não aparecer com bloco/fundo.
-3. Na Home, os vídeos originais foram mantidos; só deixei o carregamento como vídeo e a rotação mais lenta/fluida.
-4. Nenhuma copy/texto do site foi reescrita.
+1. index.html: mantidas as copys do arquivo enviado; restaurado comportamento dos vídeos como vídeo, sem preloader pesado em todos ao mesmo tempo.
+2. A transição dos slides da Home ficou mais calma (8,5 segundos), mas a velocidade dos vídeos voltou ao normal para não parecer travado.
+3. Logos salvas com transparência real nos nomes esperados pelo site.
 
 Importante:
-- Não incluí um novo trabalhar-morar-fora.html porque o arquivo original dessa página não estava disponível como HTML separado nos uploads acessíveis aqui.
-- Assim você não corre o risco de sobrescrever sua página real com uma versão reescrita.
-- Para corrigir a logo nessa página sem mexer na copy, substitua somente as logos deste pacote no repositório e mantenha seu trabalhar-morar-fora.html atual.
+- Não apague pastas do repositório que não vieram neste pacote, principalmente assets, scripts, vídeos e páginas que já existem no GitHub.
+- Substitua os arquivos deste pacote por cima dos arquivos atuais.
+- Depois de subir no GitHub, teste em janela anônima ou limpe o cache do Safari/Chrome.
 
-Arquivos principais para subir:
-- index.html
-- globaltravel_logo_original_white_v16.png
-- globaltravel_logo_original_white_v16.webp
-- globaltravel_logo_full.png
-- favicon_original_mark_v16.png
-- favicon.png
-
-Depois de subir, abra em janela anônima ou limpe o cache.
+Arquivos originais que não vieram nesta leva, como trabalhar-morar-fora.html e simulador.html, não foram recriados para evitar mudar copy/layout sem o original.

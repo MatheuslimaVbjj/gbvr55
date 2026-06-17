@@ -1,0 +1,17 @@
+PACOTE CORRIGIDO - GLOBAL TRAVEL
+
+O que foi feito:
+1. A página principal (index.html) foi restaurada a partir do arquivo original enviado.
+2. Os vídeos da Home foram mantidos exatamente como no original: mesmos links, mesma sequência, mesmo tempo e mesmo JavaScript.
+3. A correção aplicada foi apenas na logo, para remover o fundo/bloco visual em todas as páginas.
+4. A página trabalhar-morar-fora.html também recebeu a mesma correção de logo.
+
+Como subir no GitHub:
+- Envie/substitua os arquivos deste pacote no repositório.
+- Não apague arquivos antigos do repositório que não estejam neste ZIP, principalmente assets, scripts, vídeos ou pastas que já existiam.
+- Depois de publicar, abra em janela anônima ou limpe o cache do navegador.
+
+Arquivos mais importantes para substituir:
+- index.html
+- trabalhar-morar-fora.html
+- globaltravel_logo_original_white_v16.png

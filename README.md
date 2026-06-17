@@ -19,3 +19,11 @@ Este pacote foi montado para você testar a experiência completa e subir em um 
 2. Abra `index.html` no navegador.
 3. Navegue até `simulador.html` para testar o fluxo.
 4. Se quiser subir no GitHub Pages, envie todos os arquivos mantendo a mesma estrutura.
+
+
+## Correção da página Trabalhar e morar fora
+- Incluído `trabalhar-morar-fora.html` no pacote.
+- Aplicada a mesma correção de transparência da logo usada na Home.
+- Mantidos os vídeos restaurados do pacote anterior.
+
+Ao subir no GitHub, envie também o arquivo `trabalhar-morar-fora.html` junto com a logo `globaltravel_logo_original_white_v16.png`.

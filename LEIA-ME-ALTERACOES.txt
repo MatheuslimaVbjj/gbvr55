@@ -1,0 +1,14 @@
+Pacote corrigido: vídeos restaurados e transição suavizada.
+
+O que foi feito:
+- A home foi refeita a partir do index.html original enviado.
+- A ordem e os links dos vídeos originais foram preservados.
+- Os vídeos do hero agora carregam com preload=auto para evitar aparecer só o primeiro frame.
+- O tempo da troca automática do hero foi aumentado para 9 segundos, deixando a passagem mais fluida.
+- O vídeo da Disney/castelo foi desacelerado para 0.72x.
+- A correção da logo foi mantida sem mexer no layout original dos vídeos.
+
+Para subir:
+1. Extraia este ZIP.
+2. Envie/substitua os arquivos no GitHub mantendo a estrutura de pastas.
+3. Depois de publicar, limpe o cache do navegador ou teste em janela anônima.

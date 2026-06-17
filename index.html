@@ -1349,9 +1349,8 @@ img,video{background:rgba(255,255,255,.03)}
 <!-- /Google Analytics 4 -->
 
 
-
 <style id="globaltravel-logo-fix">
-/* Correção da logo: PNG/WebP transparente, sem bloco de fundo visual no header. */
+/* Correção pontual: mantém a logo transparente sem mexer nos vídeos ou no layout original. */
 .brand,
 .brand-logo,
 .preloader-logo,
@@ -1359,30 +1358,11 @@ img,video{background:rgba(255,255,255,.03)}
 .footer-brand .brand-logo {
   background: transparent !important;
 }
-.site-header .brand-logo {
-  width: clamp(145px, 17vw, 205px) !important;
-  height: auto !important;
-  max-height: 90px !important;
+.site-header .brand-logo,
+.footer-brand .brand-logo,
+.preloader-logo img {
   object-fit: contain !important;
   mix-blend-mode: normal !important;
-}
-.site-header.scrolled .brand-logo {
-  width: clamp(130px, 15vw, 175px) !important;
-  max-height: 76px !important;
-}
-.preloader-logo,
-.preloader-logo img {
-  mix-blend-mode: normal !important;
-}
-@media (max-width: 860px) {
-  .site-header .brand-logo {
-    width: min(112px, 32vw) !important;
-    max-height: 62px !important;
-  }
-  .site-header.scrolled .brand-logo {
-    width: min(104px, 30vw) !important;
-    max-height: 54px !important;
-  }
 }
 </style>
 
@@ -1433,22 +1413,22 @@ img,video{background:rgba(255,255,255,.03)}
     <div class="hero-bg" aria-hidden="true">
             <div class="hero-slides">
         <div class="hero-slide active">
-          <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
+          <video muted playsinline autoplay loop preload="auto" style="object-position:center 46%">
             <source src="https://www.pexels.com/download/video/7712312/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 52%">
+          <video muted playsinline autoplay loop preload="auto" style="object-position:center 52%">
             <source src="https://www.pexels.com/download/video/6947516/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 48%">
+          <video muted playsinline autoplay loop preload="auto" style="object-position:center 48%">
             <source src="https://www.pexels.com/download/video/35468424/" type="video/mp4">
           </video>
         </div>
         <div class="hero-slide">
-          <video muted playsinline loop preload="none" style="object-position:center 46%">
+          <video muted playsinline autoplay loop preload="auto" style="object-position:center 46%" data-playback-rate="0.72">
             <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
           </video>
         </div>
@@ -1647,7 +1627,7 @@ img,video{background:rgba(255,255,255,.03)}
         </div>
       </div>
       <div class="video-frame reveal">
-        <video muted playsinline autoplay loop preload="metadata" style="object-position:center 46%">
+        <video muted playsinline autoplay loop preload="auto" style="object-position:center 46%" data-playback-rate="0.72">
           <source src="https://www.pexels.com/download/video/19542646/" type="video/mp4">
         </video>
         <div class="video-copy"><span>Viagens de verdade</span><strong>Da Disney à neve: destinos completos e momentos que ficam na memória para sempre.</strong></div>
@@ -2099,6 +2079,28 @@ img,video{background:rgba(255,255,255,.03)}
   ];
   let current = 0;
   const videos = slides.map(s => s.querySelector('video'));
+  const allSiteVideos = Array.from(document.querySelectorAll('video'));
+  allSiteVideos.forEach(video => {
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
+    video.preload = 'auto';
+    const rate = Number(video.dataset.playbackRate || '1');
+    if (Number.isFinite(rate) && rate > 0) video.playbackRate = rate;
+    const keepRate = () => {
+      const nextRate = Number(video.dataset.playbackRate || '1');
+      if (Number.isFinite(nextRate) && nextRate > 0) video.playbackRate = nextRate;
+    };
+    video.addEventListener('loadedmetadata', keepRate);
+    video.addEventListener('canplay', () => video.play().catch(()=>{}), {once:true});
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      const activeVideo = slides[current] && slides[current].querySelector('video');
+      if (activeVideo) activeVideo.play().catch(()=>{});
+      document.querySelectorAll('.video-frame video').forEach(v => v.play().catch(()=>{}));
+    }
+  });
   const isCompactHero = () => window.matchMedia('(max-width: 768px)').matches;
   function paintHero(index){
     const data = heroData[index];
@@ -2127,7 +2129,10 @@ img,video{background:rgba(255,255,255,.03)}
       const video = videos[i];
       if(video){
         if(active){
-          if (video.preload === 'none') { video.preload = 'auto'; video.load(); }
+          video.preload = 'auto';
+          const rate = Number(video.dataset.playbackRate || '1');
+          if (Number.isFinite(rate) && rate > 0) video.playbackRate = rate;
+          if (video.readyState < 2) video.load();
           video.play().catch(()=>{});
         } else { video.pause(); video.currentTime = 0; }
       }
@@ -2166,7 +2171,7 @@ img,video{background:rgba(255,255,255,.03)}
     heroResizeTimer = setTimeout(() => paintHero(current), 120);
   });
   activate(0);
-  setInterval(() => activate((current + 1) % slides.length), 6200);
+  setInterval(() => activate((current + 1) % slides.length), 9000);
 
   // (Embedded simulator removed — quiz experience now lives at /simulador.html)
 
